@@ -1,0 +1,27 @@
+input[name=Radicado] {
+    width: 200px;
+}
+
+input[name=Date]  {
+    width: 90px;
+}
+
+input[name=Time] {
+    width: 50px;
+}
+
+input[name=Organo] {
+    width: 110px;
+}
+
+input[name=Consecutivo] {
+    width: 80px;
+}
+
+input[name=NewName] {
+    width: 600px;
+}
+
+input[name=NameLength] {
+    width: 80px;
+}
