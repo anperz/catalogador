@@ -1,5 +1,13 @@
 
 
+///----para  pruebas ---
+
+
+var text = "FullName,Name,Extension,CreationTime,LastWriteTime,Length\nC:\Users\Andres\Downloads\30890255.jpg,30890255.jpg,.jpg,15/07/2021 12:37:38 p.?m.,15/07/2021 12:37:38 p.?m.,64076\nC:\Users\Andres\Downloads\31398801.jpg,31398801.jpg,.jpg,15/07/2021 12:33:03 p.?m.,15/07/2021 12:33:04 p.?m.,78968\nC:\Users\Andres\Downloads\adbd10f163e2abae69b905a9022f81f4.jpg,adbd10f163e2abae69b905a9022f81f4.jpg,.jpg,15/07/2021 12:38:42 p.?m.,15/07/2021 12:38:58 p.?m.,87399\nC:\Users\Andres\Downloads\AnyDesk.exe,AnyDesk.exe,.exe,1/07/2021 12:55:25 p.?m.,1/07/2021 12:55:25 p.?m.,3765992\nC:\Users\Andres\Downloads\Asamblea,Asamblea,,4/07/2021 8:54:09 a.?m.,11/07/2021 9:01:25 a.?m.,\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_01_r720P.mp4,CO-r21_S_01_r720P.mp4,.mp4,4/07/2021 8:54:01 a.?m.,4/07/2021 8:56:47 a.?m.,814571136\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_02_r720P.mp4,CO-r21_S_02_r720P.mp4,.mp4,4/07/2021 8:55:21 a.?m.,4/07/2021 8:56:48 a.?m.,379844370\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_03_r720P.mp4,CO-r21_S_03_r720P.mp4,.mp4,11/07/2021 8:58:05 a.?m.,11/07/2021 9:00:54 a.?m.,679581773\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_04_r720P.mp4,CO-r21_S_04_r720P.mp4,.mp4,11/07/2021 8:58:31 a.?m.,11/07/2021 9:01:25 a.?m.,693578342";
+dataToArray(text);
+
+// aqui inicia el codigo 
+
 const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFile");
 
@@ -15,14 +23,6 @@ myForm.addEventListener("submit", function (e) {
     reader.readAsText(input);
 }); 
 
-
-///----para  pruebas ---
-
-/*
-var text = "FullName,Name,Extension,CreationTime,LastWriteTime,Length\nC:\Users\Andres\Downloads\30890255.jpg,30890255.jpg,.jpg,15/07/2021 12:37:38 p.?m.,15/07/2021 12:37:38 p.?m.,64076\nC:\Users\Andres\Downloads\31398801.jpg,31398801.jpg,.jpg,15/07/2021 12:33:03 p.?m.,15/07/2021 12:33:04 p.?m.,78968\nC:\Users\Andres\Downloads\adbd10f163e2abae69b905a9022f81f4.jpg,adbd10f163e2abae69b905a9022f81f4.jpg,.jpg,15/07/2021 12:38:42 p.?m.,15/07/2021 12:38:58 p.?m.,87399\nC:\Users\Andres\Downloads\AnyDesk.exe,AnyDesk.exe,.exe,1/07/2021 12:55:25 p.?m.,1/07/2021 12:55:25 p.?m.,3765992\nC:\Users\Andres\Downloads\Asamblea,Asamblea,,4/07/2021 8:54:09 a.?m.,11/07/2021 9:01:25 a.?m.,\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_01_r720P.mp4,CO-r21_S_01_r720P.mp4,.mp4,4/07/2021 8:54:01 a.?m.,4/07/2021 8:56:47 a.?m.,814571136\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_02_r720P.mp4,CO-r21_S_02_r720P.mp4,.mp4,4/07/2021 8:55:21 a.?m.,4/07/2021 8:56:48 a.?m.,379844370\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_03_r720P.mp4,CO-r21_S_03_r720P.mp4,.mp4,11/07/2021 8:58:05 a.?m.,11/07/2021 9:00:54 a.?m.,679581773\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_04_r720P.mp4,CO-r21_S_04_r720P.mp4,.mp4,11/07/2021 8:58:31 a.?m.,11/07/2021 9:01:25 a.?m.,693578342";
-dataToArray(text);
-
-*/
 
 function dataToArray(text) {
     var records = [];
@@ -57,7 +57,7 @@ function dataToArray(text) {
     var html = '<table id="table-container">';
     html += '<tr>';
         for( var j in records[0] ) {
-        html += "<th>" + j +"</th>";
+        html += '<th class="table-header">' + j +'</th>';
         };
         html += '</tr>';
         for( var i = 1; i < records.length; i++) {
@@ -118,7 +118,7 @@ function dataToArray(text) {
         
         butonsList[i].addEventListener('click', function playVideo (button_click) {
             var videoUrlValue = button_click.target.name;
-            var videoTagHtml = '<video autoplay width="720" height="480" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
+            var videoTagHtml = '<video autoplay width="720" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
             document.getElementById('video-container').innerHTML = videoTagHtml;
 
         });

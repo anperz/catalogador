@@ -6,19 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli&display=swap">
+
 </head>
 <body>
+  <header>
+    <img src="https://www.ramajudicial.gov.co/image/layout_set_logo?img_id=21482666&t=1627220128355" alt="logo rama">
+    <div><h1>Catalogador de Audiencias - Rama Judicial</h1></div>
+  </header>
   <div id="video-container">
-    <video autoplay width="720" height="480" controls>
+    <video autoplay width="720" height="405" controls>
       <source src="" type="video/mp4">
     Your browser does not support the video tag.
     </video> 
   </div>
-  <form id="myForm">
-    <input type="file" id="csvFile" accept=".csv" />
-    <br />
-    <input type="submit" value="Submit" />
-  </form>
+  <div class="form-container">
+    <form id="myForm">
+      <input type="file" id="csvFile" accept=".csv" />
+      <input type="submit" value="Submit" id="submit-button" />
+    </form>
+  </div>
+  
   <div id="container"></div>
   <script src="./script.js"></script>
 </body>
