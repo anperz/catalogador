@@ -25,3 +25,7 @@ input[name=NewName] {
 input[name=NameLength] {
     width: 80px;
 }
+
+input[name=Extension] {
+    width: 70px;
+}

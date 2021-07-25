@@ -19,7 +19,6 @@ myForm.addEventListener("submit", function (e) {
 ///----para  pruebas ---
 
 /*
-
 var text = "FullName,Name,Extension,CreationTime,LastWriteTime,Length\nC:\Users\Andres\Downloads\30890255.jpg,30890255.jpg,.jpg,15/07/2021 12:37:38 p.?m.,15/07/2021 12:37:38 p.?m.,64076\nC:\Users\Andres\Downloads\31398801.jpg,31398801.jpg,.jpg,15/07/2021 12:33:03 p.?m.,15/07/2021 12:33:04 p.?m.,78968\nC:\Users\Andres\Downloads\adbd10f163e2abae69b905a9022f81f4.jpg,adbd10f163e2abae69b905a9022f81f4.jpg,.jpg,15/07/2021 12:38:42 p.?m.,15/07/2021 12:38:58 p.?m.,87399\nC:\Users\Andres\Downloads\AnyDesk.exe,AnyDesk.exe,.exe,1/07/2021 12:55:25 p.?m.,1/07/2021 12:55:25 p.?m.,3765992\nC:\Users\Andres\Downloads\Asamblea,Asamblea,,4/07/2021 8:54:09 a.?m.,11/07/2021 9:01:25 a.?m.,\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_01_r720P.mp4,CO-r21_S_01_r720P.mp4,.mp4,4/07/2021 8:54:01 a.?m.,4/07/2021 8:56:47 a.?m.,814571136\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_02_r720P.mp4,CO-r21_S_02_r720P.mp4,.mp4,4/07/2021 8:55:21 a.?m.,4/07/2021 8:56:48 a.?m.,379844370\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_03_r720P.mp4,CO-r21_S_03_r720P.mp4,.mp4,11/07/2021 8:58:05 a.?m.,11/07/2021 9:00:54 a.?m.,679581773\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_04_r720P.mp4,CO-r21_S_04_r720P.mp4,.mp4,11/07/2021 8:58:31 a.?m.,11/07/2021 9:01:25 a.?m.,693578342";
 dataToArray(text);
 
@@ -70,7 +69,7 @@ function dataToArray(text) {
                     case "FullName": html += '<td><button class="play-button" name="' + records[i][j] + '">Play</button></td>';
                         break;
 
-                    case "Extension": html += '<td class="row'+i+'" name="Extension">' + records[i][j]+ '</td>';
+                    case "Extension": html += '<td><input class="row'+i+'" name="Extension" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
                         break;
                     
                     case "Radicado": html += '<td><input class="row'+i+'" name="Radicado" type="number" maxlength="23" value="0000000000000000000000'+i+'"></td>';
@@ -168,16 +167,28 @@ function checkNewName () {
     for (var x=0 ; x<arrayNewName.length ; x++) {
         var selectedClass = arrayNewName[x].className;
         var rowList = document.getElementsByClassName(selectedClass);
+  
+        
+        var fieldRadicado = rowList['Radicado'].value;
+        var fieldOrgano = rowList['Organo'].value;
+        var fieldConsecutivo = rowList['Consecutivo'].value;
+        var fieldDate = rowList['Date'].value;
+        var fieldTime = rowList['Time'].value;
+        var fieldExtension = rowList['Extension'].value;
+        var fieldReserved = rowList['Reserved'].checked;
 
-        if (rowList['Reserved'].checked == true) {
+        if (fieldReserved == true) {
             ReservedStatus = "R";
         } else {
             ReservedStatus = "L";
         }
         
-        rowList['NewName'].value = rowList['Radicado'].value +"_"+ ReservedStatus + rowList['Organo'].value + "0000000000" +"_"+ rowList['Consecutivo'].value +"_"+ rowList['Date'].value +"_"+ rowList['Time'].value +"00"+ "_V" + rowList['Extension'].innerHTML;
+        rowList['NewName'].value = fieldRadicado +"_"+ ReservedStatus + fieldOrgano + "0000000000" +"_"+ fieldConsecutivo +"_"+ fieldDate +"_"+ fieldTime +"00"+ "_V" + fieldExtension;
+
+        
         
         rowList['NameLength'].value = String(rowList['NewName'].value).length;
+
 
     } ;
 
