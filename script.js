@@ -1,10 +1,29 @@
 
+//verificar si hay local storage data almacenada
+window.addEventListener('DOMContentLoaded', (event) => {
+
+    if (savedhtml !== undefined) {
+    
+        var savedhtml = sessionStorage.tableData;
+        console.log(savedhtml);
+        document.getElementById('container').innerHTML = savedhtml;
+
+    };
+    
+});
+
 
 ///----para  pruebas ---
+
+/*
+
+
 
 
 var text = "FullName,Name,Extension,CreationTime,LastWriteTime,Length\nC:\Users\Andres\Downloads\30890255.jpg,30890255.jpg,.jpg,15/07/2021 12:37:38 p.?m.,15/07/2021 12:37:38 p.?m.,64076\nC:\Users\Andres\Downloads\31398801.jpg,31398801.jpg,.jpg,15/07/2021 12:33:03 p.?m.,15/07/2021 12:33:04 p.?m.,78968\nC:\Users\Andres\Downloads\adbd10f163e2abae69b905a9022f81f4.jpg,adbd10f163e2abae69b905a9022f81f4.jpg,.jpg,15/07/2021 12:38:42 p.?m.,15/07/2021 12:38:58 p.?m.,87399\nC:\Users\Andres\Downloads\AnyDesk.exe,AnyDesk.exe,.exe,1/07/2021 12:55:25 p.?m.,1/07/2021 12:55:25 p.?m.,3765992\nC:\Users\Andres\Downloads\Asamblea,Asamblea,,4/07/2021 8:54:09 a.?m.,11/07/2021 9:01:25 a.?m.,\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_01_r720P.mp4,CO-r21_S_01_r720P.mp4,.mp4,4/07/2021 8:54:01 a.?m.,4/07/2021 8:56:47 a.?m.,814571136\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_02_r720P.mp4,CO-r21_S_02_r720P.mp4,.mp4,4/07/2021 8:55:21 a.?m.,4/07/2021 8:56:48 a.?m.,379844370\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_03_r720P.mp4,CO-r21_S_03_r720P.mp4,.mp4,11/07/2021 8:58:05 a.?m.,11/07/2021 9:00:54 a.?m.,679581773\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_04_r720P.mp4,CO-r21_S_04_r720P.mp4,.mp4,11/07/2021 8:58:31 a.?m.,11/07/2021 9:01:25 a.?m.,693578342";
 dataToArray(text);
+
+*/
 
 // aqui inicia el codigo 
 
@@ -182,15 +201,28 @@ function checkNewName () {
         } else {
             ReservedStatus = "L";
         }
+
+        //asignar valor a NewName
         
         rowList['NewName'].value = fieldRadicado +"_"+ ReservedStatus + fieldOrgano + "0000000000" +"_"+ fieldConsecutivo +"_"+ fieldDate +"_"+ fieldTime +"00"+ "_V" + fieldExtension;
 
-        
-        
+        //asignar valor a NameLength
         rowList['NameLength'].value = String(rowList['NewName'].value).length;
-
 
     } ;
 
+    saveDataOnLocalStorage();
 };
+
+function saveDataOnLocalStorage() {
+    var tableDataContainer = document.getElementById('container').innerHTML;
+    //console.log(tableDataContainer);
+    
+    if (typeof(Storage) !== 'undefined') {
+        console.log("Guardado en local storage");
+        sessionStorage.tableData = tableDataContainer;
+      } else {
+        console.log("Local storage NO disponible");
+      }
+}
 
