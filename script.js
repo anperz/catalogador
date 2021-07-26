@@ -1,6 +1,6 @@
 
 //verificar si hay local storage data almacenada
-
+/*
 window.addEventListener('DOMContentLoaded', (event) => {
 
     if (savedhtml !== "undefined") {
@@ -32,6 +32,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     
 });
 
+*/
 ///----para  pruebas ---
 
 /*
@@ -83,7 +84,7 @@ function dataToArray(text) {
     };
 
 
-    var unQuotedText = text.replace(/['"]+/g, '');
+    var unQuotedText = text.replace(/['"]+/g, "");
 
     var row = unQuotedText.split("\n");
     
