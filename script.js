@@ -1,17 +1,36 @@
 
 //verificar si hay local storage data almacenada
+
 window.addEventListener('DOMContentLoaded', (event) => {
 
-    if (savedhtml !== undefined) {
-    
-        var savedhtml = sessionStorage.tableData;
+    if (savedhtml !== "undefined") {
+        
+
+        var savedhtml = localStorage.tableData;
         console.log(savedhtml);
         document.getElementById('container').innerHTML = savedhtml;
+    
+        // crear eventos para actualizar valores
+
+        document.getElementById('table-container').addEventListener('change', checkConsecutivo); 
+
+        //----- creacion de eventos para reproducir video al hacer click en el boton
+
+        var butonsList = document.getElementsByClassName('play-button');
+        
+        for (i=0;i<butonsList.length;i++) {
+            
+            butonsList[i].addEventListener('click', function playVideo (button_click) {
+                var videoUrlValue = button_click.target.name;
+                var videoTagHtml = '<video autoplay width="720" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
+                document.getElementById('video-container').innerHTML = videoTagHtml;
+
+            });
+        };
 
     };
     
 });
-
 
 ///----para  pruebas ---
 
@@ -63,7 +82,10 @@ function dataToArray(text) {
         this.NameLength = NameLength;
     };
 
-    var row = text.split("\n");
+
+    var unQuotedText = text.replace(/['"]+/g, '');
+
+    var row = unQuotedText.split("\n");
     
     for (let i=0 ; i < row.length ; i++) {
 
@@ -125,8 +147,7 @@ function dataToArray(text) {
     html += '</table>';
     document.getElementById('container').innerHTML = html;
 
-    // crear eventos para actualizar valores
-
+    
     document.getElementById('table-container').addEventListener('change', checkConsecutivo); 
 
     //----- creacion de eventos para reproducir video al hacer click en el boton
@@ -139,8 +160,8 @@ function dataToArray(text) {
             var videoUrlValue = button_click.target.name;
             var videoTagHtml = '<video autoplay width="720" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
             document.getElementById('video-container').innerHTML = videoTagHtml;
-
         });
+
     };
 
     
@@ -215,12 +236,13 @@ function checkNewName () {
 };
 
 function saveDataOnLocalStorage() {
-    var tableDataContainer = document.getElementById('container').innerHTML;
+    var tableDataContainer = document.getElementById('container').outerHTML;
     //console.log(tableDataContainer);
     
     if (typeof(Storage) !== 'undefined') {
+        localStorage.tableData = tableDataContainer;
+        //console.log("ESTO SE GUARDA"+localStorage.tableData);
         console.log("Guardado en local storage");
-        sessionStorage.tableData = tableDataContainer;
       } else {
         console.log("Local storage NO disponible");
       }
