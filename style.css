@@ -11,7 +11,7 @@ html {
 
 body, input {
     background-color: #1d1d1d;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: #c7c3c3;
     border: none;
 
@@ -71,7 +71,7 @@ header img {
 }
 
 tr {
-    height: 40px;
+    height: 50px;
 }
 
 .play-button {
@@ -92,6 +92,17 @@ tr {
     font-weight: 600;
 }
 
+input[name=Video] {
+    width: 50px;
+}
+
+/*
+p[name=Name] {
+     display: flex; 
+    width: 250px; 
+
+} */
+
 input[name=Radicado] {
     width: 220px;
 }
@@ -109,7 +120,7 @@ input[name=Organo] {
 }
 
 input[name=Consecutivo] {
-    width: 80px;
+    width: 50px;
 }
 
 input[name=NewName] {
@@ -117,11 +128,19 @@ input[name=NewName] {
 }
 
 input[name=NameLength] {
-    width: 80px;
+    width: 50px;
 }
 
 input[name=Extension] {
     width: 70px;
+}
+
+input[name=Reserved] {
+    width: 50px;
+}
+
+input[name=Virtual] {
+    width: 50px;
 }
 
 @media (min-width: 500px) {

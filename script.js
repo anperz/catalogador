@@ -35,12 +35,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
 */
 ///----para  pruebas ---
 
+
+
 /*
 
 
-
-
-var text = "FullName,Name,Extension,CreationTime,LastWriteTime,Length\nC:\Users\Andres\Downloads\30890255.jpg,30890255.jpg,.jpg,15/07/2021 12:37:38 p.?m.,15/07/2021 12:37:38 p.?m.,64076\nC:\Users\Andres\Downloads\31398801.jpg,31398801.jpg,.jpg,15/07/2021 12:33:03 p.?m.,15/07/2021 12:33:04 p.?m.,78968\nC:\Users\Andres\Downloads\adbd10f163e2abae69b905a9022f81f4.jpg,adbd10f163e2abae69b905a9022f81f4.jpg,.jpg,15/07/2021 12:38:42 p.?m.,15/07/2021 12:38:58 p.?m.,87399\nC:\Users\Andres\Downloads\AnyDesk.exe,AnyDesk.exe,.exe,1/07/2021 12:55:25 p.?m.,1/07/2021 12:55:25 p.?m.,3765992\nC:\Users\Andres\Downloads\Asamblea,Asamblea,,4/07/2021 8:54:09 a.?m.,11/07/2021 9:01:25 a.?m.,\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_01_r720P.mp4,CO-r21_S_01_r720P.mp4,.mp4,4/07/2021 8:54:01 a.?m.,4/07/2021 8:56:47 a.?m.,814571136\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_02_r720P.mp4,CO-r21_S_02_r720P.mp4,.mp4,4/07/2021 8:55:21 a.?m.,4/07/2021 8:56:48 a.?m.,379844370\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_03_r720P.mp4,CO-r21_S_03_r720P.mp4,.mp4,11/07/2021 8:58:05 a.?m.,11/07/2021 9:00:54 a.?m.,679581773\nC:\Users\Andres\Downloads\Asamblea\CO-r21_S_04_r720P.mp4,CO-r21_S_04_r720P.mp4,.mp4,11/07/2021 8:58:31 a.?m.,11/07/2021 9:01:25 a.?m.,693578342";
+var text = String('"FullName","Name","Extension","CreationTime","LastWriteTime","Length"\n"C:\Users\Andres\Downloads\Test\502013189,_S_cnt_1_r720P.mp4","502013189,_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:41 a. m.","27/07/2021 9:11:44 a. m.","47624437"\n"C:\Users\Andres\Downloads\Test\502013393_S_cnt_1_r720P.mp4","502013393_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:48 a. m.","27/07/2021 9:11:52 a. m.","52896649"\n"C:\Users\Andres\Downloads\Test\502015143_S_cnt_1_r720P.mp4","502015143_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:55 a. m.","27/07/2021 9:11:59 a. m.","49121589"');
 dataToArray(text);
 
 */
@@ -66,7 +66,7 @@ myForm.addEventListener("submit", function (e) {
 function dataToArray(text) {
     var records = [];
 
-    function record (FullName, Name, Extension, /*CreationTime, LastWriteTime, */Length, Radicado, Date, Time, Organo, Reserved, Consecutivo, NewName, NameLength) {
+    function record (FullName, Name, Extension, /*CreationTime, LastWriteTime, */Length, Radicado, Date, Time, Organo, Reserved, Consecutivo, Virtual, NewName, NameLength, Category) {
         this.FullName = FullName;
         this.Name = Name;
         this.Extension = Extension; /*
@@ -78,30 +78,62 @@ function dataToArray(text) {
         this.Time = Time;
         this.Organo = Organo;
         this.Reserved = Reserved;
+        this.Virtual = Virtual;
         this.Consecutivo = Consecutivo;
         this.NewName = NewName;
         this.NameLength = NameLength;
+        this.Category = Category;
     };
 
 
-    var unQuotedText = text.replace(/['"]+/g, "");
+    //var unQuotedText = text.replace(/['"]+/g, "");
 
-    var row = unQuotedText.split("\n");
+    console.log (text);
+
+    var row = text.split('\n');
+
+    console.log (row);
     
     for (let i=0 ; i < row.length ; i++) {
 
-        var cell = row[i].split(",");
-        var newRecord = new record(cell[0], cell[1], cell[2], /*cell[3], cell[4], */cell[5], "", "", "", "", "", "", "", "");
+        var cell = row[i].slice(1,-1).split('\",\"');
+        var newRecord = new record(cell[0], cell[1], cell[2], /*cell[3], cell[4], */cell[5], "", "", "", "", "", "", "", "", "", "");
         records.push(newRecord); 
     };
+
+    console.log (records);
 
     // generador de tabla HTML 
     var html = '<table id="table-container">';
     html += '<tr>';
+
+        // crear encabezados desde el archivo
+        /*
         for( var j in records[0] ) {
-        html += '<th class="table-header">' + j +'</th>';
+            html += '<th class="table-header">' + j +'</th>';
         };
+        
+
+        */
+       
+        html += '<th class="table-header">Video</th>';
+        html += '<th class="table-header">Nombre Inicial</th>';
+        html += '<th class="table-header">Ext</th>';
+        html += '<th class="table-header">Tamaño</th>';
+        html += '<th class="table-header">Radicado</th>';
+        html += '<th class="table-header">Fecha</th>';
+        html += '<th class="table-header">Hora</th>';
+        html += '<th class="table-header">Organo</th>';
+        html += '<th class="table-header">R / L</th>';
+        html += '<th class="table-header">V / P</th>';
+        html += '<th class="table-header">Cons</th>';
+        html += '<th class="table-header">Nuevo Nombre</th>';
+        html += '<th class="table-header">Largo</th>';
+        html += '<th class="table-header">Categoria</th>';
+        
+
         html += '</tr>';
+        // crear celdas de contenido
         for( var i = 1; i < records.length; i++) {
             html += '<tr>';
             for( var j in records[i] ) {
@@ -109,6 +141,9 @@ function dataToArray(text) {
                 // casos para generar cada elemento HTML
                 switch (j) {
                     case "FullName": html += '<td><button class="play-button" name="' + records[i][j] + '">Play</button></td>';
+                        break;
+
+                    case "Name": html += '<td><p class="row'+i+'" name="Name" >' + records[i][j]+ '</p></td>';
                         break;
 
                     case "Extension": html += '<td><input class="row'+i+'" name="Extension" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
@@ -126,7 +161,10 @@ function dataToArray(text) {
                     case "Organo": html += '<td><input class="row'+i+'" name="Organo" type="number" maxlength="12" value="000000000000"></td>';
                         break;
                     
-                    case "Reserved": html += '<td><input class="row'+i+'" name="Reserved" type="checkbox"></td>';
+                    case "Reserved": html += '<td><input class="row'+i+'" name="Reserved" type="text" maxlength="1" value="R"></td>';
+                        break;
+
+                    case "Virtual": html += '<td><input class="row'+i+'" name="Virtual" type="text" maxlength="1" value="V"></td>';
                         break;
 
                     case "Consecutivo": html += '<td><input class="row'+i+'" name="Consecutivo" type="number" maxlength="2" value="01"></td>';
@@ -136,6 +174,9 @@ function dataToArray(text) {
                         break;
 
                     case "NameLength": html += '<td><input class="row'+i+'" name="NameLength" type="number"></td>';
+                        break;
+
+                    case "Category": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
                         break;
 
                     default: html += "<td>" + records[i][j]+ "</td>";
@@ -159,7 +200,7 @@ function dataToArray(text) {
         
         butonsList[i].addEventListener('click', function playVideo (button_click) {
             var videoUrlValue = button_click.target.name;
-            var videoTagHtml = '<video autoplay width="720" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
+            var videoTagHtml = '<video autoplay width="1024" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
             document.getElementById('video-container').innerHTML = videoTagHtml;
         });
 
@@ -216,17 +257,12 @@ function checkNewName () {
         var fieldDate = rowList['Date'].value;
         var fieldTime = rowList['Time'].value;
         var fieldExtension = rowList['Extension'].value;
-        var fieldReserved = rowList['Reserved'].checked;
-
-        if (fieldReserved == true) {
-            ReservedStatus = "R";
-        } else {
-            ReservedStatus = "L";
-        }
+        var fieldReserved = rowList['Reserved'].value;
+        var fieldVirtual = rowList['Virtual'].value;
 
         //asignar valor a NewName
         
-        rowList['NewName'].value = fieldRadicado +"_"+ ReservedStatus + fieldOrgano + "0000000000" +"_"+ fieldConsecutivo +"_"+ fieldDate +"_"+ fieldTime +"00"+ "_V" + fieldExtension;
+        rowList['NewName'].value = fieldRadicado +"_"+ fieldReserved + fieldOrgano + "0000000000" +"_"+ fieldConsecutivo +"_"+ fieldDate +"_"+ fieldTime +"00"+ "_" + fieldVirtual + fieldExtension;
 
         //asignar valor a NameLength
         rowList['NameLength'].value = String(rowList['NewName'].value).length;
