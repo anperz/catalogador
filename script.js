@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 
 
-var text = String('""FullName","Name","Extension","CreationTime","LastWriteTime","Length"\n"C:\Users\Andres\Downloads\Test\502013189,_S_cnt_1_r720P.mp4","502013189,_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:41 a. m.","27/07/2021 9:11:44 a. m.","47624437"\n"C:\Users\Andres\Downloads\Test\502013393_S_cnt_1_r720P.mp4","502013393_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:48 a. m.","27/07/2021 9:11:52 a. m.","52896649"\n"C:\Users\Andres\Downloads\Test\502015143_S_cnt_1_r720P.mp4","502015143_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:55 a. m.","27/07/2021 9:11:59 a. m.","49121589""');
+var text = String('""FullName","Name","Extension","CreationTime","LastWriteTime","Length"\n"C:\\Users\\Andres\\Downloads\\Test\\502013189,_S_cnt_1_r720P.mp4","502013189,_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:41 a. m.","27/07/2021 9:11:44 a. m.","47624437"\n"C:\\Users\\Andres\\Downloads\\Test\\502013393_S_cnt_1_r720P.mp4","502013393_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:48 a. m.","27/07/2021 9:11:52 a. m.","52896649"\n"C:\\Users\\Andres\\Downloads\\Test\\502015143_S_cnt_1_r720P.mp4","502015143_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:55 a. m.","27/07/2021 9:11:59 a. m.","49121589""');
 dataToArray(text);
 
 
@@ -140,7 +140,7 @@ function dataToArray(text) {
             html += '<tr>';
             for( var j in records[i] ) {
                 
-                // casos para generar cada elemento HTML
+                // casos para generar cada elemento HTML //desde aqui voyyy
                 switch (j) {
                     case "FullName": html += '<td><button class="play-button" name="' + records[i][j] + '">Play</button></td>';
                         break;
@@ -275,28 +275,9 @@ function checkNewName () {
         rowList['NameLength'].value = String(rowList['NewName'].value).length;
 
         
-        //asignar valor a FinalPath
+        //asignar valor a FinalPath           
+        rowList['FinalPath'].value = '..\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['NewName'].value;
 
-        switch (fieldCategoria) {
-            
-            case "Catalogable": rowList['FinalPath'].value = '.\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['NewName'].value;
-                break;
-
-            case "No Aplica": rowList['FinalPath'].value = '.\\' + fieldCategoria + '\\' + rowList['Name'].value;
-                break;
-            
-            case "No Catalogable": rowList['FinalPath'].value = '.\\' + fieldCategoria + '\\' + rowList['Name'].value;
-                break;
-            
-            case "Duplicado": rowList['FinalPath'].value = '.\\' + fieldCategoria + '\\' + rowList['NewName'].value;
-                break;
-                
-            case "Historico": rowList['FinalPath'].value = '.\\' + fieldCategoria + '\\' + rowList['NewName'].value;
-                break;
-        
-            default: rowList['FinalPath'].value = '.\\' + fieldCategoria + '\\' + rowList['NewName'].value;
-                break;
-        }
 
 
     } ;
