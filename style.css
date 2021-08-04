@@ -143,6 +143,10 @@ input[name=Virtual] {
     width: 50px;
 }
 
+input[name=FinalPath] {
+    width: 600px;
+}
+
 @media (min-width: 500px) {
 
 #container {
