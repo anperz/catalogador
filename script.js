@@ -35,15 +35,15 @@ window.addEventListener('DOMContentLoaded', (event) => {
 */
 ///----para  pruebas ---
 
+/*
 
 
 
 
-
-var text = String('""FullName","Name","Extension","CreationTime","LastWriteTime","Length"\n"C:\\Users\\Andres\\Downloads\\Test\\502013189,_S_cnt_1_r720P.mp4","502013189,_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:41 a. m.","27/07/2021 9:11:44 a. m.","47624437"\n"C:\\Users\\Andres\\Downloads\\Test\\502013393_S_cnt_1_r720P.mp4","502013393_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:48 a. m.","27/07/2021 9:11:52 a. m.","52896649"\n"C:\\Users\\Andres\\Downloads\\Test\\502015143_S_cnt_1_r720P.mp4","502015143_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:55 a. m.","27/07/2021 9:11:59 a. m.","49121589""');
+var text = String('""FullName", "Name", "Extension", "Length", "Radicado", "Date", "Time", "Organo", "Reserved", "Virtual", "Consecutivo", "NewName", "NameLength", "Category", "FinalPath"\n"C:\\Users\\Andres\\Downloads\\Test\\502013189,_S_cnt_1_r720P.mp4","502013189,_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:41 a. m.","27/07/2021 9:11:44 a. m.","47624437"\n"C:\\Users\\Andres\\Downloads\\Test\\502013393_S_cnt_1_r720P.mp4","502013393_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:48 a. m.","27/07/2021 9:11:52 a. m.","52896649"\n"C:\\Users\\Andres\\Downloads\\Test\\502015143_S_cnt_1_r720P.mp4","502015143_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:55 a. m.","27/07/2021 9:11:59 a. m.","49121589""');
 dataToArray(text);
 
-
+*/
 
 // aqui inicia el codigo 
 
@@ -66,39 +66,36 @@ myForm.addEventListener("submit", function (e) {
 function dataToArray(text) {
     var records = [];
 
-    function record (FullName, Name, Extension, /*CreationTime, LastWriteTime, */Length, Radicado, Date, Time, Organo, Reserved, Consecutivo, Virtual, NewName, NameLength, Category, FinalPath) {
-        this.FullName = FullName;
-        this.Name = Name;
-        this.Extension = Extension; /*
-        this.CreationTime = CreationTime;
-        this.LastWriteTime = LastWriteTime;  */
-        this.Length = Length;
-        this.Radicado = Radicado;
-        this.Date = Date;
-        this.Time = Time;
-        this.Organo = Organo;
-        this.Reserved = Reserved;
-        this.Virtual = Virtual;
-        this.Consecutivo = Consecutivo;
-        this.NewName = NewName;
-        this.NameLength = NameLength;
-        this.Category = Category;
-        this.FinalPath = FinalPath;
+    function record (FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath) {
+        this.FullName = FullName; // 0
+        this.Name = Name; // 1
+        this.Extension = Extension; // 2
+        this.Length = Length; // 3
+        this.Radicado = Radicado; // 4
+        this.Date = Date; // 5
+        this.Time = Time; // 6 
+        this.Organo = Organo; // 7
+        this.Reserved = Reserved; // 8 
+        this.Virtual = Virtual; // 9
+        this.Consecutivo = Consecutivo; // 10
+        this.NewName = NewName; // 11
+        this.NameLength = NameLength; // 12
+        this.Category = Category; // 13 
+        this.FinalPath = FinalPath; // 14
     };
 
 
     //var unQuotedText = text.replace(/['"]+/g, "");
 
-    //console.log (text);
-
-    var row = text.split('\n');
-
-    //console.log (row);
+    deletedFormatHeader = text.replace("#TYPE Selected.System.IO.FileInfo\r", "");
+    var unQuotedText = deletedFormatHeader.replace(/['"]+/g, "");
+    var row = unQuotedText.split('\n');
     
-    for (let i=0 ; i < row.length ; i++) {
+    for (let i=1 ; i < row.length ; i++) {
 
-        var cell = row[i].slice(1,-1).split('\",\"');
-        var newRecord = new record(cell[0], cell[1], cell[2], /*cell[3], cell[4], */cell[5], "", "", "", "", "", "", "", "", "", "");
+        var cell = row[i].split(';');
+        var newRecord = new record(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5], cell[6], cell[7], cell[8], cell[9], cell[10], cell[11], cell[12], cell[13], cell[14]);
+        console.log (newRecord);
         records.push(newRecord); 
     };
 
@@ -112,10 +109,7 @@ function dataToArray(text) {
         /*
         for( var j in records[0] ) {
             html += '<th class="table-header">' + j +'</th>';
-        };
-        
-
-        */
+        };     */
        
         html += '<th class="table-header">Video</th>';
         html += '<th class="table-header">Nombre Inicial</th>';
@@ -139,8 +133,9 @@ function dataToArray(text) {
         for( var i = 1; i < records.length; i++) {
             html += '<tr>';
             for( var j in records[i] ) {
-                
-                // casos para generar cada elemento HTML //desde aqui voyyy
+            
+// FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
+                // casos para generar cada elemento HTML 
                 switch (j) {
                     case "FullName": html += '<td><button class="play-button" name="' + records[i][j] + '">Play</button></td>';
                         break;
@@ -151,22 +146,22 @@ function dataToArray(text) {
                     case "Extension": html += '<td><input class="row'+i+'" name="Extension" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
                         break;
                     
-                    case "Radicado": html += '<td><input class="row'+i+'" name="Radicado" type="number" maxlength="23" value="0000000000000000000000'+i+'"></td>';
+                    case "Radicado": html += '<td><input class="row'+i+'" name="Radicado" type="number" maxlength="23" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Date": html += '<td><input class="row'+i+'" name="Date" type="text" maxlength="8" value="AAAAMMDD"></td>';
+                    case "Date": html += '<td><input class="row'+i+'" name="Date" type="text" maxlength="8" value="' + records[i][j]+ '"></td>';
                         break;
                     
-                    case "Time": html += '<td><input class="row'+i+'" name="Time" type="text" maxlength="4" value="HHMM"></td>';
+                    case "Time": html += '<td><input class="row'+i+'" name="Time" type="text" maxlength="4" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Organo": html += '<td><input class="row'+i+'" name="Organo" type="number" maxlength="12" value="000000000000"></td>';
+                    case "Organo": html += '<td><input class="row'+i+'" name="Organo" type="number" maxlength="12" value="' + records[i][j]+ '"></td>';
                         break;
                     
-                    case "Reserved": html += '<td><input class="row'+i+'" name="Reserved" type="text" maxlength="1" value="R"></td>';
+                    case "Reserved": html += '<td><input class="row'+i+'" name="Reserved" type="text" maxlength="1" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Virtual": html += '<td><input class="row'+i+'" name="Virtual" type="text" maxlength="1" value="V"></td>';
+                    case "Virtual": html += '<td><input class="row'+i+'" name="Virtual" type="text" maxlength="1" value="' + records[i][j]+ '"></td>';
                         break;
 
                     case "Consecutivo": html += '<td><input class="row'+i+'" name="Consecutivo" type="number" maxlength="2" value="01"></td>';
@@ -275,8 +270,13 @@ function checkNewName () {
         rowList['NameLength'].value = String(rowList['NewName'].value).length;
 
         
-        //asignar valor a FinalPath           
-        rowList['FinalPath'].value = '..\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['NewName'].value;
+        //asignar valor a FinalPath   
+        
+        if (fieldCategoria == "Catalogable" || fieldCategoria == "Historico") {
+            rowList['FinalPath'].value = '..\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['NewName'].value;
+        } else {
+        rowList['FinalPath'].value = '..\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['Name'].value;
+        }
 
 
 
