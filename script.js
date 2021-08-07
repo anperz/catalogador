@@ -55,7 +55,7 @@ function dataToArray(text) {
 
     deletedFormatHeader = text.replace('#TYPE Selected.System.IO.FileInfo\r\n"', '');
     deletedVoidCol = deletedFormatHeader.replace('\r', '');
-    console.log(deletedVoidCol);
+    //console.log(deletedVoidCol);
     var unQuotedText = deletedVoidCol.replace(/['"]+/g, "");
     var row = unQuotedText.split('\n');
     console.log(row);
