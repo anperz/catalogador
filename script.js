@@ -1,51 +1,17 @@
 
 //verificar si hay local storage data almacenada
-/*
-window.addEventListener('DOMContentLoaded', (event) => {
 
-    if (savedhtml !== "undefined") {
-        
-
-        var savedhtml = localStorage.tableData;
-        console.log(savedhtml);
-        document.getElementById('container').innerHTML = savedhtml;
+//window.addEventListener('DOMContentLoaded', (event) => {
     
-        // crear eventos para actualizar valores
-
-        document.getElementById('table-container').addEventListener('change', checkConsecutivo); 
-
-        //----- creacion de eventos para reproducir video al hacer click en el boton
-
-        var butonsList = document.getElementsByClassName('play-button');
-        
-        for (i=0;i<butonsList.length;i++) {
-            
-            butonsList[i].addEventListener('click', function playVideo (button_click) {
-                var videoUrlValue = button_click.target.name;
-                var videoTagHtml = '<video autoplay width="720" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
-                document.getElementById('video-container').innerHTML = videoTagHtml;
-
-            });
-        };
-
+    var savedcsv = localStorage.tableData;
+    if (savedcsv !== "undefined") {
+        // console.log(savedcsv);
+        dataToArray(savedcsv);
     };
     
-});
-
-*/
-///----para  pruebas ---
-
-/*
+//});
 
 
-
-
-var text = String('""FullName", "Name", "Extension", "Length", "Radicado", "Date", "Time", "Organo", "Reserved", "Virtual", "Consecutivo", "NewName", "NameLength", "Category", "FinalPath"\n"C:\\Users\\Andres\\Downloads\\Test\\502013189,_S_cnt_1_r720P.mp4","502013189,_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:41 a. m.","27/07/2021 9:11:44 a. m.","47624437"\n"C:\\Users\\Andres\\Downloads\\Test\\502013393_S_cnt_1_r720P.mp4","502013393_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:48 a. m.","27/07/2021 9:11:52 a. m.","52896649"\n"C:\\Users\\Andres\\Downloads\\Test\\502015143_S_cnt_1_r720P.mp4","502015143_S_cnt_1_r720P.mp4",".mp4","27/07/2021 9:11:55 a. m.","27/07/2021 9:11:59 a. m.","49121589""');
-dataToArray(text);
-
-*/
-
-// aqui inicia el codigo 
 
 const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFile");
@@ -87,19 +53,19 @@ function dataToArray(text) {
 
     //var unQuotedText = text.replace(/['"]+/g, "");
 
-    deletedFormatHeader = text.replace("#TYPE Selected.System.IO.FileInfo\r", "");
-    var unQuotedText = deletedFormatHeader.replace(/['"]+/g, "");
+    deletedFormatHeader = text.replace('#TYPE Selected.System.IO.FileInfo\r\n"', '');
+    deletedVoidCol = deletedFormatHeader.replace('\r', '');
+    console.log(deletedVoidCol);
+    var unQuotedText = deletedVoidCol.replace(/['"]+/g, "");
     var row = unQuotedText.split('\n');
+    console.log(row);
     
-    for (let i=1 ; i < row.length ; i++) {
+    for (let i=0 ; i < row.length ; i++) {
 
         var cell = row[i].split(';');
         var newRecord = new record(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5], cell[6], cell[7], cell[8], cell[9], cell[10], cell[11], cell[12], cell[13], cell[14]);
-        console.log (newRecord);
         records.push(newRecord); 
     };
-
-    //console.log (records);
 
     // generador de tabla HTML 
     var html = '<table id="table-container">';
@@ -137,13 +103,16 @@ function dataToArray(text) {
 // FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
                 // casos para generar cada elemento HTML 
                 switch (j) {
-                    case "FullName": html += '<td><button class="play-button" name="' + records[i][j] + '">Play</button></td>';
+                    case "FullName": html += '<td><button class="play-button row'+i+'" value="' + records[i][j] + '">Play</button></td>';
                         break;
 
                     case "Name": html += '<td><input class="row'+i+'" name="Name" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
                         break;
 
                     case "Extension": html += '<td><input class="row'+i+'" name="Extension" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
+                        break;
+
+                    case "Length": html += '<td><input class="row'+i+'" name="Length" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
                         break;
                     
                     case "Radicado": html += '<td><input class="row'+i+'" name="Radicado" type="number" maxlength="23" value="' + records[i][j]+ '"></td>';
@@ -187,6 +156,9 @@ function dataToArray(text) {
         html += '</tr>';
         };
     html += '</table>';
+    
+    // aplicar html al elemento container
+
     document.getElementById('container').innerHTML = html;
 
     document.getElementById('table-container').addEventListener('change', checkConsecutivo); 
@@ -198,7 +170,7 @@ function dataToArray(text) {
     for (i=0;i<butonsList.length;i++) {
         
         butonsList[i].addEventListener('click', function playVideo (button_click) {
-            var videoUrlValue = button_click.target.name;
+            var videoUrlValue = button_click.target.value;
             var videoTagHtml = '<video autoplay width="1024" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
             document.getElementById('video-container').innerHTML = videoTagHtml;
         });
@@ -249,7 +221,8 @@ function checkNewName () {
         var selectedClass = arrayNewName[x].className;
         var rowList = document.getElementsByClassName(selectedClass);
   
-        
+// FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
+
         var fieldRadicado = rowList['Radicado'].value;
         var fieldOrgano = rowList['Organo'].value;
         var fieldConsecutivo = rowList['Consecutivo'].value;
@@ -259,8 +232,6 @@ function checkNewName () {
         var fieldReserved = rowList['Reserved'].value;
         var fieldVirtual = rowList['Virtual'].value;
         var fieldCategoria = rowList['Category'].value;
-
-        //console.log(rowList['Name'].value);
 
         //asignar valor a NewName
         
@@ -278,28 +249,63 @@ function checkNewName () {
         rowList['FinalPath'].value = '..\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['Name'].value;
         }
 
+        
 
-
-    } ;
+    };
 
     saveDataOnLocalStorage();
 };
 
 
 function saveDataOnLocalStorage() {
-    var tableDataContainer = document.getElementById('container').outerHTML;
-    //console.log(tableDataContainer);
     
+    var csv = '"FullName";"Name";"Extension";"Length";"Radicado";"Date";"Time";"Organo";"Reserved";"Virtual";"Consecutivo";"NewName";"NameLength";"Category";"FinalPath"\n';
+
+    var arrayNewName = document.getElementsByName('NewName');
+     
+    for (var x=0 ; x<arrayNewName.length ; x++) {
+        var selectedClass = arrayNewName[x].className;
+        var rowList = document.getElementsByClassName(selectedClass);  
+        
+        for (var i=0 ; i<rowList.length ; i++) {
+            let cell = rowList[i].value
+            csv += '"' + cell + '";';
+        };
+        
+        if (x !== arrayNewName.length -1) {
+            csv += '\n';
+        }
+    };
+
+
+    console.log(csv);
+
     if (typeof(Storage) !== 'undefined') {
-        localStorage.tableData = tableDataContainer;
-        //console.log("ESTO SE GUARDA"+localStorage.tableData);
+        localStorage.tableData = csv;
+        console.log("ESTO SE GUARDA"+localStorage.tableData);
         console.log("Guardado en local storage");
       } else {
         console.log("Local storage NO disponible");
-      }
-}
+      } ;
+} ;
 
+function download() {
+    var csv = localStorage.tableData;
+    /*
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csv));
+    pom.setAttribute('download', "export.csv");
+    pom.click(); 
+    */
 
+    // codigo para funcionar en internet explorer
+
+    var IEwindow = window.open();
+    IEwindow.document.write(csv);
+    IEwindow.document.close();
+    IEwindow.document.execCommand('SaveAs', true, "export.csv");
+    IEwindow.close();
+};
 
 var despachosObject = {
 '050002204001': 'Despacho 001 de la Sala Penal del Tribunal Superior de Antioquia', 
