@@ -6105,7 +6105,26 @@ function dataToArray(text) {
                     case "NameLength": html += '<td><input class="row'+i+'" name="NameLength" type="number"></td>';
                         break;
 
-                    case "Category": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                    case "Category": switch (records[i][j]) {
+                        // verifica si hay un valor guardado para crear el elemento que debe aparecer como seleccionado en categoria
+                                case "Catalogable": html += '<td><select class="row'+i+'" name="Category" type="number"> <option selected>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                                    break;
+
+                                case "No Aplica": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option selected>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                                    break;
+
+                                case "No Catalogable": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Aplica</option> <option selected>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                                    break;
+
+                                case "Duplicado": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option selected>Duplicado</option> <option>Historico</option> </select> </td>';
+                                    break;
+
+                                case "Historico": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option selected>Historico</option> </select> </td>';
+                                    break;
+
+                                default: html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                                    break;
+                    } ;
                         break;
 
                     case "FinalPath": html += '<td><input class="row'+i+'" name="FinalPath" type="text"></td>';
