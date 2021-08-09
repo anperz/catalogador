@@ -9,6 +9,10 @@ html {
     font-size: 62.5%;
 }
 
+body {
+    height: 100%;
+}
+
 body, input {
     background-color: #1d1d1d;
     font-size: 1.5rem;
@@ -33,6 +37,12 @@ header img {
     margin-right: 20px;
 }
 
+#container {
+    height: 380px;
+    overflow-x: scroll;
+    white-space: nowrap;
+    overflow-y: scroll;
+}
 
 #video-container {
     display: flex;
@@ -163,13 +173,13 @@ input[name=Virtual] {
 input[name=FinalPath] {
     width: 600px;
 }
-
+/*
 @media (min-width: 500px) {
 
 #container {
     overflow: scroll;
     white-space: nowrap;
-}
+} }
 
 @media (min-width: 1600px) {
 
@@ -177,4 +187,4 @@ input[name=FinalPath] {
         width: 100%;
     }
 
-}
+} */
