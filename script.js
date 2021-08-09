@@ -6243,7 +6243,7 @@ function saveDataOnLocalStorage() {
     };
 
 
-    console.log(csv);
+    //console.log(csv);
 
     if (typeof(Storage) !== 'undefined') {
         localStorage.tableData = csv;
