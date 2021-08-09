@@ -1,5 +1,4 @@
 
-//verificar si hay local storage data almacenada
 var despachosObject = {
     '050002204001': 'Despacho 001 de la Sala Penal del Tribunal Superior de Antioquia', 
     '050002204002': 'Despacho 002 de la Sala Penal del Tribunal Superior de Antioquia', 
@@ -5964,12 +5963,17 @@ var despachosObject = {
     '997734089001': 'Juzgado 001 Promiscuo Municipal de Cumaribo', 
 };
 
-var savedcsv = localStorage.tableData;
-if (savedcsv !== "undefined") {
-        // console.log(savedcsv);
-        dataToArray(savedcsv);
+//verificar si hay local storage data almacenada
+function deleteLocalStorage() {
+    localStorage.tableData = "";
+    console.log('Reseteado localStorage');
 };
 
+function setLocalStorage() {
+    console.log('hay datos en localStorage: ' + localStorage.tableData);
+    var savedCsv = localStorage.tableData;
+    dataToArray(savedCsv);
+};
 
 
 const myForm = document.getElementById("myForm");
@@ -5989,6 +5993,8 @@ myForm.addEventListener("submit", function (e) {
 
 
 function dataToArray(text) {
+    console.log (text);
+
     var records = [];
 
     function record (FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath) {
@@ -6159,7 +6165,7 @@ function dataToArray(text) {
 
     };
 
-saveDataOnLocalStorage();
+
 checkConsecutivo ();
 
 };
