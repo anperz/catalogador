@@ -37,18 +37,29 @@ header img {
     margin-right: 20px;
 }
 
-#container {
-    height: 380px;
-    overflow-x: scroll;
-    white-space: nowrap;
-    overflow-y: scroll;
-}
 
 #video-container {
     display: flex;
     width: 100%;
     justify-content: center;
 }
+
+#container { /*contenedor de tablas*/
+    white-space: nowrap;
+    overflow-x: scroll;
+    height: 350px;
+    overflow-y: scroll;
+}
+/*
+#header-container {
+    display: table;
+}
+
+#row-container {
+    display: table;
+    height: 350px;
+    overflow: auto;
+} */
 
 .form-container {
     width: 100%;
@@ -129,6 +140,10 @@ p[name=Name] {
     width: 250px; 
 
 } */
+
+input[name=Length] {
+    width: 100px;
+}
 
 input[name=Radicado] {
     width: 220px;

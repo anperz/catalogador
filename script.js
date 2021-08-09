@@ -6038,7 +6038,7 @@ function dataToArray(text) {
 
     // generador de tabla HTML
     var html = '<table id="table-container">';
-    html += '<tr>';
+    html += '<thead id="header-container"><tr>';
 
         // crear encabezados desde el archivo
         /*
@@ -6047,7 +6047,7 @@ function dataToArray(text) {
         };     */
 
         html += '<th class="table-header">Video</th>';
-        html += '<th class="table-header">Nombre Inicial</th>';
+        html += '<th class="table-header" name="Name">Nombre Inicial</th>';
         html += '<th class="table-header">Ext</th>';
         html += '<th class="table-header">Tamaño</th>';
         html += '<th class="table-header">Radicado</th>';
@@ -6061,9 +6061,8 @@ function dataToArray(text) {
         html += '<th class="table-header">Largo</th>';
         html += '<th class="table-header">Categoria</th>';
         html += '<th class="table-header">Ruta Final</th>';
+        html += '</tr></thead><tbody id= "row-container"';
 
-
-        html += '</tr>';
         // crear celdas de contenido
         for( var i = 1; i < records.length; i++) {
             html += '<tr>';
@@ -6084,22 +6083,22 @@ function dataToArray(text) {
                     case "Length": html += '<td><input class="row'+i+'" name="Length" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Radicado": html += '<td><input class="row'+i+'" name="Radicado" type="number" maxlength="23" value="' + records[i][j]+ '"></td>';
+                    case "Radicado": html += '<td><input class="row'+i+'" name="Radicado" type="number" maxlength="23" placeholder="Radicado(23 digitos)" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Date": html += '<td><input class="row'+i+'" name="Date" type="text" maxlength="8" value="' + records[i][j]+ '"></td>';
+                    case "Date": html += '<td><input class="row'+i+'" name="Date" type="text" maxlength="8" placeholder="AAAAMMDD" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Time": html += '<td><input class="row'+i+'" name="Time" type="text" maxlength="4" value="' + records[i][j]+ '"></td>';
+                    case "Time": html += '<td><input class="row'+i+'" name="Time" type="text" maxlength="4" placeholder="HHMM" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Organo": html += '<td><input class="row'+i+'" name="Organo" type="number" maxlength="12" value="' + records[i][j]+ '"></td>';
+                    case "Organo": html += '<td><input class="row'+i+'" name="Organo" type="number" maxlength="12" placeholder="Organo(12 digitos)" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Reserved": html += '<td><input class="row'+i+'" name="Reserved" type="text" maxlength="1" value="' + records[i][j]+ '"></td>';
+                    case "Reserved": html += '<td><input class="row'+i+'" name="Reserved" type="text" maxlength="1" placeholder="R-L" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Virtual": html += '<td><input class="row'+i+'" name="Virtual" type="text" maxlength="1" value="' + records[i][j]+ '"></td>';
+                    case "Virtual": html += '<td><input class="row'+i+'" name="Virtual" type="text" maxlength="1" placeholder="V-P" value="' + records[i][j]+ '"></td>';
                         break;
 
                     case "Consecutivo": html += '<td><input class="row'+i+'" name="Consecutivo" type="number" maxlength="2" value="01"></td>';
@@ -6143,7 +6142,7 @@ function dataToArray(text) {
             };
         html += '</tr>';
         };
-    html += '</table>';
+    html += '</tbody></table>';
 
     // aplicar html al elemento container
 
