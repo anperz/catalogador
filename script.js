@@ -1,4 +1,3 @@
-
 var despachosObject = {
     '050002204001': 'Despacho 001 de la Sala Penal del Tribunal Superior de Antioquia', 
     '050002204002': 'Despacho 002 de la Sala Penal del Tribunal Superior de Antioquia', 
@@ -5961,7 +5960,8 @@ var despachosObject = {
     '995244089001': 'Juzgado 001 Promiscuo Municipal de la Primavera', 
     '996244089001': 'Juzgado 001 Promiscuo Municipal de Santa Rosalia', 
     '997734089001': 'Juzgado 001 Promiscuo Municipal de Cumaribo', 
-};
+    
+}
 
 //verificar si hay local storage data almacenada
 function deleteLocalStorage() {
@@ -6074,7 +6074,7 @@ function dataToArray(text) {
                     case "FullName": html += '<td><button class="play-button row'+i+'" value="' + records[i][j] + '">Play</button></td>';
                         break;
 
-                    case "Name": html += '<td><input class="row'+i+'" name="Name" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
+                    case "Name": html += '<td><textarea class="row'+i+'" name="Name" type="text" readonly="readonly">'+ records[i][j] + '</textarea></td>';
                         break;
 
                     case "Extension": html += '<td><input class="row'+i+'" name="Extension" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
@@ -6104,7 +6104,7 @@ function dataToArray(text) {
                     case "Consecutivo": html += '<td><input class="row'+i+'" name="Consecutivo" type="number" maxlength="2" value="01"></td>';
                         break;
 
-                    case "NewName": html += '<td><input class="row'+i+'" name="NewName" type="text"></td>';
+                    case "NewName": html += '<td><textarea class="row'+i+'" name="NewName" type="text"></textarea></td>';
                         break;
 
                     case "NameLength": html += '<td><input class="row'+i+'" name="NameLength" type="number"></td>';
@@ -6127,12 +6127,12 @@ function dataToArray(text) {
                                 case "Historico": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option selected>Historico</option> </select> </td>';
                                     break;
 
-                                default: html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                                default: html += '<td><select class="row'+i+'" name="Category" type="number"> <option selected>Seleccionar...</option> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
                                     break;
                     } ;
                         break;
 
-                    case "FinalPath": html += '<td><input class="row'+i+'" name="FinalPath" type="text"></td>';
+                    case "FinalPath": html += '<td><textarea class="row'+i+'" name="FinalPath" type="text"></textarea></td>';
                         break;
 
                     default: html += "<td>" + records[i][j]+ "</td>";

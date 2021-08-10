@@ -5,7 +5,6 @@
 }
 
 html {
-    font-family: 'Muli', sans-serif;
     font-size: 62.5%;
 }
 
@@ -13,7 +12,8 @@ body {
     height: 100%;
 }
 
-body, input {
+body, input, textarea {
+    font-family: 'Muli', sans-serif;
     background-color: #1d1d1d;
     font-size: 1.5rem;
     color: #c7c3c3;
@@ -44,22 +44,7 @@ header img {
     justify-content: center;
 }
 
-#container { /*contenedor de tablas*/
-    white-space: nowrap;
-    overflow-x: scroll;
-    height: 350px;
-    overflow-y: scroll;
-}
-/*
-#header-container {
-    display: table;
-}
 
-#row-container {
-    display: table;
-    height: 350px;
-    overflow: auto;
-} */
 
 .form-container {
     width: 100%;
@@ -93,6 +78,25 @@ header img {
     font-weight: 600;
 }
 
+/*TABLA*/
+
+#container { /*contenedor de tablas*/
+    white-space: nowrap;
+    overflow-x: scroll;
+    height: 400px;
+    overflow-y: scroll;
+}
+/*
+#header-container {
+    display: table;
+}
+
+#row-container {
+    display: table;
+    height: 350px;
+    overflow: auto;
+} */
+
 .table-header  {
     background-color: #494949;
     text-align: left;
@@ -102,14 +106,35 @@ tr {
     height: 50px;
 }
 
-tr input {
-    height: 30px;
-    border-bottom: 1px solid #fff;
+td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.123);
 }
 
-tr input:hover {
 
-    border-bottom: 1px solid #03b4a3;
+tr:hover {
+    background-color: rgba(255, 255, 255, 0.089);
+}
+
+tr input {
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0);
+
+}
+
+tr textarea {
+    height: 80px;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0);
+    white-space: pre-wrap;
+    overflow: auto;
+}
+
+tr input:-ms-input-placeholder {
+    color: rgb(98, 98, 98);
+}
+
+tr td:hover {
+    border-bottom: 2px solid #03b4a3;
 }
 
 .play-button, .download-button {
@@ -130,9 +155,6 @@ tr input:hover {
     font-weight: 600;
 }
 
-input[name=Video] {
-    width: 50px;
-}
 
 /*
 p[name=Name] {
@@ -146,7 +168,7 @@ input[name=Length] {
 }
 
 input[name=Radicado] {
-    width: 220px;
+    width: 240px;
 }
 
 input[name=Date]  {
@@ -158,15 +180,15 @@ input[name=Time] {
 }
 
 input[name=Organo] {
-    width: 130px;
+    width: 140px;
 }
 
 input[name=Consecutivo] {
     width: 50px;
 }
 
-input[name=NewName] {
-    width: 700px;
+textarea[name=NewName] {
+    width: 200px;
 }
 
 input[name=NameLength] {
@@ -185,7 +207,7 @@ input[name=Virtual] {
     width: 50px;
 }
 
-input[name=FinalPath] {
+textarea[name=FinalPath] {
     width: 600px;
 }
 /*
