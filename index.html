@@ -14,20 +14,22 @@
     <img src="https://www.ramajudicial.gov.co/image/layout_set_logo?img_id=21482666&t=1627220128355" alt="logo rama">
     <div><h1>Catalogador de Audiencias - Rama Judicial</h1></div>
   </header>
-  <div id="video-container">
-    <video autoplay width="1024" height="405" controls>
-      <source src="" type="video/mp4">
-    Your browser does not support the video tag.
-    </video>
+  <section class="section-container">
+    <div id="video-container">
+      <video autoplay width="720" height="405" controls>
+        <source src="" type="video/mp4">
+      Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="form-container">
+      <form id="myForm">
+        <input type="file" id="csvFile" accept=".csv" />
+        <input type="submit" value="Submit" id="submit-button" />
+      </form>
+      <button class="download-button" onclick="download()">Descargar CSV</button>
+      <button class="download-button" onclick="setLocalStorage()">Cargar Cache</button>
   </div>
-  <div class="form-container">
-    <form id="myForm">
-      <input type="file" id="csvFile" accept=".csv" />
-      <input type="submit" value="Submit" id="submit-button" />
-    </form>
-    <button class="download-button" onclick="download()">Descargar CSV</button>
-    <button class="download-button" onclick="setLocalStorage()">Cargar Cache</button>
-  </div>
+  </section>
   <div id="container"></div>
   <script src="./script.js"></script>
 </body>

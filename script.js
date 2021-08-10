@@ -5964,10 +5964,12 @@ var despachosObject = {
 }
 
 //verificar si hay local storage data almacenada
+
+/*
 function deleteLocalStorage() {
     localStorage.tableData = "";
     console.log('Reseteado localStorage');
-};
+}; */
 
 function setLocalStorage() {
     console.log('hay datos en localStorage: ' + localStorage.tableData);
@@ -6127,7 +6129,7 @@ function dataToArray(text) {
                                 case "Historico": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option selected>Historico</option> </select> </td>';
                                     break;
 
-                                default: html += '<td><select class="row'+i+'" name="Category" type="number"> <option selected>Seleccionar...</option> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                                default: html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
                                     break;
                     } ;
                         break;
@@ -6150,7 +6152,7 @@ function dataToArray(text) {
 
     document.getElementById('table-container').addEventListener('change', checkConsecutivo);
 
-    //----- creacion de eventos para reproducir video al hacer click en el boton
+    //creacion de eventos para reproducir video al hacer click en el boton
 
     var butonsList = document.getElementsByClassName('play-button');
 
@@ -6158,7 +6160,7 @@ function dataToArray(text) {
 
         butonsList[i].addEventListener('click', function playVideo (button_click) {
             var videoUrlValue = button_click.target.value;
-            var videoTagHtml = '<video autoplay width="1024" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
+            var videoTagHtml = '<video autoplay width="720" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
             document.getElementById('video-container').innerHTML = videoTagHtml;
         });
 

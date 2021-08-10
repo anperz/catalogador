@@ -1,3 +1,4 @@
+/*GENERAL*/
 * {
     margin: 0;
     padding: 0;
@@ -21,22 +22,31 @@ body, input, textarea {
 
 }
 
+/*HEADER*/
+
+
+
 header {
     display: flex;
     width: 100%;
-    height: 50px;
+    height: 40px;
     background-color: #303f9f;
     color: #ececec;
     align-items: center;
     justify-content: center;
 }
 
+h1 {
+    font-size: 2.4rem;
+}
+
 header img {
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     margin-right: 20px;
 }
 
+/*PRIMERA SECCION*/
 
 #video-container {
     display: flex;
@@ -70,7 +80,7 @@ header img {
 
 
 #myForm #submit-button, input #file-upload-button  {
-    color: white; 
+    color: white;
     background-color: #303f9f;
     border: 1px solid #303f9f;
     padding: 8px 15px;
@@ -78,12 +88,14 @@ header img {
     font-weight: 600;
 }
 
+
+
 /*TABLA*/
 
 #container { /*contenedor de tablas*/
     white-space: nowrap;
     overflow-x: scroll;
-    height: 400px;
+    height: 430px;
     overflow-y: scroll;
 }
 /*
@@ -155,13 +167,7 @@ tr td:hover {
     font-weight: 600;
 }
 
-
-/*
-p[name=Name] {
-     display: flex; 
-    width: 250px; 
-
-} */
+/* CAMPOS DE LA TABLA*/
 
 input[name=Length] {
     width: 100px;
@@ -210,6 +216,8 @@ input[name=Virtual] {
 textarea[name=FinalPath] {
     width: 600px;
 }
+
+/*MEDIA QUERIES*/
 /*
 @media (min-width: 500px) {
 
