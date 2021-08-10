@@ -6129,7 +6129,7 @@ function dataToArray(text) {
                                 case "Historico": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option selected>Historico</option> </select> </td>';
                                     break;
 
-                                default: html += '<td><select class="row'+i+'" name="Category" type="number"> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                                default: html += '<td><select class="row'+i+'" name="Category" type="number"> <option selected>Seleccionar...</option> <option>Catalogable</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
                                     break;
                     } ;
                         break;
@@ -6149,6 +6149,8 @@ function dataToArray(text) {
     // aplicar html al elemento container
 
     document.getElementById('container').innerHTML = html;
+
+    // evento que se activa al producirse un cambio en la tabla
 
     document.getElementById('table-container').addEventListener('change', checkConsecutivo);
 
@@ -6238,6 +6240,8 @@ function checkNewName () {
         rowList['FinalPath'].value = '..\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['Name'].value;
         }
 
+        setCategoryBackgroundColor(rowList['Category']);
+
 
 
     };
@@ -6245,7 +6249,7 @@ function checkNewName () {
     saveDataOnLocalStorage();
 };
 
-
+// fucnion para guardar en local storage
 function saveDataOnLocalStorage() {
 
     //se colocan los headers del csv
@@ -6280,6 +6284,7 @@ function saveDataOnLocalStorage() {
       } ;
 } ;
 
+//funcion que se activa para descargar el CSV
 function download() {
     var csv = localStorage.tableData;
     /*
@@ -6298,4 +6303,20 @@ function download() {
     IEwindow.close();
 };
 
+// funcion para cambiar el color de  fondo de la categoria
+function setCategoryBackgroundColor(categoryElement) {
 
+    if (categoryElement.value === "Catalogable" || categoryElement.value === "Historico") {
+        categoryElement.style.backgroundColor = "green";
+        categoryElement.style.color = "white";
+        categoryElement.style.border = "4px solid green";
+    } else if (categoryElement.value === "Seleccionar...") {
+        categoryElement.style.backgroundColor = "white";
+        categoryElement.style.color = "black";
+        categoryElement.style.border = "4px solid white";
+    } else {
+        categoryElement.style.backgroundColor = "orange";
+        categoryElement.style.color = "white";
+        categoryElement.style.border = "4px solid orange";
+    }
+}
