@@ -17,9 +17,8 @@ body, input, textarea {
     font-family: 'Muli', sans-serif;
     background-color: #1d1d1d;
     font-size: 1.5rem;
-    color: #c7c3c3;
+    color: #d8d8d8;
     border: none;
-
 }
 
 /*HEADER*/
@@ -47,20 +46,26 @@ header img {
 }
 
 /*PRIMERA SECCION*/
-
-#video-container {
-    display: flex;
+.section-container {
     width: 100%;
-    justify-content: center;
+    display: flex;
+    justify-content: space-around;
 }
 
+/* #video-container {} */
 
+#controls-container {
+    display: flex;
+    flex-direction: column;
+}
 
 .form-container {
-    width: 100%;
+    margin: 20px 10px;
+}
+
+.buttons-container {
     display: flex;
-    align-items: center;
-    justify-items: flex-start;
+    justify-content: space-around;
 }
 
 .form-container #myForm {
@@ -95,7 +100,7 @@ header img {
 #container { /*contenedor de tablas*/
     white-space: nowrap;
     overflow-x: scroll;
-    height: 430px;
+    height: 490px;
     overflow-y: scroll;
 }
 /*

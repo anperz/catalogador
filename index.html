@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Catalogador de Audiencias - Rama Judicial</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli&display=swap">
 
@@ -21,14 +21,18 @@
       Your browser does not support the video tag.
       </video>
     </div>
-    <div class="form-container">
-      <form id="myForm">
-        <input type="file" id="csvFile" accept=".csv" />
-        <input type="submit" value="Submit" id="submit-button" />
-      </form>
-      <button class="download-button" onclick="download()">Descargar CSV</button>
-      <button class="download-button" onclick="setLocalStorage()">Cargar Cache</button>
-  </div>
+    <div id="controls-container">
+      <div class="form-container">
+        <form id="myForm">
+          <input type="file" id="csvFile" accept=".csv" />
+          <input type="submit" value="Cargar CSV" id="submit-button" />
+        </form>
+      </div>
+      <div class="buttons-container">
+        <button class="download-button" onclick="download()">Descargar CSV</button>
+        <button class="download-button" onclick="setLocalStorage()">Cargar Cache</button>
+      </div>
+    </div>
   </section>
   <div id="container"></div>
   <script src="./script.js"></script>
