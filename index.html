@@ -10,18 +10,19 @@
 
 </head>
 <body>
-  <header>
-    <img src="https://www.ramajudicial.gov.co/image/layout_set_logo?img_id=21482666&t=1627220128355" alt="logo rama">
-    <div><h1>Catalogador de Audiencias - Rama Judicial</h1></div>
-  </header>
+  
   <section class="section-container">
     <div id="video-container">
-      <video autoplay width="720" height="405" controls>
+      <video autoplay width="900" height="405" controls>
         <source src="" type="video/mp4">
       Your browser does not support the video tag.
       </video>
     </div>
     <div id="controls-container">
+      <header>
+        <img src="https://www.ramajudicial.gov.co/image/layout_set_logo?img_id=21482666&t=1627220128355" alt="logo rama">
+        <div><h1>Catalogador de Audiencias - Rama Judicial</h1></div>
+      </header>
       <div class="form-container">
         <form id="myForm">
           <input type="file" id="csvFile" accept=".csv" />
@@ -35,6 +36,7 @@
     </div>
   </section>
   <div id="container"></div>
+  <script src="./despachos.js"></script>
   <script src="./script.js"></script>
 </body>
 </html>
