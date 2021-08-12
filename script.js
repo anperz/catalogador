@@ -365,7 +365,7 @@ function setNameLengthBackgroundColor(categoryElement) {
         categoryElement.style.border = "4px solid green";
         categoryElement.style.borderRadius = "4px";
     } else {
-        categoryElement.style.backgroundColor = "none";
+        categoryElement.style.backgroundColor = "rgba(0, 0, 0, 0)";
         categoryElement.style.border = "none";
         categoryElement.style.borderRadius = "none";
     }
