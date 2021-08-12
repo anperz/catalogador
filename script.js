@@ -245,6 +245,7 @@ function checkNewName () {
     for (var x=0 ; x<arrayNewName.length ; x++) {
         var selectedClass = arrayNewName[x].className;
         var rowList = document.getElementsByClassName(selectedClass);
+        //console.log(rowList);
 
 // FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
 
@@ -253,9 +254,9 @@ function checkNewName () {
         var fieldConsecutivo = rowList['Consecutivo'].value;
         var fieldDate = rowList['Date'].value;
         var fieldTime = rowList['Time'].value;
-        var fieldExtension = rowList['Extension'].value;
-        var fieldReserved = rowList['Reserved'].value;
-        var fieldVirtual = rowList['Virtual'].value;
+        var fieldExtension = rowList['Extension'].value.toLowerCase();
+        var fieldReserved = rowList['Reserved'].value.toUpperCase();
+        var fieldVirtual = rowList['Virtual'].value.toUpperCase();
         var fieldCategoria = rowList['Category'].value;
 
         //asignar valor a NewName
