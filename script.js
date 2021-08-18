@@ -7,7 +7,7 @@ function deleteLocalStorage() {
 
 function setLocalStorage() {
     //console.log('hay datos en localStorage: ' + localStorage.tableData);
-    var savedCsv = localStorage.tableData;
+    const savedCsv = localStorage.tableData;
     dataToArray(savedCsv);
 };
 
@@ -31,7 +31,7 @@ myForm.addEventListener("submit", function (e) {
 function dataToArray(text) {
     //console.log (text);
 
-    var records = [];
+    const records = [];
 
     function record (FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath) {
         this.FullName = FullName; // 0
@@ -55,16 +55,16 @@ function dataToArray(text) {
     deletedFormatHeader = text.replace('#TYPE Selected.System.IO.FileInfo\r\n"', '');
     deletedVoidCol = deletedFormatHeader.replace('\r', '');
 
-    var unQuotedText = deletedVoidCol.replace(/['"]+/g, "");
-    var row = unQuotedText.split('\n');
+    const unQuotedText = deletedVoidCol.replace(/['"]+/g, "");
+    const row = unQuotedText.split('\n');
     //console.log(row);
 
     for (let i=0 ; i < row.length ; i++) {
 
         if (row[i] !== "") { //verifica si la fila no esta vacia, si no crear celdas y agregarlas a recods
 
-            var cell = row[i].split(';');
-            var newRecord = new record(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5], cell[6], cell[7], cell[8], cell[9], cell[10], cell[11], cell[12], cell[13], cell[14]);
+            const cell = row[i].split(';');
+            const newRecord = new record(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5], cell[6], cell[7], cell[8], cell[9], cell[10], cell[11], cell[12], cell[13], cell[14]);
             records.push(newRecord);
         };
 
@@ -100,9 +100,9 @@ function dataToArray(text) {
         html += '</tr></thead><tbody id= "row-container"';
 
         // crear celdas de contenido
-        for( var i = 1; i < records.length; i++) {
+        for(let i = 1; i < records.length; i++) {
             html += '<tr>';
-            for( var j in records[i] ) {
+            for( let j in records[i] ) {
 
 // FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
                 // casos para generar cada elemento HTML
@@ -190,18 +190,25 @@ function dataToArray(text) {
 
     //creacion de eventos para reproducir video al hacer click en el boton
 
-    var butonsList = document.getElementsByClassName('play-button');
+    const butonsList = document.getElementsByClassName('play-button');
 
-    for (i=0;i<butonsList.length;i++) {
+    for (let i=0;i<butonsList.length;i++) {
 
         butonsList[i].addEventListener('click', function playVideo (button_click) {
-            var videoUrlValue = button_click.target.value;
-            var videoTagHtml = '<video autoplay width="900" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
+            const videoUrlValue = button_click.target.value;
+            const videoTagHtml = '<video autoplay width="900" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
             document.getElementById('video-container').innerHTML = videoTagHtml;
         });
 
     };
 
+    /*
+
+    //creacion de eventos para formatear el radicado
+
+    const radicadoInputList = document.getElementsByClassName("Radicado");
+    for (i=)
+    */ 
 
 checkConsecutivo ();
 
@@ -210,15 +217,15 @@ checkConsecutivo ();
 
 function checkConsecutivo () {
 
-    var arrayConsecutivo = document.getElementsByName('Consecutivo');
-    var radicadoList = document.getElementsByName('Radicado');
-    var radicadoArray = [];
+    const arrayConsecutivo = document.getElementsByName('Consecutivo');
+    const radicadoList = document.getElementsByName('Radicado');
+    const radicadoArray = [];
     for (let i=0; i<radicadoList.length; i++){
         radicadoItem = radicadoList[i].value
         radicadoArray.push(radicadoItem);
     };
 
-    for (var x=1 ; x<arrayConsecutivo.length ; x++) {
+    for (let x=1 ; x<arrayConsecutivo.length ; x++) {
 
         var cuentaConsecutivo = 1;
 
@@ -240,24 +247,24 @@ function checkConsecutivo () {
 };
 
 function checkNewName () {
-    var arrayNewName = document.getElementsByName('NewName');
+    const arrayNewName = document.getElementsByName('NewName');
 
-    for (var x=0 ; x<arrayNewName.length ; x++) {
-        var selectedClass = arrayNewName[x].className;
-        var rowList = document.getElementsByClassName(selectedClass);
+    for (let x=0 ; x<arrayNewName.length ; x++) {
+        const selectedClass = arrayNewName[x].className;
+        const rowList = document.getElementsByClassName(selectedClass);
         //console.log(rowList);
 
 // FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
 
-        var fieldRadicado = rowList['Radicado'].value;
-        var fieldOrgano = rowList['Organo'].value;
-        var fieldConsecutivo = rowList['Consecutivo'].value;
-        var fieldDate = rowList['Date'].value;
-        var fieldTime = rowList['Time'].value;
-        var fieldExtension = rowList['Extension'].value.toLowerCase();
-        var fieldReserved = rowList['Reserved'].value.toUpperCase();
-        var fieldVirtual = rowList['Virtual'].value.toUpperCase();
-        var fieldCategoria = rowList['Category'].value;
+        const fieldRadicado = rowList['Radicado'].value;
+        const fieldOrgano = rowList['Organo'].value;
+        const fieldConsecutivo = rowList['Consecutivo'].value;
+        const fieldDate = rowList['Date'].value;
+        const fieldTime = rowList['Time'].value;
+        const fieldExtension = rowList['Extension'].value.toLowerCase();
+        const fieldReserved = rowList['Reserved'].value.toUpperCase();
+        const fieldVirtual = rowList['Virtual'].value.toUpperCase();
+        const fieldCategoria = rowList['Category'].value;
 
         //asignar valor a NewName
 
@@ -291,15 +298,15 @@ function saveDataOnLocalStorage() {
     //se colocan los headers del csv
     var csv = '"FullName";"Name";"Extension";"Length";"Radicado";"Date";"Time";"Organo";"Reserved";"Virtual";"Consecutivo";"NewName";"NameLength";"Category";"FinalPath"\n';
 
-    var arrayNewName = document.getElementsByName('NewName');
+    const arrayNewName = document.getElementsByName('NewName');
 
     // se itera sobre cada  fila y columna para generar el csv
-    for (var x=0 ; x<arrayNewName.length ; x++) {
-        var selectedClass = arrayNewName[x].className;
-        var rowList = document.getElementsByClassName(selectedClass);
+    for (let x=0 ; x<arrayNewName.length ; x++) {
+        const selectedClass = arrayNewName[x].className;
+        const rowList = document.getElementsByClassName(selectedClass);
 
-        for (var i=0 ; i<rowList.length ; i++) {
-            let cell = rowList[i].value
+        for (let i=0 ; i<rowList.length ; i++) {
+            const cell = rowList[i].value
             csv += '"' + cell + '";';
         };
 
