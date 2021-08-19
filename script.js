@@ -119,7 +119,7 @@ function dataToArray(text) {
                     case "Length": html += '<td><input class="row'+i+'" name="Length" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Radicado": html += '<td><input class="row'+i+'" name="Radicado" type="number" maxlength="23" placeholder="Radicado(23 digitos)" value="' + records[i][j]+ '"></td>';
+                    case "Radicado": html += '<td><input class="row'+i+'" name="Radicado" type="text" maxlength="27" placeholder="Radicado(23 digitos)" value="' + records[i][j]+ '"></td>';
                         break;
 
                     case "Date": html += '<td><input class="row'+i+'" name="Date" type="text" maxlength="8" placeholder="AAAAMMDD" value="' + records[i][j]+ '"></td>';
@@ -192,7 +192,7 @@ function dataToArray(text) {
 
     const butonsList = document.getElementsByClassName('play-button');
 
-    for (let i=0;i<butonsList.length;i++) {
+    for (let i=0; i<butonsList.length; i++) {
 
         butonsList[i].addEventListener('click', function playVideo (button_click) {
             const videoUrlValue = button_click.target.value;
@@ -202,13 +202,46 @@ function dataToArray(text) {
 
     };
 
-    /*
-
     //creacion de eventos para formatear el radicado
 
-    const radicadoInputList = document.getElementsByClassName("Radicado");
-    for (i=)
-    */ 
+    const radicadoInputList = document.getElementsByName('Radicado');
+
+    for (let i=0; i<radicadoInputList.length; i++) {
+        const actualInput = radicadoInputList[i];
+        actualInput.addEventListener('input', function (radicadoFormat) {
+            let inputValue = radicadoFormat.target.value
+            let cleanInputValue = inputValue.replace(/[\W\s\._\-]+/g, '');
+
+            let splitArray = [];
+
+            if (cleanInputValue.length < 28) {
+                const splittedText1 = cleanInputValue.substring(0, 5);
+                splitArray.push(splittedText1);
+
+                if (cleanInputValue.length >= 6) {
+                    const splittedText2 = cleanInputValue.substring(5, 12);
+                    splitArray.push(splittedText2);
+
+                    if (cleanInputValue.length >= 13) {
+                        const splittedText3 = cleanInputValue.substring(12, 16);
+                        splitArray.push(splittedText3);
+
+                        if (cleanInputValue.length >= 17) {
+                            const splittedText4 = cleanInputValue.substring(16, 21);
+                            splitArray.push(splittedText4);
+
+                            if (cleanInputValue.length >= 22) {
+                                const splittedText4 = cleanInputValue.substring(21, 23);
+                                splitArray.push(splittedText4);
+                            };
+                        };
+                    };
+                };
+                actualInput.value = splitArray.join("-");
+            };
+        });
+    };
+
 
 checkConsecutivo ();
 
@@ -256,7 +289,11 @@ function checkNewName () {
 
 // FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
 
-        const fieldRadicado = rowList['Radicado'].value;
+        // filtrar separadores de valores
+
+        const rawFieldRadicado = rowList['Radicado'].value;
+        const fieldRadicado = rawFieldRadicado.replace(/-/g, '');
+
         const fieldOrgano = rowList['Organo'].value;
         const fieldConsecutivo = rowList['Consecutivo'].value;
         const fieldDate = rowList['Date'].value;
@@ -379,10 +416,10 @@ function setNameLengthBackgroundColor(categoryElement) {
     }
 }
 
-/*
+
 
 //cargar datos de ejemplo
 
 var sampleData = '"FullName";"Name";"Extension";"Length";"Radicado";"Date";"Time";"Organo";"Reserved";"Virtual";"Consecutivo";"NewName";"NameLength";"Category";"FinalPath"\n"C:\\Users\\Andres\\Downloads\\Test Nuevo\\50201318ñ9,_S_cnt_1_r720P.mp4";"videoDeEjemplo1_r720P.mp4";".mp4";"47624437";;;;;;;;;;;\n"C:\\Users\\Andres\\Downloads\\Test Nuevo\\502013393_S_cnt_1_r720P.mp4";"videoDeEjemplo2_r720P.mp4";".mp4";"52896649";;;;;;;;;;;\n"C:\\Users\\Andres\\Downloads\\Test Nuevo\\502015143_S_cnt_1_r720P.mp4";"videoDeEjemplo3_r720P.mp4";".mp4";"49121589";;;;;;;;;;;';
 
-dataToArray(sampleData); */
+dataToArray(sampleData);
