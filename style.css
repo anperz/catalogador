@@ -171,7 +171,7 @@ tr input:-ms-input-placeholder {
 }
 
 tr td:hover {
-    border-bottom: 2px solid #03b4a3;
+    border-bottom: 2px solid rgb(216, 116, 255);
 }
 
 

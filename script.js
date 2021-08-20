@@ -5,6 +5,8 @@ function deleteLocalStorage() {
     console.log('Reseteado localStorage');
 }; */
 
+
+
 function setLocalStorage() {
     //console.log('hay datos en localStorage: ' + localStorage.tableData);
     const savedCsv = localStorage.tableData;
@@ -214,7 +216,7 @@ function dataToArray(text) {
 
             let splitArray = [];
 
-            if (cleanInputValue.length < 28) {
+            if (cleanInputValue.length <= 27) {
                 const splittedText1 = cleanInputValue.substring(0, 5);
                 splitArray.push(splittedText1);
 
@@ -238,6 +240,9 @@ function dataToArray(text) {
                     };
                 };
                 actualInput.value = splitArray.join("-");
+                checkConsecutivo ();
+            } else {
+                actualInput.value = "";
             };
         });
     };
@@ -254,7 +259,7 @@ function dataToArray(text) {
 
             let splitArray = [];
 
-            if (cleanInputValue.length < 11) {
+            if (cleanInputValue.length <= 10) {
                 const splittedText1 = cleanInputValue.substring(0, 4);
                 splitArray.push(splittedText1);
 
@@ -268,25 +273,14 @@ function dataToArray(text) {
                     };
                 };
                 actualInput.value = splitArray.join("/");
+                checkConsecutivo ();
+            } else {
+                actualInput.value = "";
             };
         });
     };
 
     //creacion de eventos para formatear la hora
-
-    const organoInputList = document.getElementsByName('Organo');
-
-    for (let i=0; i<organoInputList.length; i++) {
-        const actualInput = organoInputList[i];
-        actualInput.addEventListener('input', function (organoFormat) {
-            let inputValue = organoFormat.target.value;
-            let cleanInputValue = inputValue.replace(/[\W\s\._\-]+/g, '');
-            actualInput.value = cleanInputValue;
-
-        });
-    };
-
-    //creacion de eventos para formatear el organo
 
     const timeInputList = document.getElementsByName('Time');
 
@@ -298,7 +292,7 @@ function dataToArray(text) {
 
             let splitArray = [];
 
-            if (cleanInputValue.length < 6) {
+            if (cleanInputValue.length <= 5) {
                 const splittedText1 = cleanInputValue.substring(0, 2);
                 splitArray.push(splittedText1);
 
@@ -307,9 +301,33 @@ function dataToArray(text) {
                     splitArray.push(splittedText2);
                 };
                 actualInput.value = splitArray.join(":");
+                checkConsecutivo ();
+            } else {
+                actualInput.value = "";
             };
         });
     };
+
+
+    //creacion de eventos para formatear el organo
+
+    const organoInputList = document.getElementsByName('Organo');
+
+    for (let i=0; i<organoInputList.length; i++) {
+        const actualInput = organoInputList[i];
+        actualInput.addEventListener('input', function (organoFormat) {
+            let inputValue = organoFormat.target.value;
+            let cleanInputValue = inputValue.replace(/[\W\s\._\-]+/g, '');
+
+            if (cleanInputValue.length <= 12) {
+                actualInput.value = cleanInputValue;
+                checkConsecutivo ();
+            } else {
+                actualInput.value = "";
+            };
+        });
+    };
+
 
     //creacion de eventos para formatear el campo reservado-libre
 
@@ -517,6 +535,18 @@ function setNameLengthBackgroundColor(categoryElement) {
         categoryElement.style.borderRadius = "none";
     }
 }
+
+// anular control-z
+
+function KeyPress(e) {
+    var evtobj = window.event? event : e
+    if (evtobj.keyCode == 90 && evtobj.ctrlKey) {
+        //console.log("ctrl-z pressed");
+        return false;
+    }
+}
+
+document.onkeydown = KeyPress;
 
 /*
 
