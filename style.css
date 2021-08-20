@@ -15,7 +15,7 @@ body {
 
 body, input, textarea, button, select {
     font-family: 'Muli', sans-serif;
-    background-color: #1d1d1d;
+    background-color: rgb(17, 16, 42);
     font-size: 1.5rem;
     color: #d8d8d8;
     border: none;
@@ -187,11 +187,11 @@ input[name=Radicado] {
 }
 
 input[name=Date]  {
-    width: 100px;
+    width: 115px;
 }
 
 input[name=Time] {
-    width: 60px;
+    width: 65px;
 }
 
 input[name=Organo] {
@@ -229,6 +229,15 @@ input[name=NameLength] {
 
 textarea[name=FinalPath] {
     width: 500px;
+}
+
+input:focus {
+    color:rgb(216, 116, 255);
+    font-size: 1.7rem;
+}
+
+input::-ms-clear {
+    display: none;
 }
 
 /*MEDIA QUERIES*/

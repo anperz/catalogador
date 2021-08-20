@@ -122,13 +122,13 @@ function dataToArray(text) {
                     case "Radicado": html += '<td><input class="row'+i+'" name="Radicado" type="text" maxlength="27" placeholder="Radicado(23 digitos)" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Date": html += '<td><input class="row'+i+'" name="Date" type="text" maxlength="8" placeholder="AAAAMMDD" value="' + records[i][j]+ '"></td>';
+                    case "Date": html += '<td><input class="row'+i+'" name="Date" type="text" maxlength="10" placeholder="AAAA/MM/DD" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Time": html += '<td><input class="row'+i+'" name="Time" type="text" maxlength="4" placeholder="HHMM" value="' + records[i][j]+ '"></td>';
+                    case "Time": html += '<td><input class="row'+i+'" name="Time" type="text" maxlength="5" placeholder="HH:MM" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Organo": html += '<td><input class="row'+i+'" name="Organo" type="number" maxlength="12" placeholder="Organo(12 digitos)" value="' + records[i][j]+ '"></td>';
+                    case "Organo": html += '<td><input class="row'+i+'" name="Organo" type="text" maxlength="12" placeholder="Organo(12 digitos)" value="' + records[i][j]+ '"></td>';
                         break;
 
                     case "Reserved": html += '<td><input class="row'+i+'" name="Reserved" type="text" maxlength="1" placeholder="R-L" value="' + records[i][j]+ '"></td>';
@@ -209,7 +209,7 @@ function dataToArray(text) {
     for (let i=0; i<radicadoInputList.length; i++) {
         const actualInput = radicadoInputList[i];
         actualInput.addEventListener('input', function (radicadoFormat) {
-            let inputValue = radicadoFormat.target.value
+            let inputValue = radicadoFormat.target.value;
             let cleanInputValue = inputValue.replace(/[\W\s\._\-]+/g, '');
 
             let splitArray = [];
@@ -242,8 +242,106 @@ function dataToArray(text) {
         });
     };
 
+    //creacion de eventos para formatear la fecha
 
-checkConsecutivo ();
+    const dateInputList = document.getElementsByName('Date');
+
+    for (let i=0; i<dateInputList.length; i++) {
+        const actualInput = dateInputList[i];
+        actualInput.addEventListener('input', function (dateFormat) {
+            let inputValue = dateFormat.target.value;
+            let cleanInputValue = inputValue.replace(/[\W\s\._\-]+/g, '');
+
+            let splitArray = [];
+
+            if (cleanInputValue.length < 11) {
+                const splittedText1 = cleanInputValue.substring(0, 4);
+                splitArray.push(splittedText1);
+
+                if (cleanInputValue.length >= 5) {
+                    const splittedText2 = cleanInputValue.substring(4, 6);
+                    splitArray.push(splittedText2);
+
+                    if (cleanInputValue.length >= 7) {
+                        const splittedText3 = cleanInputValue.substring(6, 8);
+                        splitArray.push(splittedText3);
+                    };
+                };
+                actualInput.value = splitArray.join("/");
+            };
+        });
+    };
+
+    //creacion de eventos para formatear la hora
+
+    const organoInputList = document.getElementsByName('Organo');
+
+    for (let i=0; i<organoInputList.length; i++) {
+        const actualInput = organoInputList[i];
+        actualInput.addEventListener('input', function (organoFormat) {
+            let inputValue = organoFormat.target.value;
+            let cleanInputValue = inputValue.replace(/[\W\s\._\-]+/g, '');
+            actualInput.value = cleanInputValue;
+
+        });
+    };
+
+    //creacion de eventos para formatear el organo
+
+    const timeInputList = document.getElementsByName('Time');
+
+    for (let i=0; i<timeInputList.length; i++) {
+        const actualInput = timeInputList[i];
+        actualInput.addEventListener('input', function (timeFormat) {
+            let inputValue = timeFormat.target.value;
+            let cleanInputValue = inputValue.replace(/[\W\s\._\-]+/g, '');
+
+            let splitArray = [];
+
+            if (cleanInputValue.length < 6) {
+                const splittedText1 = cleanInputValue.substring(0, 2);
+                splitArray.push(splittedText1);
+
+                if (cleanInputValue.length >= 3) {
+                    const splittedText2 = cleanInputValue.substring(2, 4);
+                    splitArray.push(splittedText2);
+                };
+                actualInput.value = splitArray.join(":");
+            };
+        });
+    };
+
+    //creacion de eventos para formatear el campo reservado-libre
+
+    const reservedInputList = document.getElementsByName('Reserved');
+
+    for (let i=0; i<reservedInputList.length; i++) {
+        const actualInput = reservedInputList[i];
+        actualInput.addEventListener('input', function (reservedFormat) {
+            let inputValue = reservedFormat.target.value;
+            actualInput.value = inputValue.toUpperCase();
+            checkConsecutivo ();
+        });
+    };
+
+
+
+    //creacion de eventos para formatear el campo virtual-preencial
+
+    const virtualInputList = document.getElementsByName('Virtual');
+
+    for (let i=0; i<virtualInputList.length; i++) {
+        const actualInput = virtualInputList[i];
+        actualInput.addEventListener('input', function (virtualFormat) {
+            let inputValue = virtualFormat.target.value;
+            actualInput.value = inputValue.toUpperCase();
+            checkConsecutivo ();
+        });
+    };
+
+
+
+    checkConsecutivo ();
 
 };
 
@@ -294,13 +392,17 @@ function checkNewName () {
         const rawFieldRadicado = rowList['Radicado'].value;
         const fieldRadicado = rawFieldRadicado.replace(/-/g, '');
 
+        const rawFieldDate = rowList['Date'].value;
+        const fieldDate = rawFieldDate.replace(/\//g, '');
+
+        const rawFieldTime = rowList['Time'].value;
+        const fieldTime = rawFieldTime.replace(/:/g, '');
+
         const fieldOrgano = rowList['Organo'].value;
         const fieldConsecutivo = rowList['Consecutivo'].value;
-        const fieldDate = rowList['Date'].value;
-        const fieldTime = rowList['Time'].value;
         const fieldExtension = rowList['Extension'].value.toLowerCase();
-        const fieldReserved = rowList['Reserved'].value.toUpperCase();
-        const fieldVirtual = rowList['Virtual'].value.toUpperCase();
+        const fieldReserved = rowList['Reserved'].value;
+        const fieldVirtual = rowList['Virtual'].value;
         const fieldCategoria = rowList['Category'].value;
 
         //asignar valor a NewName
@@ -387,17 +489,17 @@ function download() {
 function setCategoryBackgroundColor(categoryElement) {
 
     if (categoryElement.value === "Catalogable" || categoryElement.value === "Historico") {
-        categoryElement.style.backgroundColor = "green";
+        categoryElement.style.backgroundColor = "#388e3c";
         categoryElement.style.color = "white";
-        categoryElement.style.border = "4px solid green";
+        categoryElement.style.border = "4px solid #388e3c";
     } else if (categoryElement.value === "Seleccionar...") {
         categoryElement.style.backgroundColor = "white";
         categoryElement.style.color = "black";
         categoryElement.style.border = "4px solid white";
     } else {
-        categoryElement.style.backgroundColor = "orange";
+        categoryElement.style.backgroundColor = "#ffaf46";
         categoryElement.style.color = "black";
-        categoryElement.style.border = "4px solid orange";
+        categoryElement.style.border = "4px solid #ffaf46";
     }
 }
 
@@ -406,8 +508,8 @@ function setCategoryBackgroundColor(categoryElement) {
 function setNameLengthBackgroundColor(categoryElement) {
 
     if (categoryElement.value === "72") {
-        categoryElement.style.backgroundColor = "green";
-        categoryElement.style.border = "4px solid green";
+        categoryElement.style.backgroundColor = "#388e3c";
+        categoryElement.style.border = "4px solid #388e3c";
         categoryElement.style.borderRadius = "4px";
     } else {
         categoryElement.style.backgroundColor = "rgba(0, 0, 0, 0)";
@@ -416,10 +518,10 @@ function setNameLengthBackgroundColor(categoryElement) {
     }
 }
 
-
+/*
 
 //cargar datos de ejemplo
 
 var sampleData = '"FullName";"Name";"Extension";"Length";"Radicado";"Date";"Time";"Organo";"Reserved";"Virtual";"Consecutivo";"NewName";"NameLength";"Category";"FinalPath"\n"C:\\Users\\Andres\\Downloads\\Test Nuevo\\50201318ñ9,_S_cnt_1_r720P.mp4";"videoDeEjemplo1_r720P.mp4";".mp4";"47624437";;;;;;;;;;;\n"C:\\Users\\Andres\\Downloads\\Test Nuevo\\502013393_S_cnt_1_r720P.mp4";"videoDeEjemplo2_r720P.mp4";".mp4";"52896649";;;;;;;;;;;\n"C:\\Users\\Andres\\Downloads\\Test Nuevo\\502015143_S_cnt_1_r720P.mp4";"videoDeEjemplo3_r720P.mp4";".mp4";"49121589";;;;;;;;;;;';
 
-dataToArray(sampleData);
+dataToArray(sampleData); */
