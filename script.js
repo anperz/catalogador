@@ -240,7 +240,7 @@ function dataToArray(text) {
                     };
                 };
                 actualInput.value = splitArray.join("-");
-                checkConsecutivo ();
+                //checkConsecutivo ();
             } else {
                 actualInput.value = "";
             };
@@ -273,7 +273,7 @@ function dataToArray(text) {
                     };
                 };
                 actualInput.value = splitArray.join("/");
-                checkConsecutivo ();
+                //checkConsecutivo ();
             } else {
                 actualInput.value = "";
             };
@@ -301,7 +301,7 @@ function dataToArray(text) {
                     splitArray.push(splittedText2);
                 };
                 actualInput.value = splitArray.join(":");
-                checkConsecutivo ();
+                //checkConsecutivo ();
             } else {
                 actualInput.value = "";
             };
@@ -321,7 +321,7 @@ function dataToArray(text) {
 
             if (cleanInputValue.length <= 12) {
                 actualInput.value = cleanInputValue;
-                checkConsecutivo ();
+                //checkConsecutivo ();
             } else {
                 actualInput.value = "";
             };
@@ -338,7 +338,7 @@ function dataToArray(text) {
         actualInput.addEventListener('input', function (reservedFormat) {
             let inputValue = reservedFormat.target.value;
             actualInput.value = inputValue.toUpperCase();
-            checkConsecutivo ();
+            //checkConsecutivo ();
         });
     };
 
@@ -353,14 +353,10 @@ function dataToArray(text) {
         actualInput.addEventListener('input', function (virtualFormat) {
             let inputValue = virtualFormat.target.value;
             actualInput.value = inputValue.toUpperCase();
-            checkConsecutivo ();
+            //checkConsecutivo ();
         });
     };
-
-
-
     checkConsecutivo ();
-
 };
 
 
