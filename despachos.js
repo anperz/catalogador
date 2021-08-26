@@ -1442,6 +1442,7 @@ var despachosObject = {
     '110014003056': 'Juzgado 056 Civil Municipal de Bogota', 
     '110014003057': 'Juzgado 057 Civil Municipal de Bogota', 
     '110014003068': 'Juzgado 068 Civil Municipal de Bogota', 
+    '110014003069': 'Juzgado 069 Civil Municipal de Bogota', 
     '110014009001': 'Juzgado 001 Penal Municipal con Funcion de Conocimiento de Bogota', 
     '110014009002': 'Juzgado 002 Penal Municipal con Funcion de Conocimiento de Bogota', 
     '110014009003': 'Juzgado 003 Penal Municipal con Funcion de Conocimiento de Bogota', 
