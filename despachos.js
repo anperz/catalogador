@@ -1158,6 +1158,8 @@ var despachosObject = {
     '110013105039': 'Juzgado 039 Laboral del Circuito de Bogota', 
     '110013105040': 'Juzgado 040 Laboral del Circuito de Bogota', 
     '110013105041': 'Juzgado 041 Laboral del Circuito de Bogota', 
+    '110013105401': 'Juzgado 401 Laboral del Circuito de Bogota', 
+    '110013105402': 'Juzgado 402 Laboral del Circuito de Bogota', 
     '110013107001': 'Juzgado 001 Penal de Circuito Especializado de Bogota', 
     '110013107002': 'Juzgado 002 Penal de Circuito Especializado de Bogota', 
     '110013107003': 'Juzgado 003 Penal de Circuito Especializado de Bogota', 
