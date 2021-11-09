@@ -429,7 +429,7 @@ function checkNewName () {
 
         //asignar valor a FinalPath
 
-        if (fieldCategoria == "Catalogable" || fieldCategoria == "Historico") {
+        if (fieldCategoria == "OneDrive" || fieldCategoria == "Historico") {
             rowList['FinalPath'].value = '..\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['NewName'].value;
         } else {
         rowList['FinalPath'].value = '..\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['Name'].value;
@@ -502,7 +502,7 @@ function download() {
 // funcion para cambiar el color de  fondo de la categoria
 function setCategoryBackgroundColor(categoryElement) {
 
-    if (categoryElement.value === "Catalogable" || categoryElement.value === "Historico") {
+    if (categoryElement.value === "OneDrive" || categoryElement.value === "Historico") {
         categoryElement.style.backgroundColor = "#388e3c";
         categoryElement.style.color = "white";
         categoryElement.style.border = "4px solid #388e3c";
