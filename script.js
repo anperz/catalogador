@@ -5,8 +5,6 @@ function deleteLocalStorage() {
     console.log('Reseteado localStorage');
 }; */
 
-
-
 function setLocalStorage() {
     //console.log('hay datos en localStorage: ' + localStorage.tableData);
     const savedCsv = localStorage.tableData;
@@ -18,6 +16,9 @@ const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFile");
 
 myForm.addEventListener("submit", function (e) {
+
+    document.getElementById('message-container').innerHTML = '<p>Cargando archivo de datos...</p>';
+
     e.preventDefault();
     const input = csvFile.files[0];
     const reader = new FileReader();
@@ -25,12 +26,15 @@ myForm.addEventListener("submit", function (e) {
     reader.onload = function (e) {
         const text = e.target.result;
         dataToArray(text);
+        document.getElementById('message-container').innerHTML = '<p>Carga completa</p>';
     };
     reader.readAsText(input);
+
 });
 
 
 function dataToArray(text) {
+
     //console.log (text);
 
     const records = [];
@@ -82,7 +86,7 @@ function dataToArray(text) {
         /*
         for( var j in records[0] ) {
             html += '<th class="table-header">' + j +'</th>';
-        };     */
+        };*/
 
         html += '<th class="table-header">Video</th>';
         html += '<th class="table-header" name="Name">Nombre Inicial</th>';
@@ -357,6 +361,8 @@ function dataToArray(text) {
         });
     };
     checkConsecutivo ();
+
+
 };
 
 

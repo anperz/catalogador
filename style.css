@@ -86,6 +86,13 @@ header img {
     background-color: white;
 }
 
+#message-container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
 /*BOTONES*/
 
 #myForm #submit-button, input #file-upload-button  {
