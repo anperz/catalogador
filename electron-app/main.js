@@ -4,6 +4,7 @@ const path = require('path'); // importar libreria path
 // funcion para crear una nueva ventana
 const createWindow = () => {
     const win = new BrowserWindow({
+        show:false,
         height: 500, 
         width: 800, 
         webPreferences: {
@@ -11,7 +12,11 @@ const createWindow = () => {
         }
     })
 
-    win.loadFile("index.html")
+    win.loadFile("index.html");
+    win.maximize();
+    win.show();
+     // Open the DevTools.
+    win.webContents.openDevTools();
 };
 
 
