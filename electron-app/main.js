@@ -16,7 +16,7 @@ const createWindow = () => {
     win.maximize();
     win.show();
      // Open the DevTools.
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
 };
 
 
