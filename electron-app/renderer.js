@@ -39,7 +39,7 @@ function dataToArray(text) {
 
     const records = [];
 
-    function record (FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath) {
+    function record (FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Sala, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath) {
         this.FullName = FullName; // 0
         this.Name = Name; // 1
         this.Extension = Extension; // 2
@@ -48,13 +48,14 @@ function dataToArray(text) {
         this.Date = Date; // 5
         this.Time = Time; // 6
         this.Organo = Organo; // 7
-        this.Reserved = Reserved; // 8
-        this.Virtual = Virtual; // 9
-        this.Consecutivo = Consecutivo; // 10
-        this.NewName = NewName; // 11
-        this.NameLength = NameLength; // 12
-        this.Category = Category; // 13
-        this.FinalPath = FinalPath; // 14
+        this.Sala = Sala; // 8
+        this.Reserved = Reserved; // 9
+        this.Virtual = Virtual; // 10
+        this.Consecutivo = Consecutivo; // 11
+        this.NewName = NewName; // 12
+        this.NameLength = NameLength; // 13
+        this.Category = Category; // 14
+        this.FinalPath = FinalPath; // 15
     };
 
     //eliminar encabezado de typo del csv y comillas dobles
@@ -70,7 +71,7 @@ function dataToArray(text) {
         if (row[i] !== "") { //verifica si la fila no esta vacia, si no crear celdas y agregarlas a recods
 
             const cell = row[i].split(';');
-            const newRecord = new record(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5], cell[6], cell[7], cell[8], cell[9], cell[10], cell[11], cell[12], cell[13], cell[14]);
+            const newRecord = new record(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5], cell[6], cell[7], cell[8], cell[9], cell[10], cell[11], cell[12], cell[13], cell[14], cell[15]);
             records.push(newRecord);
         };
 
@@ -96,6 +97,7 @@ function dataToArray(text) {
         html += '<th class="table-header">Fecha</th>';
         html += '<th class="table-header">Hora</th>';
         html += '<th class="table-header">Organo</th>';
+        html += '<th class="table-header">Sala</th>';
         html += '<th class="table-header">R / L</th>';
         html += '<th class="table-header">V / P</th>';
         html += '<th class="table-header">Cons</th>';
@@ -135,6 +137,9 @@ function dataToArray(text) {
                         break;
 
                     case "Organo": html += '<td><input class="row'+i+'" name="Organo" type="text" maxlength="12" placeholder="Organo(12 digitos)" value="' + records[i][j]+ '"></td>';
+                        break;
+
+                    case "Sala": html += '<td><input class="row'+i+'" name="Sala" type="text" maxlength="10" placeholder="Sala(10 digitos)" value="' + records[i][j]+ '"></td>';
                         break;
 
                     case "Reserved": html += '<td><input class="row'+i+'" name="Reserved" type="text" maxlength="1" placeholder="R-L" value="' + records[i][j]+ '"></td>';
@@ -419,6 +424,7 @@ function checkNewName () {
         const fieldTime = rawFieldTime.replace(/:/g, '');
 
         const fieldOrgano = rowList['Organo'].value;
+        const fieldSala = rowSala['Sala'].value;
         const fieldConsecutivo = rowList['Consecutivo'].value;
         const fieldExtension = rowList['Extension'].value.toLowerCase();
         const fieldReserved = rowList['Reserved'].value;
@@ -427,7 +433,7 @@ function checkNewName () {
 
         //asignar valor a NewName
 
-        rowList['NewName'].value = fieldRadicado +"_"+ fieldReserved + fieldOrgano + "0000000000" +"_"+ fieldConsecutivo +"_"+ fieldDate +"_"+ fieldTime +"00"+ "_" + fieldVirtual + fieldExtension;
+        rowList['NewName'].value = fieldRadicado +"_"+ fieldReserved + fieldOrgano + fieldSala +"_"+ fieldConsecutivo +"_"+ fieldDate +"_"+ fieldTime +"00"+ "_" + fieldVirtual + fieldExtension;
 
         //asignar valor a NameLength
         rowList['NameLength'].value = String(rowList['NewName'].value).length;
