@@ -115,7 +115,7 @@ function dataToArray(text) {
 // FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
                 // casos para generar cada elemento HTML
                 switch (j) {
-                    case "FullName": html += '<td><button class="play-button row'+i+'" value="' + records[i][j] + '">▶</button></td>';
+                    case "FullName": html += `<td><button class="play-button row${i}" value="${records[i][j]}">▶</button></td>`;
                         break;
 
                     case "Name": html += '<td><textarea class="row'+i+'" name="Name" type="text" readonly="readonly">'+ records[i][j] + '</textarea></td>';
@@ -410,7 +410,7 @@ function checkNewName () {
         const rowList = document.getElementsByClassName(selectedClass);
         //console.log(rowList);
 
-// FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
+// FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Sala, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
 
         // filtrar separadores de valores
 
@@ -424,7 +424,7 @@ function checkNewName () {
         const fieldTime = rawFieldTime.replace(/:/g, '');
 
         const fieldOrgano = rowList['Organo'].value;
-        const fieldSala = rowSala['Sala'].value;
+        const fieldSala = rowList['Sala'].value;
         const fieldConsecutivo = rowList['Consecutivo'].value;
         const fieldExtension = rowList['Extension'].value.toLowerCase();
         const fieldReserved = rowList['Reserved'].value;
@@ -461,7 +461,7 @@ function checkNewName () {
 function saveDataOnLocalStorage() {
 
     //se colocan los headers del csv
-    var csv = '"FullName";"Name";"Extension";"Length";"Radicado";"Date";"Time";"Organo";"Reserved";"Virtual";"Consecutivo";"NewName";"NameLength";"Category";"FinalPath"\n';
+    var csv = '"FullName";"Name";"Extension";"Length";"Radicado";"Date";"Time";"Organo";"Sala";"Reserved";"Virtual";"Consecutivo";"NewName";"NameLength";"Category";"FinalPath"\n';
 
     const arrayNewName = document.getElementsByName('NewName');
 

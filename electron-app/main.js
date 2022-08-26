@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron'); //importar libreria de electron
 const path = require('path'); // importar libreria path
 
+
 // funcion para crear una nueva ventana
 const createWindow = () => {
     const win = new BrowserWindow({
