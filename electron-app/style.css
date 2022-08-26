@@ -177,10 +177,11 @@ tr input:-ms-input-placeholder {
     color: rgb(98, 98, 98);
 }
 
+/* 
 tr td:hover {
     border-bottom: 2px solid rgb(216, 116, 255);
 }
-
+*/
 
 
 /* CAMPOS DE LA TABLA*/
