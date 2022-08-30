@@ -1,5 +1,26 @@
-const { app, BrowserWindow } = require('electron'); //importar libreria de electron
-const path = require('path'); // importar libreria path
+const { app, BrowserWindow } = require('electron'); 
+const path = require('path'); 
+const { exec } = require('child_process');
+
+// crear directorio powershell
+const selectedDirectory = "C:\\Users\\Andres\\Downloads\\Test-Nuevo";
+
+function createDirectoryCsv(receivedDirectory) {
+
+    exec(`
+
+    Get-ChildItem -Path ${receivedDirectory} -Exclude "\\directory.csv"  -Recurse . | 
+    Sort-Object fullname | Select-Object FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Sala, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath | 
+    Export-Csv -Force -Delimiter ';' -Encoding UTF8 -Path "${receivedDirectory}\\directory.csv"
+    
+    `, {'shell':'powershell.exe'}, (error, stdout, stderr)=> {
+      console.log(stderr);
+      console.log(stdout);
+      console.log(error);
+    });
+};
+
+// createDirectoryCsv(selectedDirectory);
 
 
 // funcion para crear una nueva ventana

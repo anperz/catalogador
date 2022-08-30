@@ -5,6 +5,15 @@ function deleteLocalStorage() {
     console.log('Reseteado localStorage');
 }; */
 
+
+/* 
+<button onclick="openFile('${records[i][j]}')">Archivo</button>
+
+const { shell } = require('electron')
+shell.showItemInFolder(videoUrlValue); // Show the given file in a file manager. If possible, select the file.
+
+*/
+
 function setLocalStorage() {
     //console.log('hay datos en localStorage: ' + localStorage.tableData);
     const savedCsv = localStorage.tableData;
