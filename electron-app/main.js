@@ -1,9 +1,10 @@
-const { app, BrowserWindow } = require('electron'); 
+const { app, BrowserWindow, dialog, ipcMain} = require('electron'); 
 const path = require('path'); 
 const { exec } = require('child_process');
 
+
 // crear directorio powershell
-const selectedDirectory = "C:\\Users\\Andres\\Downloads\\Test-Nuevo";
+// const selectedDirectory = "C:\\Users\\Andres\\Downloads\\Test-Nuevo";
 
 function createDirectoryCsv(receivedDirectory) {
 
@@ -18,9 +19,9 @@ function createDirectoryCsv(receivedDirectory) {
       console.log(stdout);
       console.log(error);
     });
-};
+}; 
 
-// createDirectoryCsv(selectedDirectory);
+
 
 
 // funcion para crear una nueva ventana
@@ -30,13 +31,27 @@ const createWindow = () => {
         height: 500, 
         width: 800, 
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js'), 
+            nodeIntegration: true,
+            contextIsolation: false
         }
     })
 
     win.loadFile("index.html");
     win.maximize();
     win.show();
+
+    /*
+    win.webContents.on('did-finish-load', () => {
+
+        dialog.showOpenDialog(win, {
+            buttonLabel: 'Seleccionar Carpetita', 
+            properties: ['openDirectory']
+        }).then( result =>  {
+            console.log(result)
+            createDirectoryCsv(result.filePaths[0])
+        })
+    }) */
      // Open the DevTools.
     //win.webContents.openDevTools();
 };
@@ -53,3 +68,23 @@ app.whenReady().then(()=> {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
   });
+
+
+// ipc listener
+ipcMain.on('channel1', (e, args) => {
+
+
+
+    if (args == 'abrete-sesamo') {
+
+        // abrir dialog para carpeta
+        dialog.showOpenDialog( {
+            buttonLabel: 'Seleccionar Carpetita', 
+            properties: ['openDirectory']
+        }).then( result =>  {
+            console.log(result)
+            createDirectoryCsv(result.filePaths[0])
+        })
+    }
+    
+})

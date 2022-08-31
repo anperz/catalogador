@@ -14,6 +14,12 @@ shell.showItemInFolder(videoUrlValue); // Show the given file in a file manager.
 
 */
 
+const {ipcRenderer} = require('electron');
+
+document.getElementById('open-directory-button').addEventListener('click', e => {
+    ipcRenderer.send('channel1', 'abrete-sesamo')
+})
+
 function setLocalStorage() {
     //console.log('hay datos en localStorage: ' + localStorage.tableData);
     const savedCsv = localStorage.tableData;
