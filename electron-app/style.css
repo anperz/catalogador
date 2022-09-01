@@ -15,7 +15,7 @@ body {
 
 body, input, textarea, button, select {
     font-family: 'Muli', sans-serif;
-    background-color: rgb(28, 28, 30);
+    background-color: black;
     font-size: 1.5rem;
     color: #d8d8d8;
     border: none;
@@ -49,11 +49,11 @@ header img {
     width: 100%;
     display: flex;
     justify-content: space-around;
-    background-color: rgb(28, 28, 30);
+    background-color: black;
 }
 
 #video-container {
-    background-color: rgb(28, 28, 30);
+    background-color: black;
 }
 
 /* #video-container {} */
@@ -114,7 +114,7 @@ header img {
 
 .play-button:hover, .download-button:hover {
     color: #03b4a3;
-    background-color: #1d1d1d;
+    background-color: black;
     border: 1px solid #03b4a3;
     padding: 8px 15px;
     border-radius: 4px;
@@ -161,14 +161,14 @@ tr:hover {
 
 tr input {
     height: 30px;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: black;
 
 }
 
 tr textarea {
     height: 80px;
     width: 300px;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: black;
     white-space: pre-wrap;
     overflow: auto;
 }
