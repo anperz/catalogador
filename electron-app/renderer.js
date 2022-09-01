@@ -1,4 +1,6 @@
 
+const {ipcRenderer} = require('electron');
+
 /*
 function deleteLocalStorage() {
     localStorage.tableData = "";
@@ -14,11 +16,19 @@ shell.showItemInFolder(videoUrlValue); // Show the given file in a file manager.
 
 */
 
-const {ipcRenderer} = require('electron');
+
+// crear el canal para  enviar datos al main
 
 document.getElementById('open-directory-button').addEventListener('click', e => {
     ipcRenderer.send('channel1', 'abrete-sesamo')
 })
+
+// crear el canal para escuchar respuesta del main
+ipcRenderer.on('channel1-response', (e, args) => {
+    //console.log(args);
+    dataToArray(args);
+})
+
 
 function setLocalStorage() {
     //console.log('hay datos en localStorage: ' + localStorage.tableData);
