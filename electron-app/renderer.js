@@ -30,6 +30,8 @@ ipcRenderer.on('channel1-response', (e, args) => {
 })
 
 
+
+
 function setLocalStorage() {
     //console.log('hay datos en localStorage: ' + localStorage.tableData);
     const savedCsv = localStorage.tableData;
