@@ -17,19 +17,30 @@ shell.showItemInFolder(videoUrlValue); // Show the given file in a file manager.
 */
 
 
-// crear el canal para  enviar datos al main
-
+// crear el canal para  enviar "abrir carpeta" al main
 document.getElementById('open-directory-button').addEventListener('click', e => {
     ipcRenderer.send('channel1', 'abrete-sesamo')
 })
 
-// crear el canal para escuchar respuesta del main
-ipcRenderer.on('channel1-response', (e, args) => {
-    //console.log(args);
-    dataToArray(args);
+// crear el canal para enviar datos de catalogacion al main
+document.getElementById('catalogar-button').addEventListener('click', e => {
+    const csv = localStorage.tableData;
+    const dir = document.getElementById('directory-line').innerHTML
+    ipcRenderer.send('channel2', ['work-baby', dir, csv]);
 })
 
 
+// crear el canal para escuchar respuesta del main al seleccionar carpeta
+ipcRenderer.on('channel1-response', (e, args) => {
+    //console.log(args);
+    document.getElementById('directory-line').innerHTML = args[0];
+    dataToArray(args[1]);
+})
+
+// crear el canal para escuchar respuesta del main al catalogar
+ipcRenderer.on('channel2-response', (e, args) => {
+    console.log(args);
+})
 
 
 function setLocalStorage() {
@@ -353,14 +364,18 @@ function dataToArray(text) {
         const actualInput = organoInputList[i];
         actualInput.addEventListener('input', function (organoFormat) {
             let inputValue = organoFormat.target.value;
+
+            //solo dejar numeros
             let cleanInputValue = inputValue.replace(/[\W\s\._\-]+/g, '');
 
+            //aceptar solo 12 valores
             if (cleanInputValue.length <= 12) {
                 actualInput.value = cleanInputValue;
                 //checkConsecutivo ();
             } else {
                 actualInput.value = "";
             };
+
         });
     };
 
@@ -392,6 +407,8 @@ function dataToArray(text) {
             //checkConsecutivo ();
         });
     };
+
+    // creacion de evento para validar 
     checkConsecutivo ();
 
 
@@ -469,9 +486,9 @@ function checkNewName () {
         //asignar valor a FinalPath
 
         if (fieldCategoria == "OneDrive" || fieldCategoria == "Historico") {
-            rowList['FinalPath'].value = '..\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['NewName'].value;
+            rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['NewName'].value;
         } else {
-        rowList['FinalPath'].value = '..\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['Name'].value;
+        rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + rowList['Name'].value;
         }
 
         setCategoryBackgroundColor(rowList['Category']);
@@ -583,6 +600,8 @@ function KeyPress(e) {
 }
 
 document.onkeydown = KeyPress;
+
+
 
 /*
 
