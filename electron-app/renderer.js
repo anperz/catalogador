@@ -377,18 +377,15 @@ function dataToArray(text) {
             };
 
             //consultar el listado de despachos y colorear correcto o incorrecto
-            console.log([actualInput]);
-            console.log(this);
-            console.log(inputValue);
-            console.log(despachosObject[inputValue]);
-
+            if (inputValue == 0) {
+                this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
+            }else {
                 if (typeof despachosObject[inputValue] !== "undefined") {
-                    this.parentElement.style.borderBottomColor = '#03b4a3';
-                    console.log('green')
+                    this.parentElement.style.borderBottomColor = 'green';
                 } else {
-                    this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
-                    console.log('black')
+                    this.parentElement.style.borderBottomColor = 'red';
                 }
+            }
         });
     };
 

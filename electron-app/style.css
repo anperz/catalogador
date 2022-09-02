@@ -150,7 +150,7 @@ tr {
 }
 
 td {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.123);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.123);
     padding: 0 5px;
 }
 
