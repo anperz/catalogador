@@ -371,11 +371,24 @@ function dataToArray(text) {
             //aceptar solo 12 valores
             if (cleanInputValue.length <= 12) {
                 actualInput.value = cleanInputValue;
-                //checkConsecutivo ();
+
             } else {
                 actualInput.value = "";
             };
 
+            //consultar el listado de despachos y colorear correcto o incorrecto
+            console.log([actualInput]);
+            console.log(this);
+            console.log(inputValue);
+            console.log(despachosObject[inputValue]);
+
+                if (typeof despachosObject[inputValue] !== "undefined") {
+                    this.parentElement.style.borderBottomColor = '#03b4a3';
+                    console.log('green')
+                } else {
+                    this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
+                    console.log('black')
+                }
         });
     };
 
