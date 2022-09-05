@@ -102,21 +102,41 @@ function createHoraValidation(){
             let cleanInputValue = inputValue.replace(/[\W\s\._\-]+/g, '');
 
             let splitArray = [];
+            let checkhour = false;
+            let checkmin = false;
+            let checkseg = false;
 
             if (cleanInputValue.length <= 8) {
                 const splittedText1 = cleanInputValue.substring(0, 2);
                 splitArray.push(splittedText1);
+                    //validar hora
+                    splittedText1 < 24 ? checkhour=true : checkhour=false;
 
                 if (cleanInputValue.length >= 3) {
                     const splittedText2 = cleanInputValue.substring(2, 4);
                     splitArray.push(splittedText2);
+                    //validar minutos
+                    splittedText2 < 60 ? checkmin=true : checkmin=false;
 
                     if (cleanInputValue.length >= 5) {
                         const splittedText3 = cleanInputValue.substring(4, 6);
                         splitArray.push(splittedText3);
+                        //validar segundos
+                        splittedText3 < 60 ? checkseg=true : checkseg=false;
                     };
                 };
                 actualInput.value = splitArray.join(":");
+
+                // validar hora y colorear correcto o incorrecto
+                if (inputValue == 0) {
+                    this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
+                }else {
+                    if (checkhour && checkmin && checkseg == true) {
+                        this.parentElement.style.borderBottomColor = 'green';
+                    } else {
+                        this.parentElement.style.borderBottomColor = 'red';
+                    }
+                }
                 //checkConsecutivo ();
             } else {
                 actualInput.value = "";
