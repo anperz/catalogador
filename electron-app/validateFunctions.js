@@ -27,23 +27,23 @@ function createRadicadoValidation() {
             let splitArray = [];
 
             if (cleanInputValue.length <= 27) {
-                const splittedText1 = cleanInputValue.substring(0, 5);
+                let splittedText1 = cleanInputValue.substring(0, 5);
                 splitArray.push(splittedText1);
 
                 if (cleanInputValue.length >= 6) {
-                    const splittedText2 = cleanInputValue.substring(5, 12);
+                    let splittedText2 = cleanInputValue.substring(5, 12);
                     splitArray.push(splittedText2);
 
                     if (cleanInputValue.length >= 13) {
-                        const splittedText3 = cleanInputValue.substring(12, 16);
+                        let splittedText3 = cleanInputValue.substring(12, 16);
                         splitArray.push(splittedText3);
 
                         if (cleanInputValue.length >= 17) {
-                            const splittedText4 = cleanInputValue.substring(16, 21);
+                            let splittedText4 = cleanInputValue.substring(16, 21);
                             splitArray.push(splittedText4);
 
                             if (cleanInputValue.length >= 22) {
-                                const splittedText4 = cleanInputValue.substring(21, 23);
+                                let splittedText4 = cleanInputValue.substring(21, 23);
                                 splitArray.push(splittedText4);
                             };
                         };
@@ -61,6 +61,13 @@ function createRadicadoValidation() {
 function createFechaValidation() {
     const dateInputList = document.getElementsByName('Date');
 
+    //variables necesarias
+    const date = new Date();
+    const currentYear = date.getFullYear();
+    const currentMonth = date.getMonth();
+    const currentday = date.getDay();
+    const currentDate = [currentYear,currentMonth,currentday];
+
     for (let i=0; i<dateInputList.length; i++) {
         const actualInput = dateInputList[i];
         actualInput.addEventListener('input', function (dateFormat) {
@@ -72,67 +79,75 @@ function createFechaValidation() {
             let checkyear = false;
             let checkmonth = false;
             let checkday = false;
-            const date = new Date();
-            const currentYear = date.getFullYear();
 
             if (cleanInputValue.length <= 10) {
                 let splittedText1 = cleanInputValue.substring(0, 4);
                         
-                    //validar año y corregir si es mas alto
-                        console.log(currentYear);
+                    //validar año
                         if (splittedText1 <= currentYear) {
                             checkyear = true;
                         } else {
                             checkyear = false;
-                            //corregir al año actual
+                            //corregir al año actual si es mas alto
                             splittedText1 = currentYear;
                         }
                         splitArray.push(splittedText1);
 
 
-                if (cleanInputValue.length >= 5) {
-                    let splittedText2 = cleanInputValue.substring(4, 6);
-                            
-                        //validar mes
-                            if (splittedText2 < 13) {
-                                checkmonth = true;
-                            } else {
-                                checkmonth = false;
-                                //corregir al ultimo mes
-                                splittedText2 = 12;
-                            }
-                            splitArray.push(splittedText2);
-
-                    if (cleanInputValue.length >= 7) {
-                        let splittedText3 = cleanInputValue.substring(6, 8);
+                    if (cleanInputValue.length >= 5) {
+                        let splittedText2 = cleanInputValue.substring(4, 6);
                                 
-                            //validar dia
-                                if (splittedText3 < 32) {
-                                    checkday = true;
+                            //validar mes
+                                if (splittedText2 < 13) {
+                                    checkmonth = true;
                                 } else {
-                                    checkday = false;
-                                    //corregir al ultimo dia del mes
-                                    const lastMonthDay = {
-                                        '01': '31',
-                                        '02': '29',
-                                        '03': '31',
-                                        '04': '30',
-                                        '05': '31',
-                                        '06': '30',
-                                        '07': '31',
-                                        '08': '31',
-                                        '09': '30',
-                                        '10': '31',
-                                        '11': '30',
-                                        '12': '31'
-                                    }
-                                    splittedText3 = lastMonthDay[splittedText2];
-                                    checkday = true;
+                                    checkmonth = false;
+                                    //corregir al ultimo mes si es mas alto
+                                    splittedText2 = 12;
                                 }
-                                splitArray.push(splittedText3);
-                    };
+                                splitArray.push(splittedText2);
+
+                        if (cleanInputValue.length >= 7) {
+                            let splittedText3 = cleanInputValue.substring(6, 8);
+                                    
+                                //validar dia
+                                    if (splittedText3 < 32) {
+                                        checkday = true;
+                                    } else {
+                                        checkday = false;
+                                        //corregir al ultimo dia del mes si es mas alto
+                                        const lastMonthDay = {
+                                            '01': '31',
+                                            '02': '29',
+                                            '03': '31',
+                                            '04': '30',
+                                            '05': '31',
+                                            '06': '30',
+                                            '07': '31',
+                                            '08': '31',
+                                            '09': '30',
+                                            '10': '31',
+                                            '11': '30',
+                                            '12': '31'
+                                        }
+                                        splittedText3 = lastMonthDay[splittedText2];
+                                        checkday = true;
+                                    }
+                                    splitArray.push(splittedText3);
+/*
+                                    // si la fecha es futura corregir a la fecha actual
+                                    if (splitArray.join("") > currentDate.join("")) {
+                                        //asignar al input los valores de la fecha de hoy
+                                        actualInput.value = currentDate.join("/");
+                                    } else {
+                                        //asignar al input los valores correctamente escritos
+                                        actualInput.value = splitArray.join("/");
+                                    } 
+                                    */
+                        };
                 };
                 actualInput.value = splitArray.join("/");
+
 
                 // validar hora y colorear correcto o incorrecto
                 if (inputValue == 0) {
@@ -168,22 +183,44 @@ function createHoraValidation(){
             let checkseg = false;
 
             if (cleanInputValue.length <= 8) {
-                const splittedText1 = cleanInputValue.substring(0, 2);
-                splitArray.push(splittedText1);
-                    //validar hora
-                    splittedText1 < 24 ? checkhour=true : checkhour=false;
+                let splittedText1 = cleanInputValue.substring(0, 2);
+
+                        //validar la hora
+                        if (splittedText1 < 24) {
+                            checkhour = true;
+                        } else {
+                            checkhour = false;
+                            //corregir al la ultima hora del dia
+                            splittedText1 = 23;
+                        }
+                        splitArray.push(splittedText1);
 
                 if (cleanInputValue.length >= 3) {
-                    const splittedText2 = cleanInputValue.substring(2, 4);
-                    splitArray.push(splittedText2);
-                    //validar minutos
-                    splittedText2 < 60 ? checkmin=true : checkmin=false;
+                    let splittedText2 = cleanInputValue.substring(2, 4);
+
+                            //validar la minutos
+                            if (splittedText2 < 60) {
+                                checkmin = true;
+                            } else {
+                                checkmin = false;
+                                //corregir al ultimo minuto
+                                splittedText2 = 59;
+                            }
+                            splitArray.push(splittedText2);
 
                     if (cleanInputValue.length >= 5) {
-                        const splittedText3 = cleanInputValue.substring(4, 6);
-                        splitArray.push(splittedText3);
-                        //validar segundos
-                        splittedText3 < 60 ? checkseg=true : checkseg=false;
+                        let splittedText3 = cleanInputValue.substring(4, 6);
+
+                                //validar la minutos
+                                if (splittedText3 < 60) {
+                                    checkseg = true;
+                                } else {
+                                    checkseg = false;
+                                    //corregir al ultimo segundo
+                                    splittedText3 = 59;
+                                    checkseg = true;
+                                }
+                                splitArray.push(splittedText3);
                     };
                 };
                 actualInput.value = splitArray.join(":");
