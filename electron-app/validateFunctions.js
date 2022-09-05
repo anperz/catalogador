@@ -103,13 +103,18 @@ function createHoraValidation(){
 
             let splitArray = [];
 
-            if (cleanInputValue.length <= 5) {
+            if (cleanInputValue.length <= 8) {
                 const splittedText1 = cleanInputValue.substring(0, 2);
                 splitArray.push(splittedText1);
 
                 if (cleanInputValue.length >= 3) {
                     const splittedText2 = cleanInputValue.substring(2, 4);
                     splitArray.push(splittedText2);
+
+                    if (cleanInputValue.length >= 5) {
+                        const splittedText3 = cleanInputValue.substring(4, 6);
+                        splitArray.push(splittedText3);
+                    };
                 };
                 actualInput.value = splitArray.join(":");
                 //checkConsecutivo ();

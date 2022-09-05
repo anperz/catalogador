@@ -170,7 +170,7 @@ function dataToArray(text) {
                     case "Date": html += '<td><input class="row'+i+'" name="Date" type="text" maxlength="10" placeholder="AAAA/MM/DD" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Time": html += '<td><input class="row'+i+'" name="Time" type="text" maxlength="5" placeholder="HH:MM" value="' + records[i][j]+ '"></td>';
+                    case "Time": html += '<td><input class="row'+i+'" name="Time" type="text" maxlength="8" placeholder="HH:MM:SS" value="' + records[i][j]+ '"></td>';
                         break;
 
                     case "Organo": html += '<td><input class="row'+i+'" name="Organo" type="text" maxlength="12" placeholder="Organo(12 digitos)" value="' + records[i][j]+ '"></td>';
