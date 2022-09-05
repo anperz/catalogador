@@ -16,6 +16,17 @@ shell.showItemInFolder(videoUrlValue); // Show the given file in a file manager.
 */
 
 
+//variables necesarias para validacion de fechas
+const date = new Date();
+const currentYear = date.getFullYear();
+const currentMonth = date.getMonth();
+const currentday = date.getDay();
+const currentDate = [currentYear,currentMonth,currentday];
+
+
+
+// Canales IPC de comunicacion con el main
+
 // crear el canal para  enviar "abrir carpeta" al main
 document.getElementById('open-directory-button').addEventListener('click', e => {
     ipcRenderer.send('channel1', 'abrete-sesamo')
@@ -42,12 +53,16 @@ ipcRenderer.on('channel2-response', (e, args) => {
 })
 
 
+/// Funcion para guardar en local storage
+
 function setLocalStorage() {
     //console.log('hay datos en localStorage: ' + localStorage.tableData);
     const savedCsv = localStorage.tableData;
     dataToArray(savedCsv);
 };
 
+
+/// Eventos para el formulario de carga manual
 
 const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFile");
@@ -69,6 +84,7 @@ myForm.addEventListener("submit", function (e) {
 
 });
 
+/// Funcion principal de importacion de CSV
 
 function dataToArray(text) {
 
@@ -382,7 +398,7 @@ function saveDataOnLocalStorage() {
       } ;
 } ;
 
-//funcion que se activa para descargar el CSV
+//funcion que se activa para descargar el CSV manualmente
 function download() {
     var csv = localStorage.tableData;
     

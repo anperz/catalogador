@@ -25,6 +25,9 @@ function createRadicadoValidation() {
             let cleanInputValue = inputValue.replace(/[\W\s\._\-]+/g, '');
 
             let splitArray = [];
+            let checkOrganoRadicado = false;
+            let checkAnoRadicado = false;
+            let checkLargoRadicado = false;
 
             if (cleanInputValue.length <= 27) {
                 let splittedText1 = cleanInputValue.substring(0, 5);
@@ -34,9 +37,24 @@ function createRadicadoValidation() {
                     let splittedText2 = cleanInputValue.substring(5, 12);
                     splitArray.push(splittedText2);
 
+                    // validar "organo" del radicado
+                        let radicadoOrgano = splittedText1 + splittedText2;
+                        if (typeof despachosObject[radicadoOrgano] !== "undefined") {
+                            checkOrganoRadicado = true;
+                        } else {
+                            console.log('organo incorrecto');
+                        }
+
                     if (cleanInputValue.length >= 13) {
                         let splittedText3 = cleanInputValue.substring(12, 16);
                         splitArray.push(splittedText3);
+
+                                // validar "año" del radicado
+                                if (splittedText3 <= currentYear) {
+                                    checkAnoRadicado = true;
+                                } else {
+                                    console.log('año incorrecto');
+                                }
 
                         if (cleanInputValue.length >= 17) {
                             let splittedText4 = cleanInputValue.substring(16, 21);
@@ -45,11 +63,31 @@ function createRadicadoValidation() {
                             if (cleanInputValue.length >= 22) {
                                 let splittedText4 = cleanInputValue.substring(21, 23);
                                 splitArray.push(splittedText4);
+
+                                        //validar largo
+                                        if (cleanInputValue.length = 23) {
+                                            checkLargoRadicado = true;
+                                        } else {
+                                            console.log('largo incorrecto' + cleanInputValue);
+                                        }
                             };
                         };
                     };
                 };
+                console.log('largo incorrecto' + cleanInputValue.length);
                 actualInput.value = splitArray.join("-");
+
+                // validar hora y colorear correcto o incorrecto
+
+                if (inputValue == 0) {
+                    this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
+                }else {
+                    if (checkOrganoRadicado && checkAnoRadicado && checkLargoRadicado == true) {
+                        this.parentElement.style.borderBottomColor = 'green';
+                    } else {
+                        this.parentElement.style.borderBottomColor = 'red';
+                    }
+                }
                 //checkConsecutivo ();
             } else {
                 actualInput.value = "";
@@ -61,12 +99,6 @@ function createRadicadoValidation() {
 function createFechaValidation() {
     const dateInputList = document.getElementsByName('Date');
 
-    //variables necesarias
-    const date = new Date();
-    const currentYear = date.getFullYear();
-    const currentMonth = date.getMonth();
-    const currentday = date.getDay();
-    const currentDate = [currentYear,currentMonth,currentday];
 
     for (let i=0; i<dateInputList.length; i++) {
         const actualInput = dateInputList[i];
