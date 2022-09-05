@@ -67,22 +67,83 @@ function createFechaValidation() {
             let inputValue = dateFormat.target.value;
             let cleanInputValue = inputValue.replace(/[\W\s\._\-]+/g, '');
 
+            //variables necesarias
             let splitArray = [];
+            let checkyear = false;
+            let checkmonth = false;
+            let checkday = false;
+            const date = new Date();
+            const currentYear = date.getFullYear();
 
             if (cleanInputValue.length <= 10) {
-                const splittedText1 = cleanInputValue.substring(0, 4);
-                splitArray.push(splittedText1);
+                let splittedText1 = cleanInputValue.substring(0, 4);
+                        
+                    //validar año y corregir si es mas alto
+                        console.log(currentYear);
+                        if (splittedText1 <= currentYear) {
+                            checkyear = true;
+                        } else {
+                            checkyear = false;
+                            //corregir al año actual
+                            splittedText1 = currentYear;
+                        }
+                        splitArray.push(splittedText1);
+
 
                 if (cleanInputValue.length >= 5) {
-                    const splittedText2 = cleanInputValue.substring(4, 6);
-                    splitArray.push(splittedText2);
+                    let splittedText2 = cleanInputValue.substring(4, 6);
+                            
+                        //validar mes
+                            if (splittedText2 < 13) {
+                                checkmonth = true;
+                            } else {
+                                checkmonth = false;
+                                //corregir al ultimo mes
+                                splittedText2 = 12;
+                            }
+                            splitArray.push(splittedText2);
 
                     if (cleanInputValue.length >= 7) {
-                        const splittedText3 = cleanInputValue.substring(6, 8);
-                        splitArray.push(splittedText3);
+                        let splittedText3 = cleanInputValue.substring(6, 8);
+                                
+                            //validar dia
+                                if (splittedText3 < 32) {
+                                    checkday = true;
+                                } else {
+                                    checkday = false;
+                                    //corregir al ultimo dia del mes
+                                    const lastMonthDay = {
+                                        '01': '31',
+                                        '02': '29',
+                                        '03': '31',
+                                        '04': '30',
+                                        '05': '31',
+                                        '06': '30',
+                                        '07': '31',
+                                        '08': '31',
+                                        '09': '30',
+                                        '10': '31',
+                                        '11': '30',
+                                        '12': '31'
+                                    }
+                                    splittedText3 = lastMonthDay[splittedText2];
+                                    checkday = true;
+                                }
+                                splitArray.push(splittedText3);
                     };
                 };
                 actualInput.value = splitArray.join("/");
+
+                // validar hora y colorear correcto o incorrecto
+                if (inputValue == 0) {
+                    this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
+                }else {
+                    if (checkyear && checkmonth && checkday == true) {
+                        this.parentElement.style.borderBottomColor = 'green';
+                    } else {
+                        this.parentElement.style.borderBottomColor = 'red';
+                    }
+                }
                 //checkConsecutivo ();
             } else {
                 actualInput.value = "";
