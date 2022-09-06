@@ -264,6 +264,9 @@ function dataToArray(text) {
 
     //creacion de eventos para formatear el organo
     createOrganoValidation();
+    
+    //creacion de eventos para formatear la sala
+    createSalaValidation()
 
     //creacion de eventos para formatear el campo reservado-libre
     createReservadoLibreValidation();
@@ -339,7 +342,7 @@ function checkNewName () {
 
         //asignar valor a NewName
 
-        rowList['NewName'].value = fieldRadicado +"_"+ fieldReserved + fieldOrgano + fieldSala +"_"+ fieldConsecutivo +"_"+ fieldDate +"_"+ fieldTime +"00"+ "_" + fieldVirtual + fieldExtension;
+        rowList['NewName'].value = fieldRadicado +"_"+ fieldReserved + fieldOrgano + fieldSala +"_"+ fieldConsecutivo +"_"+ fieldDate +"_"+ fieldTime + "_" + fieldVirtual + fieldExtension;
 
         //asignar valor a NameLength
         rowList['NameLength'].value = String(rowList['NewName'].value).length;

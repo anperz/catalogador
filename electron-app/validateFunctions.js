@@ -1,5 +1,13 @@
-//Funciones de Validacion
+// funciones comunes
 
+// recive el elemento y va al siguiente input
+function goToNextInput (element) {
+    const parentElement = element.parentElement.nextElementSibling;
+    const nextElement = parentElement.children[0];
+    nextElement.focus();
+};
+
+//Funciones de Validacion
 function createPlayButtonAction() {
     const butonsList = document.getElementsByClassName('play-button');
 
@@ -77,12 +85,13 @@ function createRadicadoValidation() {
                 actualInput.value = splitArray.join("-");
 
                 // validar hora y colorear correcto o incorrecto
-
                 if (inputValue == 0) {
                     this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
                 }else {
                     if (checkOrganoRadicado && checkAnoRadicado && checkLargoRadicado == true) {
                         this.parentElement.style.borderBottomColor = 'green';
+                        goToNextInput(this);
+
                     } else {
                         this.parentElement.style.borderBottomColor = 'red';
                     }
@@ -110,6 +119,7 @@ function createFechaValidation() {
             let checkyear = false;
             let checkmonth = false;
             let checkday = false;
+            let checkLargoRadicado = false;
 
             if (cleanInputValue.length <= 10) {
                 let splittedText1 = cleanInputValue.substring(0, 4);
@@ -165,6 +175,13 @@ function createFechaValidation() {
                                         checkday = true;
                                     }
                                     splitArray.push(splittedText3);
+
+                                    //validar largo
+                                    if (cleanInputValue.length == 8) {
+                                        checkLargoRadicado = true;
+                                    } else {
+                                        console.log('largo incorrecto');
+                                    }
 /*
                                     // si la fecha es futura corregir a la fecha actual
                                     if (splitArray.join("") > currentDate.join("")) {
@@ -179,13 +196,14 @@ function createFechaValidation() {
                 };
                 actualInput.value = splitArray.join("/");
 
-
                 // validar hora y colorear correcto o incorrecto
                 if (inputValue == 0) {
                     this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
                 }else {
-                    if (checkyear && checkmonth && checkday == true) {
+                    if (checkyear && checkmonth && checkday && checkLargoRadicado == true) {
                         this.parentElement.style.borderBottomColor = 'green';
+                        goToNextInput(this);
+
                     } else {
                         this.parentElement.style.borderBottomColor = 'red';
                     }
@@ -212,6 +230,7 @@ function createHoraValidation(){
             let checkhour = false;
             let checkmin = false;
             let checkseg = false;
+            let checkLargoRadicado = false;
 
             if (cleanInputValue.length <= 8) {
                 let splittedText1 = cleanInputValue.substring(0, 2);
@@ -252,6 +271,13 @@ function createHoraValidation(){
                                     checkseg = true;
                                 }
                                 splitArray.push(splittedText3);
+
+                                //validar largo
+                                if (cleanInputValue.length == 6) {
+                                    checkLargoRadicado = true;
+                                } else {
+                                    console.log('largo incorrecto');
+                                }
                     };
                 };
                 actualInput.value = splitArray.join(":");
@@ -260,8 +286,10 @@ function createHoraValidation(){
                 if (inputValue == 0) {
                     this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
                 }else {
-                    if (checkhour && checkmin && checkseg == true) {
+                    if (checkhour && checkmin && checkseg && checkLargoRadicado == true) {
                         this.parentElement.style.borderBottomColor = 'green';
+                        goToNextInput(this);
+
                     } else {
                         this.parentElement.style.borderBottomColor = 'red';
                     }
@@ -300,6 +328,42 @@ function createOrganoValidation() {
             }else {
                 if (typeof despachosObject[inputValue] !== "undefined") {
                     this.parentElement.style.borderBottomColor = 'green';
+                    goToNextInput(this);
+                } else {
+                    this.parentElement.style.borderBottomColor = 'red';
+                }
+            }
+        });
+    };
+};
+
+function createSalaValidation() {
+    
+    const organoInputList = document.getElementsByName('Sala');
+
+    for (let i=0; i<organoInputList.length; i++) {
+        const actualInput = organoInputList[i];
+        actualInput.addEventListener('input', function (salaFormat) {
+            let inputValue = salaFormat.target.value;
+
+            //solo dejar numeros
+            let cleanInputValue = inputValue.replace(/[^a-zA-Z0-9]/g, '');
+
+            //aceptar solo 12 valores
+            if (cleanInputValue.length <= 12) {
+                actualInput.value = cleanInputValue;
+
+            } else {
+                actualInput.value = "";
+            };
+
+            //validar el largo y colorear correcto o incorrecto
+            if (inputValue == 0) {
+                this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
+            }else {
+                if (cleanInputValue.length == 10) {
+                    this.parentElement.style.borderBottomColor = 'green';
+                    goToNextInput(this);
                 } else {
                     this.parentElement.style.borderBottomColor = 'red';
                 }
