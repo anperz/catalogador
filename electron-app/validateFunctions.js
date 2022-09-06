@@ -65,16 +65,15 @@ function createRadicadoValidation() {
                                 splitArray.push(splittedText4);
 
                                         //validar largo
-                                        if (cleanInputValue.length = 23) {
+                                        if (cleanInputValue.length == 23) {
                                             checkLargoRadicado = true;
                                         } else {
-                                            console.log('largo incorrecto' + cleanInputValue);
+                                            console.log('largo incorrecto');
                                         }
                             };
                         };
                     };
                 };
-                console.log('largo incorrecto' + cleanInputValue.length);
                 actualInput.value = splitArray.join("-");
 
                 // validar hora y colorear correcto o incorrecto
