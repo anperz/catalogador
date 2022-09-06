@@ -328,7 +328,20 @@ function createOrganoValidation() {
             }else {
                 if (typeof despachosObject[inputValue] !== "undefined") {
                     this.parentElement.style.borderBottomColor = 'green';
+
+                    // colocar el valor de Reservado o Libre 
+                            const parentElement = this.parentElement.nextElementSibling;
+                            const salaNextElement = parentElement.nextElementSibling;
+                            const reservadoInput = salaNextElement.children[0];
+                            const entidadEspecialidad = cleanInputValue.substring(5, 9);
+
+                            if (typeof juzgadosLibresObject[entidadEspecialidad] !== "undefined") {
+                                reservadoInput.value = 'L';
+                            } else {
+                                reservadoInput.value = 'R';
+                            }
                     goToNextInput(this);
+                    
                 } else {
                     this.parentElement.style.borderBottomColor = 'red';
                 }

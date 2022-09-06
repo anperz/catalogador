@@ -1,3 +1,11 @@
+var juzgadosLibresObject = {
+    '3333': 'Administrativos',
+    '3105': 'Laboral Circuito',
+    '4003': 'Civil Municipal', 
+    '3103': 'Civil Circuito',
+    '3109': 'Penal del circuito'
+};
+
 var despachosObject = {
     '050002204001': 'Despacho 001 de la Sala Penal del Tribunal Superior de Antioquia', 
     '050002204002': 'Despacho 002 de la Sala Penal del Tribunal Superior de Antioquia', 
