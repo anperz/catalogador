@@ -59,7 +59,7 @@ ipcRenderer.on('channel2-response', (e, args) => {
 })
 
 
-/// Funcion para guardar en local storage
+/// Funcion para cargar manualmente el localstorage en el aplicativo
 
 function setLocalStorage() {
     //console.log('hay datos en localStorage: ' + localStorage.tableData);
@@ -207,13 +207,13 @@ function dataToArray(text) {
                     case "Virtual": html += '<td><input class="row'+i+'" name="Virtual" type="text" maxlength="1" placeholder="V-P" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Consecutivo": html += '<td><input class="row'+i+'" name="Consecutivo" type="number" maxlength="2" value="01"></td>';
+                    case "Consecutivo": html += '<td><input class="row'+i+'" name="Consecutivo" type="number" maxlength="2" readonly="readonly" value="01"></td>';
                         break;
 
-                    case "NewName": html += '<td><textarea class="row'+i+'" name="NewName" type="text"></textarea></td>';
+                    case "NewName": html += '<td><textarea class="row'+i+'" name="NewName" readonly="readonly" type="text"></textarea></td>';
                         break;
 
-                    case "NameLength": html += '<td><input class="row'+i+'" name="NameLength" type="number"></td>';
+                    case "NameLength": html += '<td><input class="row'+i+'" name="NameLength" readonly="readonly" type="number"></td>';
                         break;
 
                     case "Category": switch (records[i][j]) {
@@ -238,7 +238,7 @@ function dataToArray(text) {
                     } ;
                         break;
 
-                    case "FinalPath": html += '<td><textarea class="row'+i+'" name="FinalPath" type="text"></textarea></td>';
+                    case "FinalPath": html += '<td><textarea class="row'+i+'" name="FinalPath" readonly="readonly" type="text"></textarea></td>';
                         break;
 
                     default: html += "<td>" + records[i][j]+ "</td>";

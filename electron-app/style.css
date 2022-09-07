@@ -64,12 +64,13 @@ header img {
 }
 
 .form-container {
-    margin: 20px 10px;
+    margin: 10px 10px;
 }
 
 .buttons-container {
     display: flex;
     justify-content: space-around;
+    margin: 10px;
 }
 
 .form-container #myForm {
@@ -90,7 +91,21 @@ header img {
     display: flex;
     align-content: center;
     justify-content: center;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
+}
+
+#automatic-load-container {
+    background-color: #494949;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#directory-container {
+    display: flex;
+}
+
+#directory-line {
+    padding: 0 15px;
 }
 
 /*BOTONES*/
@@ -107,15 +122,15 @@ header img {
 .play-button, .download-button {
     color: white;
     background-color: #03b4a3;
-    border: 1px solid #03b4a3;
+    border: 2px solid #03b4a3;
     padding: 10px 15px;
     border-radius: 4px;
 }
 
 .play-button:hover, .download-button:hover {
     color: #03b4a3;
-    background-color: black;
-    border: 1px solid #03b4a3;
+    background-color: transparent;
+    border: 2px solid #03b4a3;
     padding: 8px 15px;
     border-radius: 4px;
 }
