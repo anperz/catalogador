@@ -154,7 +154,10 @@ ipcMain.on('channel2', (e, args) => {
 })
 
 // ipc listener para abrir video catalogacion de carpetas
-/*
+
 ipcMain.on('channel3', (e, args) => {
-    const dir = args
-}) */
+    const dir = args;
+    
+    //abrir elemento en carpeta
+    shell.openPath(dir);
+}) 

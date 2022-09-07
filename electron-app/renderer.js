@@ -8,13 +8,9 @@ function deleteLocalStorage() {
 
 
 /* 
-<button onclick="openFile('${records[i][j]}')">Archivo</button>
-
-const { shell } = require('electron')
-shell.showItemInFolder(videoUrlValue); // Show the given file in a file manager. If possible, select the file.
+<button value='${records[i][j]}'>Archivo</button>
 
 */
-
 
 //variables necesarias para validacion de fechas
 const date = new Date();
@@ -26,6 +22,8 @@ const currentDate = [currentYear,currentMonth,currentday];
 
 
 // Canales IPC de comunicacion con el main
+
+// ENVIAR
 
 // crear el canal para  enviar "abrir carpeta" al main
 document.getElementById('open-directory-button').addEventListener('click', e => {
@@ -45,6 +43,8 @@ document.getElementById('catalogar-button').addEventListener('click', e => {
     
 });
 
+
+// RECIBIR
 
 // crear el canal para escuchar respuesta del main al seleccionar carpeta
 ipcRenderer.on('channel1-response', (e, args) => {
@@ -174,7 +174,10 @@ function dataToArray(text) {
 // FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
                 // casos para generar cada elemento HTML
                 switch (j) {
-                    case "FullName": html += `<td><button class="play-button row${i}" value="${records[i][j]}">▶</button></td>`;
+                    case "FullName": html += `<td>
+                    <button class="play-button row${i}" value="${records[i][j]}">▶</button>
+                    <button class="folder-button row${i}"value="${records[i][j]}">📁</button>
+                    </td>`;
                         break;
 
                     case "Name": html += '<td><textarea class="row'+i+'" name="Name" type="text" readonly="readonly">'+ records[i][j] + '</textarea></td>';
@@ -258,6 +261,9 @@ function dataToArray(text) {
 
     //creacion de eventos para reproducir video al hacer click en el boton
     createPlayButtonAction();
+
+    //creacion de eventos para abrir carpeta al hacer click en el boton
+    createFolderButtonAction();
 
     //creacion de eventos para formatear el radicado
     createRadicadoValidation();

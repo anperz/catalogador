@@ -22,6 +22,20 @@ function createPlayButtonAction() {
     };
 };
 
+function createFolderButtonAction() {
+    const folderList = document.getElementsByClassName('folder-button');
+
+    for (let i=0; i<folderList.length; i++) {
+
+        folderList[i].addEventListener('click', function playVideo (folder_click) {
+            const folderUrlValue = folder_click.target.value;
+            
+            ipcRenderer.send('channel3', folderUrlValue);
+        });
+
+    };
+};
+
 function createRadicadoValidation() {
     
     const radicadoInputList = document.getElementsByName('Radicado');
