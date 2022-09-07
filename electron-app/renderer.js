@@ -275,7 +275,7 @@ function dataToArray(text) {
     createVirtualPresencialValidation();
 
     // creacion de evento para validar 
-    //checkConsecutivo ();
+    checkConsecutivo ();
 
 };
 
@@ -323,6 +323,9 @@ function checkNewName () {
 
         // filtrar separadores de valores
 
+        const rawFieldName = rowList['Name'].value;
+        const fieldName = rawFieldName.split(' | ');
+
         const rawFieldRadicado = rowList['Radicado'].value;
         const fieldRadicado = rawFieldRadicado.replace(/-/g, '');
 
@@ -353,7 +356,7 @@ function checkNewName () {
         if (fieldCategoria == "OneDrive" || fieldCategoria == "Historico") {
             rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['NewName'].value;
         } else {
-        rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + rowList['Name'].value;
+        rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + fieldName[0];
         }
 
         setCategoryBackgroundColor(rowList['Category']);
