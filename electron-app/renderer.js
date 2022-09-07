@@ -36,8 +36,14 @@ document.getElementById('open-directory-button').addEventListener('click', e => 
 document.getElementById('catalogar-button').addEventListener('click', e => {
     const csv = localStorage.tableData;
     const dir = document.getElementById('directory-line').innerHTML
-    ipcRenderer.send('channel2', ['work-baby', dir, csv]);
-})
+    
+    if (dir !== "") {
+        ipcRenderer.send('channel2', ['work-baby', dir, csv]);
+    } else {
+        alert('Seleccione primero la carpeta a catalogar usando el boton "Carga automatica de carpeta"')
+    }
+    
+});
 
 
 // crear el canal para escuchar respuesta del main al seleccionar carpeta
