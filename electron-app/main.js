@@ -9,10 +9,12 @@ const fs = require('fs');
 
 // crear directorio powershell
 function createDirectoryCsv(receivedDirectory) {
+    
+    //console.log('recibido en el main' + receivedDirectory);
 
     execSync(`
 
-        Get-ChildItem -Path ${receivedDirectory} -Exclude "\\directory.csv"  -Recurse . | 
+        Get-ChildItem -Path "${receivedDirectory}" -Exclude "\\directory.csv"  -Recurse . | 
         Sort-Object fullname | Select-Object FullName, @{
             name='Name'
             expr={$_.Name, $_.LastWriteTime -join ' | Modified: '}
@@ -124,6 +126,8 @@ ipcMain.on('channel1', (e, args) => {
 
             // asignar directorio a la variable global
             directory = createdFilePath;
+
+            console.log('Carpeta seleccionada: ' + createdFilePath);
                         
             //crear el archivo csv
             createDirectoryCsv(createdFilePath);
