@@ -175,7 +175,7 @@ function dataToArray(text) {
                 // casos para generar cada elemento HTML
                 switch (j) {
                     case "FullName": html += `<td>
-                    <button class="play-button row${i}" value="${records[i][j]}">▶</button>
+                    <button class="play-button ${i}" value="${records[i][j]}">▶</button>
                     <button class="folder-button" value="${records[i][j]}">📁</button>
                     </td>`;
                         break;
