@@ -481,8 +481,27 @@ function KeyPress(e) {
 
 document.onkeydown = KeyPress;
 
-// agregr
+// agregrar comandos de teclado
 
+document.onkeyup = function(e) {
+    
+    if (e.altKey && e.key == 'ArrowUp') {
+        focusedElement = document.activeElement;
+        const inputName = focusedElement.name;
+
+        if (inputName == "Radicado" || "Date" || "Time" || "Organo" || "Sala") {
+            let rownumber = focusedElement.className;
+            referenceRowNumber = rownumber -2 ;
+            if (referenceRowNumber >= 0) {
+                arrayInputs = document.getElementsByName(inputName)
+                referenceInput = arrayInputs[referenceRowNumber].value;
+                focusedElement.value = referenceInput;
+                const event = new Event('input');
+                focusedElement.dispatchEvent(event);
+            }
+        }
+  };
+};
 
 /*
 
