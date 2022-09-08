@@ -180,68 +180,68 @@ function dataToArray(text) {
                     </td>`;
                         break;
 
-                    case "Name": html += '<td><textarea class="row'+i+'" name="Name" type="text" readonly="readonly">'+ records[i][j] + '</textarea></td>';
+                    case "Name": html += '<td><textarea class="'+i+'" name="Name" type="text" readonly="readonly">'+ records[i][j] + '</textarea></td>';
                         break;
 
-                    case "Extension": html += '<td><input class="row'+i+'" name="Extension" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
+                    case "Extension": html += '<td><input class="'+i+'" name="Extension" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Length": html += '<td><input class="row'+i+'" name="Length" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
+                    case "Length": html += '<td><input class="'+i+'" name="Length" type="text" readonly="readonly" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Radicado": html += '<td><input class="row'+i+'" name="Radicado" type="text" maxlength="27" placeholder="Radicado(23 digitos)" value="' + records[i][j]+ '"></td>';
+                    case "Radicado": html += '<td><input class="'+i+'" name="Radicado" type="text" maxlength="27" placeholder="Radicado(23 digitos)" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Date": html += '<td><input class="row'+i+'" name="Date" type="text" maxlength="10" placeholder="AAAA/MM/DD" value="' + records[i][j]+ '"></td>';
+                    case "Date": html += '<td><input class="'+i+'" name="Date" type="text" maxlength="10" placeholder="AAAA/MM/DD" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Time": html += '<td><input class="row'+i+'" name="Time" type="text" maxlength="8" placeholder="HH:MM:SS" value="' + records[i][j]+ '"></td>';
+                    case "Time": html += '<td><input class="'+i+'" name="Time" type="text" maxlength="8" placeholder="HH:MM:SS" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Organo": html += '<td><input class="row'+i+'" name="Organo" type="text" maxlength="12" placeholder="Organo(12 digitos)" value="' + records[i][j]+ '"></td>';
+                    case "Organo": html += '<td><input class="'+i+'" name="Organo" type="text" maxlength="12" placeholder="Organo(12 digitos)" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Sala": html += '<td><input class="row'+i+'" name="Sala" type="text" maxlength="10" placeholder="Sala(10 digitos)" value="' + records[i][j]+ '"></td>';
+                    case "Sala": html += '<td><input class="'+i+'" name="Sala" type="text" maxlength="10" placeholder="Sala(10 digitos)" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Reserved": html += '<td><input class="row'+i+'" name="Reserved" type="text" maxlength="1" placeholder="R-L" value="' + records[i][j]+ '"></td>';
+                    case "Reserved": html += '<td><input class="'+i+'" name="Reserved" type="text" maxlength="1" placeholder="R-L" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Virtual": html += '<td><input class="row'+i+'" name="Virtual" type="text" maxlength="1" placeholder="V-P" value="' + records[i][j]+ '"></td>';
+                    case "Virtual": html += '<td><input class="'+i+'" name="Virtual" type="text" maxlength="1" placeholder="V-P" value="' + records[i][j]+ '"></td>';
                         break;
 
-                    case "Consecutivo": html += '<td><input class="row'+i+'" name="Consecutivo" type="number" maxlength="2" readonly="readonly" value="01"></td>';
+                    case "Consecutivo": html += '<td><input class="'+i+'" name="Consecutivo" type="number" maxlength="2" readonly="readonly" value="01"></td>';
                         break;
 
-                    case "NewName": html += '<td><textarea class="row'+i+'" name="NewName" readonly="readonly" type="text"></textarea></td>';
+                    case "NewName": html += '<td><textarea class="'+i+'" name="NewName" readonly="readonly" type="text"></textarea></td>';
                         break;
 
-                    case "NameLength": html += '<td><input class="row'+i+'" name="NameLength" readonly="readonly" type="number"></td>';
+                    case "NameLength": html += '<td><input class="'+i+'" name="NameLength" readonly="readonly" type="number"></td>';
                         break;
 
                     case "Category": switch (records[i][j]) {
                         // verifica si hay un valor guardado para crear el elemento que debe aparecer como seleccionado en categoria
-                                case "OneDrive": html += '<td><select class="row'+i+'" name="Category" type="number"> <option selected>OneDrive</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                                case "OneDrive": html += '<td><select class="'+i+'" name="Category" type="number"> <option selected>OneDrive</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
                                     break;
 
-                                case "No Aplica": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>OneDrive</option> <option selected>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                                case "No Aplica": html += '<td><select class="'+i+'" name="Category" type="number"> <option>OneDrive</option> <option selected>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
                                     break;
 
-                                case "No Catalogable": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>OneDrive</option> <option>No Aplica</option> <option selected>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                                case "No Catalogable": html += '<td><select class="'+i+'" name="Category" type="number"> <option>OneDrive</option> <option>No Aplica</option> <option selected>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
                                     break;
 
-                                case "Duplicado": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>OneDrive</option> <option>No Aplica</option> <option>No Catalogable</option> <option selected>Duplicado</option> <option>Historico</option> </select> </td>';
+                                case "Duplicado": html += '<td><select class="'+i+'" name="Category" type="number"> <option>OneDrive</option> <option>No Aplica</option> <option>No Catalogable</option> <option selected>Duplicado</option> <option>Historico</option> </select> </td>';
                                     break;
 
-                                case "Historico": html += '<td><select class="row'+i+'" name="Category" type="number"> <option>OneDrive</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option selected>Historico</option> </select> </td>';
+                                case "Historico": html += '<td><select class="'+i+'" name="Category" type="number"> <option>OneDrive</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option selected>Historico</option> </select> </td>';
                                     break;
 
-                                default: html += '<td><select class="row'+i+'" name="Category" type="number"> <option selected>Seleccionar...</option> <option>OneDrive</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
+                                default: html += '<td><select class="'+i+'" name="Category" type="number"> <option selected>Seleccionar...</option> <option>OneDrive</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Historico</option> </select> </td>';
                                     break;
                     } ;
                         break;
 
-                    case "FinalPath": html += '<td><textarea class="row'+i+'" name="FinalPath" readonly="readonly" type="text"></textarea></td>';
+                    case "FinalPath": html += '<td><textarea class="'+i+'" name="FinalPath" readonly="readonly" type="text"></textarea></td>';
                         break;
 
                     default: html += "<td>" + records[i][j]+ "</td>";
@@ -481,6 +481,7 @@ function KeyPress(e) {
 
 document.onkeydown = KeyPress;
 
+// agregr
 
 
 /*
