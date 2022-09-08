@@ -176,7 +176,7 @@ function dataToArray(text) {
                 switch (j) {
                     case "FullName": html += `<td>
                     <button class="play-button row${i}" value="${records[i][j]}">▶</button>
-                    <button class="folder-button row${i}"value="${records[i][j]}">📁</button>
+                    <button class="folder-button" value="${records[i][j]}">📁</button>
                     </td>`;
                         break;
 
