@@ -141,7 +141,7 @@ header img {
 #container { /*contenedor de tablas*/
     white-space: nowrap;
     overflow-x: scroll;
-    height: 550px;
+    height: 580px;
     overflow-y: scroll;
 }
 /*
