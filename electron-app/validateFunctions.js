@@ -144,7 +144,7 @@ function createFechaValidation() {
                         } else {
                             checkyear = false;
                             //corregir al año actual si es mas alto
-                            splittedText1 = currentYear;
+                            //splittedText1 = currentYear;
                         }
                         splitArray.push(splittedText1);
 
@@ -158,7 +158,7 @@ function createFechaValidation() {
                                 } else {
                                     checkmonth = false;
                                     //corregir al ultimo mes si es mas alto
-                                    splittedText2 = 12;
+                                    //splittedText2 = 12;
                                 }
                                 splitArray.push(splittedText2);
 
@@ -171,6 +171,7 @@ function createFechaValidation() {
                                     } else {
                                         checkday = false;
                                         //corregir al ultimo dia del mes si es mas alto
+                                        /*
                                         const lastMonthDay = {
                                             '01': '31',
                                             '02': '29',
@@ -186,7 +187,7 @@ function createFechaValidation() {
                                             '12': '31'
                                         }
                                         splittedText3 = lastMonthDay[splittedText2];
-                                        checkday = true;
+                                        checkday = true; */
                                     }
                                     splitArray.push(splittedText3);
 
@@ -255,7 +256,7 @@ function createHoraValidation(){
                         } else {
                             checkhour = false;
                             //corregir al la ultima hora del dia
-                            splittedText1 = 23;
+                            //splittedText1 = 23;
                         }
                         splitArray.push(splittedText1);
 
@@ -268,7 +269,7 @@ function createHoraValidation(){
                             } else {
                                 checkmin = false;
                                 //corregir al ultimo minuto
-                                splittedText2 = 59;
+                                //splittedText2 = 59;
                             }
                             splitArray.push(splittedText2);
 
@@ -281,8 +282,8 @@ function createHoraValidation(){
                                 } else {
                                     checkseg = false;
                                     //corregir al ultimo segundo
-                                    splittedText3 = 59;
-                                    checkseg = true;
+                                    //splittedText3 = 59;
+                                    //checkseg = true;
                                 }
                                 splitArray.push(splittedText3);
 
