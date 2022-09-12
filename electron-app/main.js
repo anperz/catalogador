@@ -118,7 +118,7 @@ ipcMain.on('channel1', (e, args) => {
 
         // abrir dialog para carpeta
         dialog.showOpenDialog( {
-            buttonLabel: 'Seleccionar Carpetita', 
+            buttonLabel: 'Seleccionar Carpeta', 
             properties: ['openDirectory']
         }).then( result =>  {
             //console.log(result)
