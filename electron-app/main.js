@@ -14,7 +14,7 @@ function createDirectoryCsv(receivedDirectory) {
 
     execSync(`
 
-        Get-ChildItem -Path "${receivedDirectory}" -Exclude "\\directory.csv"  -Recurse . | 
+        Get-ChildItem -Path "${receivedDirectory}" -Exclude "\\directory.csv"  -Attributes !Directory -Recurse . | 
         Sort-Object fullname | Select-Object FullName, @{
             name='Name'
             expr={$_.Name, $_.LastWriteTime -join ' | Modified: '}
@@ -22,9 +22,9 @@ function createDirectoryCsv(receivedDirectory) {
         Export-Csv -Force -Delimiter ';' -Encoding UTF8 -Path "${receivedDirectory}\\directory.csv"
         
     `, {'shell':'powershell.exe'}, (error, stdout, stderr)=> {
-      console.log('holi1' + stderr);
-      console.log('holi2' + stdout);
-      console.log('holi3' + error);
+        console.log('out:' + stdout);
+        console.log('err:' + stderr);
+        console.log('error:' + error);
     });
 }; 
 
@@ -38,18 +38,28 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
 
         Import-Csv -Delimiter ';' -Path "${receivedDirectory}\\export.csv" | 
         ForEach-Object {
-            New-Item -ItemType File -Path "${receivedDirectory}$($_.FinalPath)" -Force
+            if ($_.FinalPath -ne "") {
+                New-Item -ItemType File -Path "${receivedDirectory}$($_.FinalPath)" -Force
+            }
         }
 
         Import-Csv -Delimiter ';' -Path "${receivedDirectory}\\export.csv" | 
         ForEach-Object { 
-            Move-Item -Path $_.FullName -Destination "${receivedDirectory}$($_.FinalPath)" -Force -Verbose
+            if ($_.FinalPath -ne "") {
+                Move-Item -Path $_.FullName -Destination "${receivedDirectory}$($_.FinalPath)" -Force -Verbose
+            }
         }
  
     `, {'shell':'powershell.exe'}, (error, stdout, stderr)=> {
-      console.log('holi1' + stderr);
-      console.log('holi2' + stdout);
-      console.log('holi3' + error);
+        console.log('out:' + stdout);
+        console.log('err:' + stderr);
+        console.log('error:' + error);
+
+        //crear archivo log
+        let copyLog = `stdout: ${stdout} \n stderr: ${stderr} \n error: ${error}`;
+        fs.writeFileSync(receivedDirectory + "\\log.txt", copyLog);
+        console.log('archivo log creado');
+
     });
 }; 
 

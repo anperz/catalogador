@@ -372,9 +372,16 @@ function checkNewName () {
         //asignar valor a FinalPath
 
         if (fieldCategoria == "Teams" || fieldCategoria == "Historico" || fieldCategoria == "Lifesize" || fieldCategoria == "Actas Solas") {
+            
             rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['NewName'].value;
+
         } else {
-        rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + fieldName[0];
+            
+            if (fieldCategoria == "Seleccionar...") {
+                rowList['FinalPath'].value = '';
+            } else {
+                rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + fieldName[0];
+                }
         }
 
         setCategoryBackgroundColor(rowList['Category']);
