@@ -1,6 +1,6 @@
 {
-  "name": "electron-app",
-  "version": "1.0.0",
+  "name": "App-Catalogacion",
+  "version": "1.0.1",
   "description": "Catalogador de audiencias",
   "main": "main.js",
   "scripts": {
