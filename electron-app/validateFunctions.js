@@ -15,7 +15,7 @@ function createPlayButtonAction() {
 
         butonsList[i].addEventListener('click', function playVideo (button_click) {
             const videoUrlValue = button_click.target.value;
-            const videoTagHtml = '<video autoplay width="900" height="405" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
+            const videoTagHtml = '<video autoplay height="100%" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
             document.getElementById('video-container').innerHTML = videoTagHtml;
         });
 

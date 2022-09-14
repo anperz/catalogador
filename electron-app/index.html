@@ -16,42 +16,49 @@
     Chromium <span id="chrome-version"></span>,
     and Electron <span id="electron-version"></span>. 
   -->
+    <div id="main-div">
+      <section class="section-container">
+        
+        <div id="video-container">
+          <video autoplay height="100%" controls>
+            <source src="" type="video/mp4">
+          Your browser does not support the video tag.
+          </video>
+        </div>
+        
+        <div id="controls-container">
+          <header>
+            <img src="logo.png" alt="logo rama">
+            <div><h1>Catalogador de Audiencias - Rama Judicial</h1></div>
+          </header>
+          
+          <div class="form-container">
+            <div><h3>Carga Manual</h3></div>
+            <form id="myForm">
+              <input type="file" id="csvFile" accept=".csv" />
+              <input type="submit" value="Cargar CSV" id="submit-button" />
+            </form>
+            <div id="message-container"><p>Carga manual - Seleccione el archivo</p></div>
+            <div class="buttons-container">
+              <button class="download-button" onclick="download()">Descargar CSV</button>
+              <button class="download-button" onclick="setLocalStorage()">Cargar Cache</button>
+            </div>
+          </div>
+          
+          <div id="automatic-load-container">
+            <div><h3>Carga Automatica</h3></div>
+            <div class="buttons-container">
+              <button class="download-button" id="open-directory-button">Carga Automatica de Carpeta</button>
+              <button class="download-button" id="catalogar-button">Catalogar Archivos</button>
+            </div>
+            <div id="directory-container"><p>Catalogando en:</p><p id="directory-line"></p></div>
+          </div>
+        </div>
+      </section>
 
-    <section class="section-container">
-      <div id="video-container">
-        <video autoplay width="900" height="405" controls>
-          <source src="" type="video/mp4">
-        Your browser does not support the video tag.
-        </video>
-      </div>
-      <div id="controls-container">
-        <header>
-          <img src="logo.png" alt="logo rama">
-          <div><h1>Catalogador de Audiencias - Rama Judicial</h1></div>
-        </header>
-        <div class="form-container">
-          <div><h3>Carga Manual</h3></div>
-          <form id="myForm">
-            <input type="file" id="csvFile" accept=".csv" />
-            <input type="submit" value="Cargar CSV" id="submit-button" />
-          </form>
-          <div id="message-container"><p>Carga manual - Seleccione el archivo</p></div>
-          <div class="buttons-container">
-            <button class="download-button" onclick="download()">Descargar CSV</button>
-            <button class="download-button" onclick="setLocalStorage()">Cargar Cache</button>
-          </div>
-        </div>
-        <div id="automatic-load-container">
-          <div><h3>Carga Automatica</h3></div>
-          <div class="buttons-container">
-            <button class="download-button" id="open-directory-button">Carga Automatica de Carpeta</button>
-            <button class="download-button" id="catalogar-button">Catalogar Archivos</button>
-          </div>
-          <div id="directory-container"><p>Catalogando en:</p><p id="directory-line"></p></div>
-        </div>
-      </div>
-    </section>
-    <div id="container"></div>
+      <section id="container"></section>
+    </div>
+    
     <script src="./despachos.js"></script>
     <script src="./validateFunctions.js"></script>
     <script src="./renderer.js"></script>

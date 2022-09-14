@@ -44,13 +44,24 @@ header img {
     margin-right: 20px;
 }
 
+#main-div {
+    height: 100vh;
+}
+
 /*PRIMERA SECCION*/
 .section-container {
+    height: 50vh;
     width: 100%;
     display: flex;
     justify-content: space-around;
     background-color: black;
 }
+
+video {
+    /* override other styles to make responsive */
+    width: auto !important;
+    height: 100% !important;
+  }
 
 #video-container {
     background-color: black;
@@ -88,10 +99,12 @@ header img {
 }
 
 #message-container {
+    display: none;
+    /*
     display: flex;
     align-content: center;
     justify-content: center;
-    padding-bottom: 10px;
+    padding-bottom: 10px; */
 }
 
 #automatic-load-container {
@@ -141,7 +154,7 @@ header img {
 #container { /*contenedor de tablas*/
     white-space: nowrap;
     overflow-x: scroll;
-    height: 580px;
+    height: 50vh /*580px*/ ;
     overflow-y: scroll;
 }
 /*
@@ -161,7 +174,7 @@ header img {
 }
 
 tr {
-    height: 50px;
+    height: 40px;
 }
 
 td {
@@ -181,7 +194,7 @@ tr input {
 }
 
 tr textarea {
-    height: 80px;
+    height: 60px;
     width: 300px;
     background-color: black;
     white-space: pre-wrap;
@@ -222,7 +235,7 @@ input[name=Organo] {
 }
 
 textarea[name=NewName] {
-    width: 215px;
+    width: 220px;
 }
 
 input[name=Extension] {

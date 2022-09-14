@@ -88,8 +88,8 @@ function sendCsvFile (receivedEvent, receivedDirectory) {
 const createWindow = () => {
     const win = new BrowserWindow({
         show:false,
-        height: 500, 
-        width: 800, 
+        height: 768, 
+        width: 1366, 
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'), 
             nodeIntegration: true,
@@ -99,7 +99,7 @@ const createWindow = () => {
 
     //win.removeMenu();
     win.loadFile("index.html");
-    win.maximize();
+    //win.maximize();
     win.show();
 
     // Open the DevTools.
