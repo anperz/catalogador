@@ -377,7 +377,7 @@ function checkNewName () {
 
         //asignar valor a FinalPath
 
-        if (fieldCategoria == "Teams" || fieldCategoria == "Historico" || fieldCategoria == "Lifesize" || fieldCategoria == "Actas Solas" || fieldCategoria == "Portal") {
+        if (fieldCategoria == "Teams" || fieldCategoria == "Historico" || fieldCategoria == "Lifesize") {
             
             rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['NewName'].value;
 
@@ -456,7 +456,7 @@ function download() {
 // funcion para cambiar el color de  fondo de la categoria
 function setCategoryBackgroundColor(categoryElement) {
 
-    if (categoryElement.value === "Teams" || categoryElement.value === "Historico" || categoryElement.value === "Lifesize" || categoryElement.value === "Actas Solas" || categoryElement.value === "Portal") {
+    if (categoryElement.value === "Teams" || categoryElement.value === "Historico" || categoryElement.value === "Lifesize") {
         categoryElement.style.backgroundColor = "#388e3c";
         categoryElement.style.color = "white";
         categoryElement.style.border = "4px solid #388e3c";
