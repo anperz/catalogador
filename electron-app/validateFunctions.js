@@ -102,7 +102,7 @@ function createRadicadoValidation() {
                 if (inputValue == 0) {
                     this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
                 }else {
-                    if (checkOrganoRadicado && checkAnoRadicado && checkLargoRadicado == true) {
+                    if (/* checkOrganoRadicado && */ checkAnoRadicado && checkLargoRadicado == true) {
                         this.parentElement.style.borderBottomColor = 'green';
                         goToNextInput(this);
 
