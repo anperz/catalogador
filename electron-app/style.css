@@ -261,7 +261,7 @@ input[name=Virtual] {
 }
 
 input[name=Consecutivo] {
-    width: 30px;
+    width: 40px;
 }
 
 select[name=Category] {
