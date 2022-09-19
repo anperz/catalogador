@@ -27,7 +27,7 @@ const currentDate = [currentYear,currentMonth,currentday];
 
 // crear el canal para  enviar "abrir carpeta" al main
 document.getElementById('open-directory-button').addEventListener('click', e => {
-    const importDateTime = document.getElementById("dateTimeBox").value;
+    const importDateTime = document.getElementById("dateTimeBox").checked;
     console.log(importDateTime);
     const openMessage = ['abrete-sesamo', importDateTime];
     ipcRenderer.send('channel1', openMessage);
