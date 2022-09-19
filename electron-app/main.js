@@ -8,30 +8,14 @@ const fs = require('fs');
 //FUNCIONES
 
 // crear directorio powershell
-function createDirectoryCsv(receivedDirectory) {
+function createDirectoryCsv(receivedDirectory, importDateTime) {
     
     //console.log('recibido en el main' + receivedDirectory);
-/*
-    execSync(`
 
-        Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude "\\directory.csv"  -Attributes !Directory -Recurse . | 
-        Sort-Object fullname | Select-Object FullName, @{
-            name='Name'
-            expr={$_.Name, $_.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss") -join ' | Modified: '}
-        }, Extension, Length, Radicado, Date, Time, Organo, Sala, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath | 
-        Export-Csv -Force -Delimiter ';' -Encoding UTF8 -LiteralPath "${receivedDirectory}\\directory.csv"
-        
-    `, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
-        console.log('out:' + stdout);
-        console.log('err:' + stderr);
-        console.log('error:' + error);
-    });
-*/
     let dateVal;
     let timeVal;
-    let importDate = false;
 
-    if (importDate == true) {
+    if (importDateTime == true) {
         dateVal = `@{
             name='Date'
             expr={$_.LastWriteTime.ToString("yyyy/MM/dd")}
@@ -159,7 +143,7 @@ app.on('window-all-closed', () => {
 // ipc listener abrir carpeta
 ipcMain.on('channel1', (e, args) => {
 
-    if (args == 'abrete-sesamo') {
+    if (args[0] == 'abrete-sesamo') {
 
         // abrir dialog para carpeta
         dialog.showOpenDialog( {
@@ -175,7 +159,10 @@ ipcMain.on('channel1', (e, args) => {
             console.log('Carpeta seleccionada: ' + createdFilePath);
                         
             //crear el archivo csv
-            createDirectoryCsv(createdFilePath);
+            let importDateTime = args[1];
+            createDirectoryCsv(createdFilePath, importDateTime);
+            
+            
             //enviar archivo al renderer
             sendCsvFile(e, createdFilePath);   
 
