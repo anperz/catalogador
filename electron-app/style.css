@@ -126,8 +126,10 @@ video {
     display: flex;
 }
 
-#directory-line {
+#directory-input {
     padding: 0 15px;
+    background-color: #494949;
+    width: 360px;
 }
 
 /*BOTONES*/

@@ -27,8 +27,10 @@ const currentDate = [currentYear,currentMonth,currentday];
 
 // crear el canal para  enviar "abrir carpeta" al main
 document.getElementById('open-directory-button').addEventListener('click', e => {
+    
+    // validar si se debe importar la fecha y la hora
     const importDateTime = document.getElementById("dateTimeBox").checked;
-    console.log(importDateTime);
+
     const openMessage = ['abrete-sesamo', importDateTime];
     ipcRenderer.send('channel1', openMessage);
 })
@@ -36,7 +38,7 @@ document.getElementById('open-directory-button').addEventListener('click', e => 
 // crear el canal para enviar datos de catalogacion al main
 document.getElementById('catalogar-button').addEventListener('click', e => {
     const csv = localStorage.tableData;
-    const dir = document.getElementById('directory-line').innerHTML
+    const dir = document.getElementById('directory-input').value;
     
     if (dir !== "") {
         ipcRenderer.send('channel2', ['work-baby', dir, csv]);
@@ -52,7 +54,7 @@ document.getElementById('catalogar-button').addEventListener('click', e => {
 // crear el canal para escuchar respuesta del main al seleccionar carpeta
 ipcRenderer.on('channel1-response', (e, args) => {
     //console.log(args);
-    document.getElementById('directory-line').innerHTML = args[0];
+    document.getElementById('directory-input').value = args[0];
     dataToArray(args[1]);
 })
 
