@@ -11,21 +11,56 @@ const fs = require('fs');
 function createDirectoryCsv(receivedDirectory) {
     
     //console.log('recibido en el main' + receivedDirectory);
-
+/*
     execSync(`
 
         Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude "\\directory.csv"  -Attributes !Directory -Recurse . | 
         Sort-Object fullname | Select-Object FullName, @{
             name='Name'
-            expr={$_.Name, $_.LastWriteTime -join ' | Modified: '}
+            expr={$_.Name, $_.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss") -join ' | Modified: '}
         }, Extension, Length, Radicado, Date, Time, Organo, Sala, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath | 
         Export-Csv -Force -Delimiter ';' -Encoding UTF8 -LiteralPath "${receivedDirectory}\\directory.csv"
         
-    `, {'shell':'powershell.exe'}, (error, stdout, stderr)=> {
+    `, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
         console.log('out:' + stdout);
         console.log('err:' + stderr);
         console.log('error:' + error);
     });
+*/
+    let dateVal;
+    let timeVal;
+    let importDate = false;
+
+    if (importDate == true) {
+        dateVal = `@{
+            name='Date'
+            expr={$_.LastWriteTime.ToString("yyyy/MM/dd")}
+        }`
+
+        timeVal = `@{
+            name='Time'
+            expr={$_.LastWriteTime.ToString("HH:mm:ss")}
+        }`
+
+    } else {
+        dateVal = 'Date';
+        timeVal = 'Time';
+    }
+
+    execSync(`
+
+            Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude "\\directory.csv"  -Attributes !Directory -Recurse . | 
+            Sort-Object fullname | Select-Object FullName, @{
+                name='Name'
+                expr={$_.Name, $_.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss") -join ' | Modified: '}
+            }, Extension, Length, Radicado, ${dateVal}, ${timeVal}, Organo, Sala, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath | 
+            Export-Csv -Force -Delimiter ';' -Encoding UTF8 -LiteralPath "${receivedDirectory}\\directory.csv"
+            
+        `, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
+            console.log('out:' + stdout);
+            console.log('err:' + stderr);
+            console.log('error:' + error);
+        });
 }; 
 
 // crear directorio y mover a las carpetas powershell
@@ -50,7 +85,7 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
             }
         }
  
-    `, {'shell':'powershell.exe'}, (error, stdout, stderr)=> {
+    `, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
         console.log('out:' + stdout);
         console.log('err:' + stderr);
         console.log('error:' + error);
