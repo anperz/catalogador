@@ -2,10 +2,65 @@ const { app, BrowserWindow, dialog, ipcMain, shell} = require('electron');
 const { exec, execSync } = require('child_process');
 const path = require('path'); 
 const fs = require('fs');
+const { verify } = require('crypto');
 
 
 
 //FUNCIONES
+
+//verificar directorio (alarma si hay valores mas largos que 260 char)
+
+function verifyDirectory(receivedDirectory) {
+
+    execSync(`
+
+            Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
+            Select-Object Name, @{
+                Name="lengthOfName";
+                Expression={$_.FullName.Length}
+            } | 
+            Where-Object {$_.lengthOfName -ge 100} |
+            Sort-Object lengthOfName -Descending | 
+            ConvertTo-Json | 
+            Out-File -FilePath "${receivedDirectory}\\verify.json" -Encoding utf8
+            
+        `, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
+            console.log('out:' + stdout);
+            console.log('err:' + stderr);
+            console.log('error:' + error);
+        });
+    
+    // obtener tamaño del archivo verify.json
+    const stats = fs.statSync(receivedDirectory + '\\verify.json');
+
+    if (stats.size == 0) {
+        //si el archivo esta vacio retorna true
+        return true;
+    } else {
+
+        //si hay contenido lo convierte en un objeto
+
+        fs.readFile(receivedDirectory + '\\verify.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            const errorFileObject = JSON.parse(data.toString('utf8').replace(/^\uFEFF/, ''));
+            const errorFileNumber = errorFileObject.length;
+
+            dialog.showMessageBoxSync({
+                type: 'info',
+                buttons: ['Abrir Reporte'],
+                title: 'Validacion al importar',
+                message: `Se encontraron ${errorFileNumber} archivos con una ruta y nombre muy largos`
+              }, (response) => {
+                console.log(response);
+              });
+        }) 
+
+    }
+}
 
 // crear directorio powershell
 function createDirectoryCsv(receivedDirectory, importDateTime) {
@@ -33,7 +88,7 @@ function createDirectoryCsv(receivedDirectory, importDateTime) {
 
     execSync(`
 
-            Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude "\\directory.csv"  -Attributes !Directory -Recurse . | 
+            Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv -Attributes !Directory -Recurse . | 
             Sort-Object fullname | Select-Object FullName, @{
                 name='Name'
                 expr={$_.Name, $_.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss") -join ' | Modified: '}
@@ -153,15 +208,13 @@ ipcMain.on('channel1', (e, args) => {
             //console.log(result)
             const createdFilePath = result.filePaths[0];
 
-            // asignar directorio a la variable global
-            directory = createdFilePath;
-
             console.log('Carpeta seleccionada: ' + createdFilePath);
-                        
+
+            const validImport = verifyDirectory(createdFilePath);
+                     
             //crear el archivo csv
             let importDateTime = args[1];
             createDirectoryCsv(createdFilePath, importDateTime);
-            
             
             //enviar archivo al renderer
             sendCsvFile(e, createdFilePath);   
