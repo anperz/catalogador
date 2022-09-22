@@ -15,14 +15,14 @@ function verifyDirectory(receivedDirectory) {
     execSync(`
 
             Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
-            Select-Object Name, @{
+            Select-Object FullName, @{
                 Name="lengthOfName";
                 Expression={$_.FullName.Length}
             } | 
-            Where-Object {$_.lengthOfName -ge 100} |
+            Where-Object {$_.lengthOfName -ge 260} |
             Sort-Object lengthOfName -Descending | 
             ConvertTo-Json | 
-            Out-File -FilePath "${receivedDirectory}\\verify.json" -Encoding utf8
+            Out-File -FilePath "${receivedDirectory}\\verify.txt" -Encoding utf8
             
         `, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
             console.log('out:' + stdout);
@@ -31,7 +31,7 @@ function verifyDirectory(receivedDirectory) {
         });
     
     // obtener tamaño del archivo verify.json
-    const stats = fs.statSync(receivedDirectory + '\\verify.json');
+    const stats = fs.statSync(receivedDirectory + '\\verify.txt');
 
     if (stats.size == 0) {
         //si el archivo esta vacio retorna true
@@ -40,7 +40,7 @@ function verifyDirectory(receivedDirectory) {
 
         //si hay contenido lo convierte en un objeto
 
-        fs.readFile(receivedDirectory + '\\verify.json', 'utf8', (err, data) => {
+        fs.readFile(receivedDirectory + '\\verify.txt', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
                 return;
@@ -49,14 +49,17 @@ function verifyDirectory(receivedDirectory) {
             const errorFileObject = JSON.parse(data.toString('utf8').replace(/^\uFEFF/, ''));
             const errorFileNumber = errorFileObject.length;
 
-            dialog.showMessageBoxSync({
+            dialog.showMessageBox({
                 type: 'info',
-                buttons: ['Abrir Reporte'],
+                buttons: ['Abrir Reporte', 'Cancelar Importacion'],
                 title: 'Validacion al importar',
                 message: `Se encontraron ${errorFileNumber} archivos con una ruta y nombre muy largos`
-              }, (response) => {
-                console.log(response);
-              });
+              }).then(result => {
+                
+                if (result.response == 0) {
+                    shell.openPath(receivedDirectory + '\\verify.txt');
+                }
+            });
         }) 
 
     }
@@ -211,13 +214,20 @@ ipcMain.on('channel1', (e, args) => {
             console.log('Carpeta seleccionada: ' + createdFilePath);
 
             const validImport = verifyDirectory(createdFilePath);
-                     
-            //crear el archivo csv
-            let importDateTime = args[1];
-            createDirectoryCsv(createdFilePath, importDateTime);
-            
-            //enviar archivo al renderer
-            sendCsvFile(e, createdFilePath);   
+
+            if (validImport) {
+
+                //crear el archivo csv
+                let importDateTime = args[1];
+                createDirectoryCsv(createdFilePath, importDateTime);
+                
+                //enviar archivo al renderer
+                sendCsvFile(e, createdFilePath); 
+                console.log('Importacion Correcta');
+
+                } else {
+                    console.log('Importacion Cancelada');
+                }
 
         })
     }
