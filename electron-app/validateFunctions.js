@@ -153,7 +153,7 @@ function createFechaValidation() {
                         let splittedText2 = cleanInputValue.substring(4, 6);
                                 
                             //validar mes
-                                if (splittedText2 < 13) {
+                                if (splittedText2 >= 1 && splittedText2 < 13) {
                                     checkmonth = true;
                                 } else {
                                     checkmonth = false;
@@ -166,7 +166,7 @@ function createFechaValidation() {
                             let splittedText3 = cleanInputValue.substring(6, 8);
                                     
                                 //validar dia
-                                    if (splittedText3 < 32) {
+                                    if (splittedText3 >= 1 && splittedText3 < 32) {
                                         checkday = true;
                                     } else {
                                         checkday = false;
