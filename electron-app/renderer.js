@@ -408,7 +408,7 @@ function checkNewName () {
         console.log(totalPath);
         
         if (totalPath >= 260) {
-            alert(`La ruta en la que estas catalogando, mas el nombre final es demasiado largo (${totalPath} caracteres). Deberas dejar sin catalogar este elemento y renombrarlo o moverlo de carpeta.`)
+            alert(`La ruta en la que estas catalogando, mas el nombre final es demasiado largo (${totalPath} caracteres). Deberas dejar sin catalogar este elemento y luego renombrarlo o moverlo de carpeta.`)
             rowList['Category'].value = "Seleccionar...";
             checkConsecutivo ();
         };
