@@ -139,7 +139,7 @@ function createFechaValidation() {
                 let splittedText1 = cleanInputValue.substring(0, 4);
                         
                     //validar año
-                        if (splittedText1 <= currentYear) {
+                        if (splittedText1 >= 2000 && splittedText1 <= currentYear) {
                             checkyear = true;
                         } else {
                             checkyear = false;
