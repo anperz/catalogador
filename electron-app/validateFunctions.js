@@ -427,3 +427,30 @@ const virtualInputList = document.getElementsByName('Virtual');
         });
     };
 };
+
+/*
+function createCategoriaValidation() {
+
+    const categoryInputList = document.getElementsByName('Category');
+    
+        for (let i=0; i<categoryInputList.length; i++) {
+            const actualInput = categoryInputList[i];
+            actualInput.addEventListener('input', function (categoryFormat) {
+                
+                //actualInput.value = inputValue.toUpperCase();
+
+                let inputPath1 = document.getElementById('directory-input').value;
+                let inputPath2 = rowList['FinalPath'].value;
+                let totalPath = inputPath1.length + inputPath2.length;
+                console.log(totalPath);
+        
+                if (totalPath >= 260) {
+                    alert(`La ruta de la carpeta seleccionada mas el nombre final es demasiado largo (${totalPath} caracteres). Deberas dejar sin catalogar este elemento y renombrarlo o moverlo de carpeta.`)
+                };
+
+                let inputValue = virtualFormat.target.value;
+                console.log(inputValue);
+            });
+        };
+    };
+*/

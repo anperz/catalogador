@@ -43,7 +43,7 @@ document.getElementById('catalogar-button').addEventListener('click', e => {
     if (dir !== "") {
         ipcRenderer.send('channel2', ['work-baby', dir, csv]);
     } else {
-        alert('Seleccione primero la carpeta a catalogar usando el boton "Carga automatica de carpeta"')
+        alert('Estas intentando realizar una catalogacion sin haber seleccionado primero una carpeta. Selecciona primero la carpeta a catalogar usando el boton "Carga automatica de carpeta". Recuerda que al hacerlo se borrara cualquier avance actual.')
     }
     
 });
@@ -304,6 +304,9 @@ function dataToArray(text) {
     //creacion de eventos para formatear el campo virtual-preencial
     createVirtualPresencialValidation();
 
+    //creacion de eventos verificar el largo y asignar categoria
+    //createCategoriaValidation();
+
     // creacion de evento para validar 
     checkConsecutivo ();
 
@@ -398,6 +401,18 @@ function checkNewName () {
 
         setCategoryBackgroundColor(rowList['Category']);
         setNameLengthBackgroundColor(rowList['NameLength']);
+
+        let inputPath1 = document.getElementById('directory-input').value;
+        let inputPath2 = rowList['FinalPath'].value;
+        let totalPath = inputPath1.length + inputPath2.length;
+        console.log(totalPath);
+        
+        if (totalPath >= 260) {
+            alert(`La ruta en la que estas catalogando, mas el nombre final es demasiado largo (${totalPath} caracteres). Deberas dejar sin catalogar este elemento y renombrarlo o moverlo de carpeta.`)
+            rowList['Category'].value = "Seleccionar...";
+            checkConsecutivo ();
+        };
+
 
     };
 
