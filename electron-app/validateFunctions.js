@@ -72,7 +72,7 @@ function createRadicadoValidation() {
                         splitArray.push(splittedText3);
 
                                 // validar "año" del radicado
-                                if (splittedText3 <= currentYear) {
+                                if (splittedText3 >= 2000 && splittedText3 <= currentYear) {
                                     checkAnoRadicado = true;
                                 } else {
                                     console.log('año incorrecto');
