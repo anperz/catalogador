@@ -404,13 +404,17 @@ function checkNewName () {
 
         let inputPath1 = document.getElementById('directory-input').value;
         let inputPath2 = rowList['FinalPath'].value;
-        let totalPath = inputPath1.length + inputPath2.length;
-        console.log(totalPath);
+        let totalPathLength = inputPath1.length + inputPath2.length;
+        //console.log(totalPath);
         
-        if (totalPath >= 260) {
-            alert(`La ruta en la que estas catalogando, mas el nombre final es demasiado largo (${totalPath} caracteres). Deberas dejar sin catalogar este elemento y luego renombrarlo o moverlo de carpeta.`)
+        if (totalPathLength >= 260) {
             rowList['Category'].value = "Seleccionar...";
             checkConsecutivo ();
+
+            let alertMessage = `La ruta en la que estas catalogando, junto con el nombre final, son demasiado largos (${totalPathLength} caracteres). Deberas dejar sin catalogar este elemento y luego renombrarlo o moverlo de carpeta.`
+            //abrir alerta
+            ipcRenderer.send('channel4', alertMessage);
+
         };
 
 
@@ -418,6 +422,8 @@ function checkNewName () {
 
     saveDataOnLocalStorage();
 };
+
+
 
 // fucnion para guardar en local storage
 function saveDataOnLocalStorage() {

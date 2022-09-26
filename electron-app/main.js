@@ -261,3 +261,23 @@ ipcMain.on('channel3', (e, args) => {
     //abrir elemento en carpeta
     shell.openPath(dir);
 }) 
+
+
+// ipc listener para abrir video catalogacion de carpetas
+
+ipcMain.on('channel4', (e, args) => {
+    const alertMessage = args;
+    
+    //abrir alerta
+    dialog.showMessageBox({
+        type: 'info',
+        buttons: ['Aceptar'],
+        title: 'Verificacion de Grabacion',
+        message: alertMessage
+    }).then(result => {
+        /*
+        if (result.response == 0) {
+            shell.openPath(receivedDirectory + '\\verify.txt');
+        }  */
+    });
+}) 
