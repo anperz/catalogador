@@ -77,6 +77,13 @@ function handleSquirrelEvent() {
   }
 };
 
+// --------------------- AUTO UPDATE --------------------------
+
+require('update-electron-app')({
+    repo: 'anperz/catalogador',
+    updateInterval: '1 hour',
+    //logger: require('electron-log')
+  })
 
 // --------------------   FUNCIONES --------------------------------------
 
