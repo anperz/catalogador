@@ -7,7 +7,7 @@ const fs = require('fs');
 const { verify } = require('crypto');
 
 
-//CONFIGURACION INICIAL DE LA APP - MANEJO DE ACCESOS DIRECTOS
+//------------ CONFIGURACION INICIAL DE LA APP - MANEJO DE ACCESOS DIRECTOS ----
 
 // this should be placed at top of main.js to handle setup events quickly
 if (handleSquirrelEvent()) {
@@ -78,10 +78,9 @@ function handleSquirrelEvent() {
 };
 
 
-//FUNCIONES
+// --------------------   FUNCIONES --------------------------------------
 
 //verificar directorio (alarma si hay valores mas largos que 260 char)
-
 function verifyDirectory(receivedDirectory) {
 
     execSync(`
@@ -232,12 +231,12 @@ function sendCsvFile (receivedEvent, receivedDirectory) {
 };
 
 
-// PROCESOS DE ELECTRON
+// -------------------------   PROCESOS DE ELECTRON ------------------------------
 
 // funcion para crear una nueva ventana
 const createWindow = () => {
     const win = new BrowserWindow({
-        show:false,
+        show: false,
         height: 768, 
         width: 1366,
         icon: "./images/icon.png",
@@ -250,12 +249,33 @@ const createWindow = () => {
 
     //win.removeMenu();
     win.loadFile("index.html");
-    //win.maximize();
-    win.show();
+    //win.maximize();\
+
+
+    const loadingPage = new BrowserWindow({ 
+        width: 500, 
+        height: 300, 
+        transparent: true, 
+        frame: false, 
+        alwaysOnTop: true 
+      });
+      
+      loadingPage.loadFile('loading-page.html');
+      loadingPage.center();
+      setTimeout(function () {
+        loadingPage.close();
+        win.center();
+        win.show();
+      }, 5000);
+    
 
     // Open the DevTools.
     //win.webContents.openDevTools();
 };
+
+
+
+
 
 
 //crear la ventana cuando la aplicacion este lista
