@@ -26,6 +26,10 @@ body, input, textarea, button, select {
 #loading-message {
     display: flex;
     justify-content: center;
+    padding: 20px;
+}
+hr {
+    margin: 0 40px 0 40px ;
 }
 
 .flex {

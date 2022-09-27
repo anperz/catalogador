@@ -240,6 +240,7 @@ const createWindow = () => {
         height: 768, 
         width: 1366,
         icon: "./images/icon.png",
+        autoHideMenuBar: true,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'), 
             nodeIntegration: true,
@@ -249,9 +250,8 @@ const createWindow = () => {
 
     //win.removeMenu();
     win.loadFile("index.html");
-    //win.maximize();\
 
-
+    // cargar pagina de carga inicial
     const loadingPage = new BrowserWindow({ 
         width: 500, 
         height: 300, 
@@ -262,20 +262,21 @@ const createWindow = () => {
       
       loadingPage.loadFile('loading-page.html');
       loadingPage.center();
+
+      // luego de 3 segundos cerrar pagina de carga y abrir pagina principal 
       setTimeout(function () {
         loadingPage.close();
+        
         win.center();
         win.show();
-      }, 5000);
+        //win.maximize();
+
+      }, 3000);
     
 
     // Open the DevTools.
     //win.webContents.openDevTools();
 };
-
-
-
-
 
 
 //crear la ventana cuando la aplicacion este lista
@@ -291,6 +292,9 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
   });
 
+
+
+// ------------- IPC LISTENERS PARA COMUNICACION CON EL RENDERER PROCESS ---
 
 // ipc listener abrir carpeta
 ipcMain.on('channel1', (e, args) => {
