@@ -1,6 +1,6 @@
 {
   "name": "app-catalogacion",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Catalogador de audiencias",
   "main": "main.js",
   "scripts": {
@@ -25,12 +25,15 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "./images/icon.ico"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "electron_app"
+            "name": "app-catalogacion",
+            "setupIcon": "./images/install-icon.ico"
           }
         },
         {
