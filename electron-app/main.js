@@ -263,7 +263,7 @@ ipcMain.on('channel3', (e, args) => {
 }) 
 
 
-// ipc listener para abrir video catalogacion de carpetas
+// ipc listener para abrir alerta en el main
 
 ipcMain.on('channel4', (e, args) => {
     const alertMessage = args;

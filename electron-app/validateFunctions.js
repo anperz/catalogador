@@ -115,6 +115,10 @@ function createRadicadoValidation() {
                 actualInput.value = "";
             };
         });
+
+        // ejecutar evento luego de crearlo
+        const event = new Event('input');
+        actualInput.dispatchEvent(event);
     };
 };
 
@@ -228,6 +232,10 @@ function createFechaValidation() {
                 actualInput.value = "";
             };
         });
+
+        // ejecutar evento luego de crearlo
+        const event = new Event('input');
+        actualInput.dispatchEvent(event);
     };
 };
 
@@ -314,6 +322,10 @@ function createHoraValidation(){
                 actualInput.value = "";
             };
         });
+
+        // ejecutar evento luego de crearlo
+        const event = new Event('input');
+        actualInput.dispatchEvent(event);
     };
 };
 
@@ -362,6 +374,10 @@ function createOrganoValidation() {
                 }
             }
         });
+
+        // ejecutar evento luego de crearlo
+        const event = new Event('input');
+        actualInput.dispatchEvent(event);
     };
 };
 
@@ -397,6 +413,10 @@ function createSalaValidation() {
                 }
             }
         });
+
+        // ejecutar evento luego de crearlo
+        const event = new Event('input');
+        actualInput.dispatchEvent(event);
     };
 };
 
@@ -411,6 +431,10 @@ function createReservadoLibreValidation() {
             actualInput.value = inputValue.toUpperCase();
             //checkConsecutivo ();
         });
+
+        // ejecutar evento luego de crearlo
+        const event = new Event('input');
+        actualInput.dispatchEvent(event);
     };
 };
 
@@ -425,6 +449,10 @@ const virtualInputList = document.getElementsByName('Virtual');
             actualInput.value = inputValue.toUpperCase();
             //checkConsecutivo ();
         });
+        
+        // ejecutar evento luego de crearlo
+        const event = new Event('input');
+        actualInput.dispatchEvent(event);
     };
 };
 

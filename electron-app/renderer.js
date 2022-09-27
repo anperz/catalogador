@@ -43,7 +43,10 @@ document.getElementById('catalogar-button').addEventListener('click', e => {
     if (dir !== "") {
         ipcRenderer.send('channel2', ['work-baby', dir, csv]);
     } else {
-        alert('Estas intentando realizar una catalogacion sin haber seleccionado primero una carpeta. Selecciona primero la carpeta a catalogar usando el boton "Carga automatica de carpeta". Recuerda que al hacerlo se borrara cualquier avance actual.')
+
+        let alertMessage = `Estas intentando realizar una catalogacion sin haber seleccionado primero una carpeta. Selecciona primero la carpeta a catalogar usando el boton "Carga automatica de carpeta". Recuerda que al hacerlo se borrara cualquier avance actual.`;
+        //abrir alerta
+        ipcRenderer.send('channel4', alertMessage);
     }
     
 });
@@ -414,7 +417,6 @@ function checkNewName () {
             let alertMessage = `La ruta en la que estas catalogando, junto con el nombre final, son demasiado largos (${totalPathLength} caracteres). Deberas dejar sin catalogar este elemento y luego renombrarlo o moverlo de carpeta.`
             //abrir alerta
             ipcRenderer.send('channel4', alertMessage);
-
         };
 
 
@@ -429,7 +431,7 @@ function checkNewName () {
 function saveDataOnLocalStorage() {
 
     //se colocan los headers del csv
-    var csv = '"FullName";"Name";"Extension";"Length";"Radicado";"Date";"Time";"Organo";"Sala";"Reserved";"Virtual";"Consecutivo";"NewName";"NameLength";"Category";"FinalPath"\n';
+    var csv = '"FullName";"Name";"Category";"Radicado";"Date";"Time";"Organo";"Sala";"Reserved";"Virtual";"Consecutivo";"NewName";"NameLength";"Extension";"Length";"FinalPath"\n';
 
     const arrayNewName = document.getElementsByName('NewName');
 
