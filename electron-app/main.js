@@ -93,6 +93,9 @@ function verifyDirectory(receivedDirectory) {
     execSync(`
 
             Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
+            Rename-Item -NewName { $_.Name -replace ';','' }
+
+            Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
             Select-Object FullName, @{
                 Name="lengthOfName";
                 Expression={$_.FullName.Length}
