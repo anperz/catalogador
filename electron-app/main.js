@@ -301,7 +301,7 @@ app.on('window-all-closed', () => {
 
 
 
-// ------------- IPC LISTENERS PARA COMUNICACION CON EL RENDERER PROCESS ---
+  // ------------- IPC LISTENERS PARA COMUNICACION CON EL RENDERER PROCESS ---
 
 // ipc listener abrir carpeta
 ipcMain.on('channel1', (e, args) => {
@@ -340,20 +340,29 @@ ipcMain.on('channel1', (e, args) => {
 
 // ipc listener para iniciar catalogacion de carpetas
 ipcMain.on('channel2', (e, args) => {
+    
+    // traer el csv y la ruta
+    const dir = args[1];
+    const csv = args[2];
 
-    if (args[0] == 'work-baby') {
-        // traer el csv
-        const dir = args[1];
-        const csv = args[2];
-
+    if (args[0] == 'catalogar') {
         // enviar a funcion de catalogacion
         catalogDirectoryCsv(dir, csv);
 
         //enviar respuesta al renderer
-        e.sender.send('channel2-response', 'received-baby');
+        e.sender.send('channel2-response', 'catalogacion-terminada');
 
         //abrir carpeta catalogada
         shell.openPath(dir);
+    }
+    if (args[0] == 'guardar') {
+
+        fs.writeFileSync(dir + `\\copia-seguridad.csv`, csv);
+        console.log('archivo export creado');
+
+        //enviar respuesta al renderer
+        e.sender.send('channel2-response', 'guardado-copia-seguridad.csv');
+
     }
 })
 

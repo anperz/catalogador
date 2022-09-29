@@ -19,7 +19,17 @@ const currentMonth = date.getMonth();
 const currentday = date.getDay();
 const currentDate = [currentYear,currentMonth,currentday];
 
+function securityCopy () {
+    const csv = localStorage.tableData;
+    const dir = document.getElementById('directory-input').value;
+    //enviar al main informacion para guardar avance
+    if (pathInputValue !== "") {
+        ipcRenderer.send('channel2', ['guardar', dir, csv]);
+    } else {
+        console.log("No se puede enviar el avance al archivo export si la ruta esta vacia");
+    }
 
+}
 
 // Canales IPC de comunicacion con el main
 
@@ -41,7 +51,7 @@ document.getElementById('catalogar-button').addEventListener('click', e => {
     const dir = document.getElementById('directory-input').value;
     
     if (dir !== "") {
-        ipcRenderer.send('channel2', ['work-baby', dir, csv]);
+        ipcRenderer.send('channel2', ['catalogar', dir, csv]);
     } else {
 
         let alertMessage = `Estas intentando realizar una catalogacion sin haber seleccionado primero una carpeta. Selecciona primero la carpeta a catalogar usando el boton "Carga automatica de carpeta". Recuerda que al hacerlo se borrara cualquier avance actual.`;
@@ -83,20 +93,28 @@ const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFile");
 
 myForm.addEventListener("submit", function (e) {
-
-    document.getElementById('message-container').innerHTML = '<p>Cargando archivo de datos...</p>';
+    //document.getElementById('message-container').innerHTML = '<p>Cargando archivo de datos...</p>';
 
     e.preventDefault();
+    console.log([csvFile]);
     const input = csvFile.files[0];
+
+    //extraer la ruta del archivo
+    const fileDirectory = input.path.replace(`\\${input.name}`, '');
     const reader = new FileReader();
 
     reader.onload = function (e) {
+        
+        //colocar ruta del archivo en el campo directory imput
+        document.getElementById('directory-input').value = fileDirectory;
+
+        //enviar datos del csv a la funcion de importacion
         const text = e.target.result;
         dataToArray(text);
-        document.getElementById('message-container').innerHTML = '<p>Carga completa</p>';
+        
+        //document.getElementById('message-container').innerHTML = '<p>Carga completa</p>';
     };
     reader.readAsText(input);
-
 });
 
 /// Funcion principal de importacion de CSV
@@ -460,7 +478,7 @@ function saveDataOnLocalStorage() {
         console.log("Guardado en local storage");
       } else {
         console.log("Local storage NO disponible");
-      } ;
+      };
 } ;
 
 //funcion que se activa para descargar el CSV manualmente
@@ -549,6 +567,8 @@ document.onkeyup = function(e) {
         }
   };
 };
+
+
 
 /*
 
