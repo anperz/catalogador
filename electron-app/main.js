@@ -92,10 +92,9 @@ function verifyDirectory(receivedDirectory) {
 
     execSync(`
 
-            Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
-            Rename-Item -NewName { $_.Name -replace ';','' }
+            
 
-            Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
+            Get-ChildItem -LiteralPath "\\\\?\\${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
             Select-Object FullName, @{
                 Name="lengthOfName";
                 Expression={$_.FullName.Length}
@@ -104,6 +103,9 @@ function verifyDirectory(receivedDirectory) {
             Sort-Object lengthOfName -Descending | 
             ConvertTo-Json | 
             Out-File -FilePath "${receivedDirectory}\\verify.txt" -Encoding utf8
+
+            Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
+            Rename-Item -NewName { $_.Name -replace ';','' }
             
         `, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
             console.log('out:' + stdout);
