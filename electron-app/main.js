@@ -92,8 +92,6 @@ function verifyDirectory(receivedDirectory) {
 
     execSync(`
 
-            
-
             Get-ChildItem -LiteralPath "\\\\?\\${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
             Select-Object FullName, @{
                 Name="lengthOfName";
@@ -113,7 +111,7 @@ function verifyDirectory(receivedDirectory) {
             console.log('error:' + error);
         });
     
-    // obtener tamaño del archivo verify.json
+    // obtener tamaño del archivo verify.txt
     const stats = fs.statSync(receivedDirectory + '\\verify.txt');
 
     if (stats.size == 0) {
@@ -140,8 +138,33 @@ function verifyDirectory(receivedDirectory) {
               }).then(result => {
                 
                 if (result.response == 0) {
-                    shell.openPath(receivedDirectory + '\\verify.txt');
-                }
+                    // shell.openPath(receivedDirectory + '\\verify.txt');
+
+                    // crear ventana en la que se muestra la validacion
+                    const verifyPage = new BrowserWindow({ 
+                        width: 800, 
+                        height: 500, 
+                        autoHideMenuBar: true,
+                        //transparent: true, 
+                        //frame: false, 
+                        alwaysOnTop: true,
+                        webPreferences: {
+                            //preload: path.join(__dirname, 'preload.js'), 
+                            nodeIntegration: true,
+                            contextIsolation: false
+                        }
+                      });
+                      
+                      // cargar la pagina
+                      verifyPage.loadFile('verify-page.html');
+                      verifyPage.center();
+
+                      // funcion para enviar el objeto que contiene la lista a la ventana
+                      verifyPage.webContents.on('did-finish-load', () => {
+                        verifyPage.webContents.send('channel5', errorFileObject);    
+                     })
+
+                    }
             });
         }) 
 
