@@ -299,13 +299,16 @@ const createWindow = () => {
       loadingPage.center();
 
       // luego de 3 segundos cerrar pagina de carga y abrir pagina principal 
-    win.webContents.on('did-finish-load', () => {
+      
+      setTimeout(function () {
         loadingPage.close();
         
         win.center();
         win.show();
-        //win.maximize();  
-    })
+        //win.maximize();
+
+      }, 2000);
+    
 
     // Open the DevTools.
     //win.webContents.openDevTools();

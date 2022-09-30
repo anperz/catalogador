@@ -348,6 +348,14 @@ input::-ms-clear {
     display: none;
 }
 
+/*TABLA DE VALIDACION DE RUTAS LARGAS*/
+#verify-table-container { /*contenedor de tablas*/
+    white-space: nowrap;
+    overflow-x: scroll;
+    height: 85vh;
+    overflow-y: scroll;
+}
+
 /*MEDIA QUERIES*/
 /*
 @media (min-width: 500px) {
