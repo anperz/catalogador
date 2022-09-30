@@ -155,14 +155,14 @@ function verifyDirectory(receivedDirectory) {
                         }
                       });
                       
-                      // cargar la pagina
-                      verifyPage.loadFile('verify-page.html');
-                      verifyPage.center();
+                    // cargar la pagina
+                    verifyPage.loadFile('verify-page.html');
+                    verifyPage.center();
 
-                      // funcion para enviar el objeto que contiene la lista a la ventana
-                      verifyPage.webContents.on('did-finish-load', () => {
+                    // funcion para enviar el objeto que contiene la lista a la ventana
+                    verifyPage.webContents.on('did-finish-load', () => {
                         verifyPage.webContents.send('channel5', errorFileObject);    
-                     })
+                    })
 
                     }
             });
@@ -299,15 +299,13 @@ const createWindow = () => {
       loadingPage.center();
 
       // luego de 3 segundos cerrar pagina de carga y abrir pagina principal 
-      setTimeout(function () {
+    win.webContents.on('did-finish-load', () => {
         loadingPage.close();
         
         win.center();
         win.show();
-        //win.maximize();
-
-      }, 3000);
-    
+        //win.maximize();  
+    })
 
     // Open the DevTools.
     //win.webContents.openDevTools();
