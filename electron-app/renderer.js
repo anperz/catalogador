@@ -156,7 +156,7 @@ function dataToArray(text) {
 
         if (row[i] !== "") { //verifica si la fila no esta vacia, si no crear celdas y agregarlas a recods
 
-            const cell = row[i].split(';');
+            const cell = row[i].split('|');
             const newRecord = new record(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5], cell[6], cell[7], cell[8], cell[9], cell[10], cell[11], cell[12], cell[13], cell[14], cell[15]);
             records.push(newRecord);
         };
@@ -378,7 +378,7 @@ function checkNewName () {
         // filtrar separadores de valores
 
         const rawFieldName = rowList['Name'].value;
-        const fieldName = rawFieldName.split(' | ');
+        const fieldName = rawFieldName.split(' >> ');
         const fieldCategoria = rowList['Category'].value;
 
         const rawFieldRadicado = rowList['Radicado'].value;
@@ -393,6 +393,25 @@ function checkNewName () {
 
 
                 // colocar valores fijos al campo de sala y virtual/reservado
+
+                switch (fieldCategoria) {
+                    case "Teams":   rowList['Sala'].value = 'TeaSala001';
+                                    rowList['Virtual'].value = 'V';
+                        break;
+                    
+                    case "Lifesize":    rowList['Sala'].value = 'LifSala001';
+                                        rowList['Virtual'].value = 'V';
+                        break;
+
+                    case "Historico":       rowList['Sala'].value = '';
+                                            rowList['Virtual'].value = 'P';
+                        break;
+                
+                    default:    rowList['Sala'].value = '';
+                                rowList['Virtual'].value = '';
+                        break;
+                }
+                /*
                 if (fieldCategoria == "Teams") { 
                     rowList['Sala'].value = 'TeaSala001';
                     rowList['Virtual'].value = 'V';
@@ -407,6 +426,17 @@ function checkNewName () {
                     //rowList['Sala'].value = 'LifSala001';
                     rowList['Virtual'].value = 'P';
                 }
+
+                if (fieldCategoria == "Seleccionar...") { 
+                    rowList['Sala'].value = '';
+                    rowList['Virtual'].value = '';
+                }
+*/
+                // ejecutar evento de validacion en el campo sala
+                /*
+                const fieldEvent = new Event('input');
+                rowList['Sala'].dispatchEvent(fieldEvent); */
+
         
     
         const fieldSala = rowList['Sala'].value;
@@ -466,8 +496,9 @@ function checkNewName () {
 // fucnion para guardar en local storage
 function saveDataOnLocalStorage() {
 
+    const csvDelimiter = `|`;
     //se colocan los headers del csv
-    var csv = '"FullName";"Name";"Category";"Radicado";"Date";"Time";"Organo";"Sala";"Reserved";"Virtual";"Consecutivo";"NewName";"NameLength";"Extension";"Length";"FinalPath"\n';
+    var csv = '"FullName"|"Name"|"Category"|"Radicado"|"Date"|"Time"|"Organo"|"Sala"|"Reserved"|"Virtual"|"Consecutivo"|"NewName"|"NameLength"|"Extension"|"Length"|"FinalPath"\n';
 
     const arrayNewName = document.getElementsByName('NewName');
 
@@ -478,7 +509,7 @@ function saveDataOnLocalStorage() {
 
         for (let i=0 ; i<rowList.length ; i++) {
             const cell = rowList[i].value
-            csv += '"' + cell + '";';
+            csv += '"' + cell + '"|';
         };
 
         if (x !== arrayNewName.length -1) {
@@ -586,12 +617,3 @@ document.onkeyup = function(e) {
   };
 };
 
-
-
-/*
-
-//cargar datos de ejemplo
-
-var sampleData = '"FullName";"Name";"Extension";"Length";"Radicado";"Date";"Time";"Organo";"Reserved";"Virtual";"Consecutivo";"NewName";"NameLength";"Category";"FinalPath"\n"C:\\Users\\Andres\\Downloads\\Test Nuevo\\50201318ñ9,_S_cnt_1_r720P.mp4";"videoDeEjemplo1_r720P.mp4";".mp4";"47624437";;;;;;;;;;;\n"C:\\Users\\Andres\\Downloads\\Test Nuevo\\502013393_S_cnt_1_r720P.mp4";"videoDeEjemplo2_r720P.mp4";".mp4";"52896649";;;;;;;;;;;\n"C:\\Users\\Andres\\Downloads\\Test Nuevo\\502015143_S_cnt_1_r720P.mp4";"videoDeEjemplo3_r720P.mp4";".mp4";"49121589";;;;;;;;;;;';
-
-dataToArray(sampleData); */

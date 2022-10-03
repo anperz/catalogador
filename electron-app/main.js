@@ -101,9 +101,6 @@ function verifyDirectory(receivedDirectory) {
             Sort-Object lengthOfName -Descending | 
             ConvertTo-Json | 
             Out-File -LiteralPath "\\\\?\\${receivedDirectory}\\verify.txt" -Encoding utf8
-
-            Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
-            Rename-Item -NewName { $_.Name -replace ';','' }
             
         `, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
             console.log('out:' + stdout);
@@ -180,7 +177,7 @@ function createDirectoryCsv(receivedDirectory, importDateTime) {
     let timeVal;
     let nameVal = `@{
         name='Name'
-        expr={$_.Name, $_.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss") -join ' | Modified: '}
+        expr={$_.Name, $_.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss") -join ' >> Modifcado: '}
     }`
 
     if (importDateTime == true) {
@@ -203,7 +200,7 @@ function createDirectoryCsv(receivedDirectory, importDateTime) {
 
             Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv -Attributes !Directory -Recurse . | 
             Sort-Object fullname | Select-Object FullName, ${nameVal}, Category, Radicado, ${dateVal}, ${timeVal}, Organo, Sala, Reserved, Virtual, Consecutivo, NewName, NameLength, Extension, Length, FinalPath | 
-            Export-Csv -Force -Delimiter ';' -Encoding UTF8 -LiteralPath "${receivedDirectory}\\directory.csv"
+            Export-Csv -Force -Delimiter '|' -Encoding UTF8 -LiteralPath "${receivedDirectory}\\directory.csv"
             
         `, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
             console.log('out:' + stdout);
@@ -220,14 +217,14 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
 
     execSync(`
 
-        Import-Csv -Delimiter ';' -Path "${receivedDirectory}\\export.csv" | 
+        Import-Csv -Delimiter '|' -Path "${receivedDirectory}\\export.csv" | 
         ForEach-Object {
             if ($_.FinalPath -ne "") {
                 New-Item -ItemType File -Path "${receivedDirectory}$($_.FinalPath)" -Force
             }
         }
 
-        Import-Csv -Delimiter ';' -Path "${receivedDirectory}\\export.csv" | 
+        Import-Csv -Delimiter '|' -Path "${receivedDirectory}\\export.csv" | 
         ForEach-Object { 
             if ($_.FinalPath -ne "") {
                 Move-Item -Path $_.FullName -Destination "${receivedDirectory}$($_.FinalPath)" -Force -Verbose
@@ -240,9 +237,11 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
         console.log('error:' + error);
 
         //crear archivo log
+        /*
         let copyLog = `stdout: ${stdout} \n stderr: ${stderr} \n error: ${error}`;
         fs.writeFileSync(receivedDirectory + "\\log.txt", copyLog);
         console.log('archivo log creado');
+        */
 
     });
 }; 

@@ -210,8 +210,7 @@ video {
 }
 
 .play-button:hover, .download-button:hover {
-    color: #03b4a3;
-    background-color: transparent;
+    background-color: #105a53;
 }
 
 
@@ -357,18 +356,5 @@ input::-ms-clear {
 }
 
 /*MEDIA QUERIES*/
-/*
-@media (min-width: 500px) {
 
-#container {
-    overflow: scroll;
-    white-space: nowrap;
-} }
 
-@media (min-width: 1600px) {
-
-    #container {
-        width: 100%;
-    }
-
-} */
