@@ -389,19 +389,26 @@ function checkNewName () {
 
         const rawFieldTime = rowList['Time'].value;
         const fieldTime = rawFieldTime.replace(/:/g, '');
-
-        // colocar valores fijos al campo de organo
-        if (fieldCategoria == "Teams") { 
-            rowList['Organo'].value = 'TeaSala001';
-        }
-
-        if (fieldCategoria == "Lifesize") { 
-            rowList['Organo'].value = 'LifSala001';
-        }
-
-
         const fieldOrgano = rowList['Organo'].value;
 
+
+                // colocar valores fijos al campo de sala y virtual/reservado
+                if (fieldCategoria == "Teams") { 
+                    rowList['Sala'].value = 'TeaSala001';
+                    rowList['Virtual'].value = 'V';
+                }
+        
+                if (fieldCategoria == "Lifesize") { 
+                    rowList['Sala'].value = 'LifSala001';
+                    rowList['Virtual'].value = 'V';
+                }
+
+                if (fieldCategoria == "Historico") { 
+                    //rowList['Sala'].value = 'LifSala001';
+                    rowList['Virtual'].value = 'P';
+                }
+        
+    
         const fieldSala = rowList['Sala'].value;
         const fieldConsecutivo = rowList['Consecutivo'].value;
         const fieldExtension = rowList['Extension'].value.toLowerCase();
