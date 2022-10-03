@@ -96,9 +96,6 @@ h1 {
     font-size: 2.3rem;
 }
 
-h1 {
-    font-size: 2.3rem;
-}
 
 h3 {
     font-weight: 300;
@@ -357,4 +354,75 @@ input::-ms-clear {
 
 /*MEDIA QUERIES*/
 
+@media (max-width: 1366px) {
 
+    body, input, textarea, button, select {
+        font-size: 1.4rem;
+    }
+
+    h1 {
+        font-size: 2.1rem;
+    }
+    
+    tr textarea {
+        width: 220px;
+    }
+    /* CAMPOS DE LA TABLA*/
+    
+    input[name=Length] {
+        width: 100px;
+    }
+    
+    input[name=Radicado] {
+        width: 205px;
+    }
+    
+    input[name=Date]  {
+        width: 95px;
+    }
+    
+    input[name=Time] {
+        width: 70px;
+    }
+    
+    input[name=Organo] {
+        width: 120px;
+    }
+    
+    input[name=Sala] {
+        width: 100px;
+    }
+    
+    textarea[name=NewName] {
+        width: 191px;
+    }
+    
+    input[name=Extension] {
+        width: 40px;
+    }
+    
+    input[name=Reserved] {
+        width: 25px;
+    }
+    
+    input[name=Virtual] {
+        width: 25px;
+    }
+    
+    input[name=Consecutivo] {
+        width: 40px;
+    }
+    
+    select[name=Category] {
+        width: 120px;
+    }
+    
+    input[name=NameLength] {
+        width: 40px;
+    }
+    
+    textarea[name=FinalPath] {
+        width: 500px;
+    }
+    
+}
