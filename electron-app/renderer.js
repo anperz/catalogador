@@ -379,6 +379,7 @@ function checkNewName () {
 
         const rawFieldName = rowList['Name'].value;
         const fieldName = rawFieldName.split(' | ');
+        const fieldCategoria = rowList['Category'].value;
 
         const rawFieldRadicado = rowList['Radicado'].value;
         const fieldRadicado = rawFieldRadicado.replace(/-/g, '');
@@ -389,13 +390,23 @@ function checkNewName () {
         const rawFieldTime = rowList['Time'].value;
         const fieldTime = rawFieldTime.replace(/:/g, '');
 
+        // colocar valores fijos al campo de organo
+        if (fieldCategoria == "Teams") { 
+            rowList['Organo'].value = 'TeaSala001';
+        }
+
+        if (fieldCategoria == "Lifesize") { 
+            rowList['Organo'].value = 'LifSala001';
+        }
+
+
         const fieldOrgano = rowList['Organo'].value;
+
         const fieldSala = rowList['Sala'].value;
         const fieldConsecutivo = rowList['Consecutivo'].value;
         const fieldExtension = rowList['Extension'].value.toLowerCase();
         const fieldReserved = rowList['Reserved'].value;
         const fieldVirtual = rowList['Virtual'].value;
-        const fieldCategoria = rowList['Category'].value;
 
         //asignar valor a NewName
 

@@ -100,7 +100,7 @@ function verifyDirectory(receivedDirectory) {
             Where-Object {$_.lengthOfName -ge 260} |
             Sort-Object lengthOfName -Descending | 
             ConvertTo-Json | 
-            Out-File -FilePath "\\\\?\\${receivedDirectory}\\verify.txt" -Encoding utf8
+            Out-File -LiteralPath "\\\\?\\${receivedDirectory}\\verify.txt" -Encoding utf8
 
             Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
             Rename-Item -NewName { $_.Name -replace ';','' }
