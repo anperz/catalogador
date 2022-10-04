@@ -402,15 +402,11 @@ function checkNewName () {
                     case "Lifesize":    rowList['Sala'].value = 'LifSala001';
                                         rowList['Virtual'].value = 'V';
                         break;
-
-                    case "Historico":   if (rowList['Sala'].value == 'TeaSala001' || rowList['Sala'].value == 'LifSala001') {
-                        rowList['Sala'].value = ''
-                    };
-                                            rowList['Virtual'].value = 'P';
-                        break;
                 
-                    default:    rowList['Sala'].value = '';
-                                rowList['Virtual'].value = '';
+                    default:    if (rowList['Sala'].value == 'TeaSala001' || rowList['Sala'].value == 'LifSala001') {
+                        rowList['Sala'].value = '';
+                        rowList['Virtual'].value = '';
+                    };
                         break;
                 }
 
