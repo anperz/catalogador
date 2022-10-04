@@ -403,7 +403,9 @@ function checkNewName () {
                                         rowList['Virtual'].value = 'V';
                         break;
 
-                    case "Historico":       rowList['Sala'].value = '';
+                    case "Historico":   if (rowList['Sala'].value == 'TeaSala001' || rowList['Sala'].value == 'LifSala001') {
+                        rowList['Sala'].value = ''
+                    };
                                             rowList['Virtual'].value = 'P';
                         break;
                 
@@ -411,31 +413,11 @@ function checkNewName () {
                                 rowList['Virtual'].value = '';
                         break;
                 }
-                /*
-                if (fieldCategoria == "Teams") { 
-                    rowList['Sala'].value = 'TeaSala001';
-                    rowList['Virtual'].value = 'V';
-                }
-        
-                if (fieldCategoria == "Lifesize") { 
-                    rowList['Sala'].value = 'LifSala001';
-                    rowList['Virtual'].value = 'V';
-                }
 
-                if (fieldCategoria == "Historico") { 
-                    //rowList['Sala'].value = 'LifSala001';
-                    rowList['Virtual'].value = 'P';
-                }
-
-                if (fieldCategoria == "Seleccionar...") { 
-                    rowList['Sala'].value = '';
-                    rowList['Virtual'].value = '';
-                }
-*/
                 // ejecutar evento de validacion en el campo sala
-                /*
+                
                 const fieldEvent = new Event('input');
-                rowList['Sala'].dispatchEvent(fieldEvent); */
+                rowList['Sala'].dispatchEvent(fieldEvent); 
 
         
     

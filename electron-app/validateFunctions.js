@@ -383,14 +383,14 @@ function createOrganoValidation() {
 
 function createSalaValidation() {
     
-    const organoInputList = document.getElementsByName('Sala');
+    const salaInputList = document.getElementsByName('Sala');
 
-    for (let i=0; i<organoInputList.length; i++) {
-        const actualInput = organoInputList[i];
+    for (let i=0; i<salaInputList.length; i++) {
+        const actualInput = salaInputList[i];
         actualInput.addEventListener('input', function (salaFormat) {
             let inputValue = salaFormat.target.value;
 
-            //solo dejar numeros
+            //solo dejar numeros y letras
             let cleanInputValue = inputValue.replace(/[^a-zA-Z0-9]/g, '');
 
             //aceptar solo 12 valores
@@ -402,12 +402,15 @@ function createSalaValidation() {
             };
 
             //validar el largo y colorear correcto o incorrecto
-            if (inputValue == 0) {
+            //console.log(inputValue);
+            //console.log(inputValue.length);
+            if (inputValue == "") {
+                //console.log('se restablece');
                 this.parentElement.style.borderBottomColor = 'rgba(255, 255, 255, 0.123)';
             }else {
                 if (cleanInputValue.length == 10) {
                     this.parentElement.style.borderBottomColor = 'green';
-                    goToNextInput(this);
+                    //goToNextInput(this);
                 } else {
                     this.parentElement.style.borderBottomColor = 'red';
                 }

@@ -366,7 +366,7 @@ ipcMain.on('channel1', (e, args) => {
     }
 })
 
-// ipc listener para iniciar catalogacion de carpetas
+// ipc listener para copia de seguridad y para iniciar catalogacion de carpetas
 ipcMain.on('channel2', (e, args) => {
     
     // traer el csv y la ruta
@@ -390,6 +390,24 @@ ipcMain.on('channel2', (e, args) => {
 
         //enviar respuesta al renderer
         e.sender.send('channel2-response', 'guardado-copia-seguridad.csv');
+
+        //verificar si el archivo esta en carpeta
+        if (fs.existsSync(dir + `\\copia-seguridad.csv`)) {
+            //abrir alerta
+            dialog.showMessageBox({
+                type: 'info',
+                buttons: ['Abrir en carpeta','Cancelar'],
+                title: 'Verificacion de Grabacion',
+                message: 'Se ha guardado una copia de seguridad'
+            }).then(result => {
+                
+                if (result.response == 0) {
+                    shell.showItemInFolder(dir + `\\copia-seguridad.csv`);
+                }
+            });
+        }
+        
+        
 
     }
 })
