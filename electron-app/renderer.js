@@ -197,12 +197,12 @@ function dataToArray(text) {
         for(let i = 1; i < records.length; i++) {
             html += '<tr>';
             for( let j in records[i] ) {
-
+                
 // FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
                 // casos para generar cada elemento HTML
                 switch (j) {
                     case "FullName": html += `<td>
-                    <button class="play-button ${i}" value="${records[i][j]}">▶</button>
+                    <button class="play-button ${i}" value="${records[i][j]}">${i}▶</button>
                     <button class="folder-button" value="${records[i][j]}">📁</button>
                     </td>`;
                         break;
