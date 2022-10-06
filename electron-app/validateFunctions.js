@@ -459,29 +459,46 @@ const virtualInputList = document.getElementsByName('Virtual');
     };
 };
 
-/*
+
 function createCategoriaValidation() {
 
     const categoryInputList = document.getElementsByName('Category');
     
         for (let i=0; i<categoryInputList.length; i++) {
             const actualInput = categoryInputList[i];
-            actualInput.addEventListener('input', function (categoryFormat) {
+            actualInput.addEventListener('change', function (categoryFormat) {
                 
-                //actualInput.value = inputValue.toUpperCase();
+                console.log([actualInput]);
+                let selectClassName = actualInput.className;
+                let rowList = document.getElementsByClassName(selectClassName);
 
-                let inputPath1 = document.getElementById('directory-input').value;
-                let inputPath2 = rowList['FinalPath'].value;
-                let totalPath = inputPath1.length + inputPath2.length;
-                console.log(totalPath);
-        
-                if (totalPath >= 260) {
-                    alert(`La ruta de la carpeta seleccionada mas el nombre final es demasiado largo (${totalPath} caracteres). Deberas dejar sin catalogar este elemento y renombrarlo o moverlo de carpeta.`)
-                };
+                const fieldCategoria = rowList['Category'].value;
 
-                let inputValue = virtualFormat.target.value;
-                console.log(inputValue);
+                
+                // colocar valores fijos al campo de sala y virtual/reservado
+
+                switch (fieldCategoria) {
+                    case "Teams":   rowList['Sala'].value = 'TeaSala001';
+                                    rowList['Virtual'].value = 'V';
+                        break;
+                    
+                    case "Lifesize":    rowList['Sala'].value = 'LifSala001';
+                                        rowList['Virtual'].value = 'V';
+                        break;
+                
+                    default:    if (rowList['Sala'].value == 'TeaSala001' || rowList['Sala'].value == 'LifSala001') {
+                        rowList['Sala'].value = '';
+                         rowList['Virtual'].value = '';
+                    };
+                        break;
+                }
+
+                // ejecutar evento de validacion en el campo sala
+                
+                const fieldEvent = new Event('input');
+                rowList['Sala'].dispatchEvent(fieldEvent); 
+
             });
         };
     };
-*/
+

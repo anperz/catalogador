@@ -150,7 +150,7 @@ function dataToArray(text) {
 
     const unQuotedText = deletedVoidCol.replace(/["]+/g, "");
     const row = unQuotedText.split('\n');
-    console.log(row);
+    //console.log(row);
 
     for (let i=0 ; i < row.length ; i++) {
 
@@ -325,8 +325,8 @@ function dataToArray(text) {
     //creacion de eventos para formatear el campo virtual-preencial
     createVirtualPresencialValidation();
 
-    //creacion de eventos verificar el largo y asignar categoria
-    //createCategoriaValidation();
+    //creacion de eventos al asignar categoria
+    createCategoriaValidation();
 
     // creacion de evento para validar 
     checkConsecutivo ();
@@ -379,6 +379,7 @@ function checkNewName () {
 
         const rawFieldName = rowList['Name'].value;
         const fieldName = rawFieldName.split(' >> ');
+        
         const fieldCategoria = rowList['Category'].value;
 
         const rawFieldRadicado = rowList['Radicado'].value;
@@ -389,34 +390,8 @@ function checkNewName () {
 
         const rawFieldTime = rowList['Time'].value;
         const fieldTime = rawFieldTime.replace(/:/g, '');
-        const fieldOrgano = rowList['Organo'].value;
-
-
-                // colocar valores fijos al campo de sala y virtual/reservado
-
-                switch (fieldCategoria) {
-                    case "Teams":   rowList['Sala'].value = 'TeaSala001';
-                                    rowList['Virtual'].value = 'V';
-                        break;
-                    
-                    case "Lifesize":    rowList['Sala'].value = 'LifSala001';
-                                        rowList['Virtual'].value = 'V';
-                        break;
-                
-                    default:    if (rowList['Sala'].value == 'TeaSala001' || rowList['Sala'].value == 'LifSala001') {
-                        rowList['Sala'].value = '';
-                        rowList['Virtual'].value = '';
-                    };
-                        break;
-                }
-
-                // ejecutar evento de validacion en el campo sala
-                
-                const fieldEvent = new Event('input');
-                rowList['Sala'].dispatchEvent(fieldEvent); 
-
         
-    
+        const fieldOrgano = rowList['Organo'].value;   
         const fieldSala = rowList['Sala'].value;
         const fieldConsecutivo = rowList['Consecutivo'].value;
         const fieldExtension = rowList['Extension'].value.toLowerCase();
