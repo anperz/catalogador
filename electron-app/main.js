@@ -77,13 +77,52 @@ function handleSquirrelEvent() {
   }
 };
 
-// --------------------- AUTO UPDATE --------------------------
-
+// --------------------- UPDATE --------------------------
+/*
 require('update-electron-app')({
     repo: 'anperz/catalogador',
     updateInterval: '1 hour',
     //logger: require('electron-log')
   })
+*/
+
+function manualUpdate () {
+    // version actual de la app
+    let dir = `M:\\App Catalogacion`;
+    let actualVersion = app.getVersion().replace(/\./g, '');
+
+    //buscar archivo en el servidor
+    let serverFile = fs.readdirSync(dir);
+    
+    //validar archivo
+    let serverFileVersion = serverFile[0].slice(17, -10).replace(/\./g, '');
+
+    //verifica si la version del servidor es mayor
+    if (serverFileVersion > actualVersion) {
+        
+        // mostrat mensaje de actualizacion disponible
+        dialog.showMessageBox({
+            type: 'info',
+            buttons: ['Actualizar', 'Mas tarde'],
+            title: 'Actualizacion',
+            message: 'Hemos encontrado una actualizacion disponible'
+        }).then(result => {
+
+            // si el usuario selecciona actualizar
+            if (result.response == 0) {
+
+                fs.copyFileSync(`${dir}\\${serverFile[0]}`, `C:\\${serverFile[0]}`)
+                shell.openPath(`C:\\${serverFile[0]}`);
+            } else {
+                console.log('actualizacion cancelada')
+            }
+        });
+        
+    }
+}
+
+
+
 
 // --------------------   FUNCIONES --------------------------------------
 
@@ -305,6 +344,7 @@ const createWindow = () => {
         win.center();
         win.show();
         //win.maximize();
+        manualUpdate ();
 
       }, 2000);
     
