@@ -148,9 +148,9 @@ function dataToArray(text) {
     deletedFormatHeader = text.replace('#TYPE Selected.System.IO.FileInfo\r\n"', '');
     deletedVoidCol = deletedFormatHeader.replace('\r', '');
 
-    const unQuotedText = deletedVoidCol.replace(/['"]+/g, "");
+    const unQuotedText = deletedVoidCol.replace(/["]+/g, "");
     const row = unQuotedText.split('\n');
-    //console.log(row);
+    console.log(row);
 
     for (let i=0 ; i < row.length ; i++) {
 
@@ -197,7 +197,7 @@ function dataToArray(text) {
         for(let i = 1; i < records.length; i++) {
             html += '<tr>';
             for( let j in records[i] ) {
-                
+
 // FullName, Name, Extension, Length, Radicado, Date, Time, Organo, Reserved, Virtual, Consecutivo, NewName, NameLength, Category, FinalPath
                 // casos para generar cada elemento HTML
                 switch (j) {
