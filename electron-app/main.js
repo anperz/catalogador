@@ -260,14 +260,14 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
         Import-Csv -Delimiter '|' -Path "${receivedDirectory}\\export.csv" | 
         ForEach-Object {
             if ($_.FinalPath -ne "") {
-                New-Item -ItemType File -Path "${receivedDirectory}$($_.FinalPath)" -Force
+                New-Item -ItemType "directory" -Path "${receivedDirectory}$($_.FinalPath)" -Verbose
             }
         }
 
         Import-Csv -Delimiter '|' -Path "${receivedDirectory}\\export.csv" | 
         ForEach-Object { 
             if ($_.FinalPath -ne "") {
-                Move-Item -Path $_.FullName -Destination "${receivedDirectory}$($_.FinalPath)" -Force -Verbose
+                Move-Item -Path $_.FullName -Destination "${receivedDirectory}$($_.FinalPath)$($_.NewName)" -Verbose
             }
         }
  

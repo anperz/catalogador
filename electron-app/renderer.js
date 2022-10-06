@@ -424,8 +424,18 @@ function checkNewName () {
         const fieldVirtual = rowList['Virtual'].value;
 
         //asignar valor a NewName
+        if (fieldCategoria == "Teams" || fieldCategoria == "Historico" || fieldCategoria == "Lifesize") {
+            
+            rowList['NewName'].value = fieldRadicado +"_"+ fieldReserved + fieldOrgano + fieldSala +"_"+ fieldConsecutivo +"_"+ fieldDate +"_"+ fieldTime + "_" + fieldVirtual + fieldExtension;
 
-        rowList['NewName'].value = fieldRadicado +"_"+ fieldReserved + fieldOrgano + fieldSala +"_"+ fieldConsecutivo +"_"+ fieldDate +"_"+ fieldTime + "_" + fieldVirtual + fieldExtension;
+        } else {
+            
+            if (fieldCategoria == "Seleccionar...") {
+                rowList['NewName'].value = '';
+            } else {
+                rowList['NewName'].value = fieldName[0];
+                }
+        }
 
         //asignar valor a NameLength
         rowList['NameLength'].value = String(rowList['NewName'].value).length;
@@ -435,14 +445,14 @@ function checkNewName () {
 
         if (fieldCategoria == "Teams" || fieldCategoria == "Historico" || fieldCategoria == "Lifesize") {
             
-            rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\' + rowList['NewName'].value;
+            rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\';
 
         } else {
             
             if (fieldCategoria == "Seleccionar...") {
                 rowList['FinalPath'].value = '';
             } else {
-                rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + fieldName[0];
+                rowList['FinalPath'].value = '\\' + fieldCategoria + '\\';
                 }
         }
 
