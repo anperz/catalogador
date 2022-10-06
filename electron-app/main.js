@@ -86,6 +86,7 @@ require('update-electron-app')({
   })
 */
 
+
 function manualUpdate () {
     // version actual de la app
     let dir = `M:\\App Catalogacion`;
@@ -344,7 +345,9 @@ const createWindow = () => {
         win.center();
         win.show();
         //win.maximize();
-        manualUpdate ();
+        
+        //consulta de actualizaciones manuales
+        //manualUpdate ();
 
       }, 2000);
     
