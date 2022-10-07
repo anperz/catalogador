@@ -357,16 +357,24 @@ function createOrganoValidation() {
                     this.parentElement.style.borderBottomColor = 'green';
 
                     // colocar el valor de Reservado o Libre 
-                            const parentElement = this.parentElement.nextElementSibling;
-                            const salaNextElement = parentElement.nextElementSibling;
-                            const reservadoInput = salaNextElement.children[0];
-                            const entidadEspecialidad = cleanInputValue.substring(5, 9);
+                    
+                    //buscar el campor R/L
+                    const parentElement = this.parentElement.nextElementSibling;
+                    const salaNextElement = parentElement.nextElementSibling;
+                    const reservadoInput = salaNextElement.children[0];
+                    const entidadEspecialidad = cleanInputValue.substring(5, 9);
 
-                            if (typeof juzgadosLibresObject[entidadEspecialidad] !== "undefined") {
-                                reservadoInput.value = 'L';
-                            } else {
-                                reservadoInput.value = 'R';
-                            }
+                    // revisar si el campo esta vacio si esta lleno no se cambia
+                    if (reservadoInput.value == '') {
+
+                        // verificar si el organo es libre o reservado y aplicar
+                        if (typeof juzgadosLibresObject[entidadEspecialidad] !== "undefined") {
+                            reservadoInput.value = 'L';
+                        } else {
+                            reservadoInput.value = 'R';
+                        }
+                    }
+                            
                     goToNextInput(this);
                     
                 } else {
