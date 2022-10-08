@@ -51,6 +51,12 @@ document.getElementById('catalogar-button').addEventListener('click', e => {
     const dir = document.getElementById('directory-input').value;
     
     if (dir !== "") {
+
+        // parar la reproduccion de video
+        const videoTagHtml = '<video autoplay height="100%" controls><source src="" type="video/mp4">Your browser does not support the video tag.</video>';
+        document.getElementById('video-container').innerHTML = videoTagHtml;
+
+        // iniciar catalogacion
         ipcRenderer.send('channel2', ['catalogar', dir, csv]);
     } else {
 
