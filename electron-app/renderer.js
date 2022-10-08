@@ -439,11 +439,11 @@ function checkNewName () {
         let totalPathLength = inputPath1.length + inputPath2.length;
         //console.log(totalPath);
         
-        if (totalPathLength >= 260) {
+        if (totalPathLength >= 256) {
             rowList['Category'].value = "Seleccionar...";
             checkConsecutivo ();
 
-            let alertMessage = `La ruta en la que estas catalogando, junto con el nombre final, son demasiado largos (${totalPathLength} caracteres). Deberas dejar sin catalogar este elemento y luego renombrarlo o moverlo de carpeta.`
+            let alertMessage = `El nombre final del archivo sera muy largo (${totalPathLength} caracteres). Deberas dejar SIN CATALOGAR este elemento y luego renombrarlo o moverlo de carpeta.`
             //abrir alerta
             ipcRenderer.send('channel4', alertMessage);
         };

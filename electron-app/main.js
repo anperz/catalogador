@@ -132,12 +132,14 @@ function verifyDirectory(receivedDirectory) {
 
     execSync(`
 
+            Start-Transcript -Append -Path C:\\App-Catalogacion-Log.txt 
+
             Get-ChildItem -LiteralPath "\\\\?\\${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
             Select-Object FullName, @{
                 Name="lengthOfName";
                 Expression={$_.FullName.Length}
             } | 
-            Where-Object {$_.lengthOfName -ge 260} |
+            Where-Object {$_.lengthOfName -ge 256} |
             Sort-Object lengthOfName -Descending | 
             ConvertTo-Json | 
             Out-File -LiteralPath "\\\\?\\${receivedDirectory}\\verify.txt" -Encoding utf8
@@ -238,6 +240,8 @@ function createDirectoryCsv(receivedDirectory, importDateTime) {
 
     execSync(`
 
+            Start-Transcript -Append -Path C:\\App-Catalogacion-Log.txt 
+
             Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv -Attributes !Directory -Recurse . | 
             Sort-Object fullname | Select-Object FullName, ${nameVal}, Category, Radicado, ${dateVal}, ${timeVal}, Organo, Sala, Reserved, Virtual, Consecutivo, NewName, NameLength, Extension, Length, FinalPath | 
             Export-Csv -Force -Delimiter '|' -Encoding UTF8 -LiteralPath "${receivedDirectory}\\directory.csv"
@@ -257,19 +261,34 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
 
     execSync(`
 
+        Start-Transcript -Append -Path C:\\App-Catalogacion-Log.txt
+
+
         Import-Csv -Delimiter '|' -Path "${receivedDirectory}\\export.csv" | 
         ForEach-Object {
             if ($_.FinalPath -ne "") {
-                New-Item -ItemType "directory" -Path "${receivedDirectory}$($_.FinalPath)" -Verbose
+                New-Item -ItemType "directory" -Path "${receivedDirectory}$($_.FinalPath)"  
             }
-        }
+        } | 
+        Format-Table
+
+        $movedList = @()
 
         Import-Csv -Delimiter '|' -Path "${receivedDirectory}\\export.csv" | 
         ForEach-Object { 
             if ($_.FinalPath -ne "") {
-                Move-Item -Path $_.FullName -Destination "${receivedDirectory}$($_.FinalPath)$($_.NewName)" -Verbose
+                $movedItem = Move-Item -Path $_.FullName -Destination "${receivedDirectory}$($_.FinalPath)$($_.NewName)" -PassThru
+                $movedItem
+                if ($movedItem.Lenght -eq $_.Lenght) {
+                    $fileCheck = "OK"
+                }
+                $movedITemArray = [pscustomobject]@{Name=$movedItem.Name; Length=$movedItem.Length; Destination=$movedItem.FullName; Check=$fileCheck}
+                $movedList += $movedITemArray
             }
-        }
+        } 
+        $movedList | Format-Table -AutoSize
+        $movedList |  ConvertTo-Json | 
+        Out-File -LiteralPath "${receivedDirectory}\\verify.txt" -Encoding utf8
  
     `, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
         console.log('out:' + stdout);
