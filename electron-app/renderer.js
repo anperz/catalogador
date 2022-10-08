@@ -53,14 +53,18 @@ document.getElementById('catalogar-button').addEventListener('click', e => {
     if (dir !== "") {
 
         // parar la reproduccion de video
-        const videoTagHtml = '<video autoplay height="100%" controls><source src="" type="video/mp4">Your browser does not support the video tag.</video>';
+        const videoTagHtml = `<video autoplay height="100%" controls><source src="${__dirname}\\images\\test.mp4" type="video/mp4">Your browser does not support the video tag.</video>`;
         document.getElementById('video-container').innerHTML = videoTagHtml;
 
+        setTimeout(() => {
+            ipcRenderer.send('channel2', ['catalogar', dir, csv]);
+        }, 3000);
+
         // iniciar catalogacion
-        ipcRenderer.send('channel2', ['catalogar', dir, csv]);
+        //ipcRenderer.send('channel2', ['catalogar', dir, csv]);
     } else {
 
-        let alertMessage = `Estas intentando realizar una catalogacion sin haber seleccionado primero una carpeta. Selecciona primero la carpeta a catalogar usando el boton "Carga automatica de carpeta". Recuerda que al hacerlo se borrara cualquier avance actual.`;
+        let alertMessage = `Estas intentando realizar una catalogacion sin haber seleccionado primero una carpeta. Selecciona primero la carpeta a catalogar usando el boton "Carga automatica de carpeta".`;
         //abrir alerta
         ipcRenderer.send('channel4', alertMessage);
     }

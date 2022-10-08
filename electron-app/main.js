@@ -132,7 +132,7 @@ function verifyDirectory(receivedDirectory) {
 
     execSync(`
 
-            Start-Transcript -Append -Path C:\\App-Catalogacion-Log.txt 
+            Start-Transcript -Append -Path "${__dirname}\\App-Catalogacion-Log.txt" 
 
             Get-ChildItem -LiteralPath "\\\\?\\${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
             Select-Object Name, @{
@@ -240,7 +240,7 @@ function createDirectoryCsv(receivedDirectory, importDateTime) {
 
     execSync(`
 
-            Start-Transcript -Append -Path C:\\App-Catalogacion-Log.txt 
+            Start-Transcript -Append -Path "${__dirname}\\App-Catalogacion-Log.txt" 
 
             Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv -Attributes !Directory -Recurse . | 
             Sort-Object fullname | Select-Object FullName, ${nameVal}, Category, Radicado, ${dateVal}, ${timeVal}, Organo, Sala, Reserved, Virtual, Consecutivo, NewName, NameLength, Extension, Length, FinalPath | 
@@ -261,7 +261,7 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
 
     execSync(`
 
-        Start-Transcript -Append -Path C:\\App-Catalogacion-Log.txt
+        Start-Transcript -Append -Path "${__dirname}\\App-Catalogacion-Log.txt"
 
         Stop-Process -Name "wmplayer"
         Stop-Process -Name "vlc"

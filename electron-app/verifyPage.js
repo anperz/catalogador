@@ -15,32 +15,57 @@ function createVerifyTable (array) {
       html += '</tr></thead>';
 
       html += '<tbody id= "row-container"';
-      array.forEach(element => {
 
-          html += '<tr>';
+      if (typeof(array.length) == 'undefined') {
+        
+        html += '<tr>';
 
-          //validar si el json es de importacion o de catalogacion
-              if (typeof(element.Check)  == 'undefined') {
-                html += `<td></td>`
+        //validar si el json es de importacion o de catalogacion
+            if (typeof(array.Check)  == 'undefined') {
+              html += `<td></td>`
+            } else {
+              document.getElementById("verify-page-title").innerText = "RESULTADO DE CATALOGACION";
+
+              // si hay algun error colocar en rojo la celda
+              if(array.Check == "error") {
+                html += `<td style="background: #c06363">${array.Check}</td>`;
               } else {
-                document.getElementById("verify-page-title").innerText = "RESULTADO DE CATALOGACION";
-
-                // si hay algun error colocar en rojo la celda
-                if(element.Check == "error") {
-                  html += `<td style="background: #c06363">${element.Check}</td>`;
-                } else {
-                  html += `<td>${element.Check}</td>`;
-                }
-                
+                html += `<td>${array.Check}</td>`;
               }
-              
-          html += `<td>${element.Length}</td>`;
-          html += `<td>${element.Name}</td>`;
-          html += '</tr>';
-      });
+            }
+            html += `<td>${array.Length}</td>`;
+            html += `<td>${array.Name}</td>`;
+            html += '</tr>';
 
+      } else {
 
-      html += '</tbody></table>';
+              array.forEach(element => {
+
+                html += '<tr>';
+
+                //validar si el json es de importacion o de catalogacion
+                    if (typeof(element.Check)  == 'undefined') {
+                      html += `<td></td>`
+                    } else {
+                      document.getElementById("verify-page-title").innerText = "RESULTADO DE CATALOGACION";
+
+                      // si hay algun error colocar en rojo la celda
+                      if(element.Check == "error") {
+                        html += `<td style="background: #c06363">${element.Check}</td>`;
+                      } else {
+                        html += `<td>${element.Check}</td>`;
+                      }
+                      
+                    }
+                    
+                html += `<td>${element.Length}</td>`;
+                html += `<td>${element.Name}</td>`;
+                html += '</tr>';
+            });
+
+      }
+      
+        html += '</tbody></table>';
    
-  document.getElementById('verify-table-container').innerHTML = html;
+        document.getElementById('verify-table-container').innerHTML = html;
 }
