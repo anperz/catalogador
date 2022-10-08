@@ -292,6 +292,10 @@ tr td:hover {
 }
 */
 
+.verify-table td {
+    white-space: nowrap;
+}
+
 
 /* CAMPOS DE LA TABLA*/
 

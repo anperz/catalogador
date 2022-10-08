@@ -135,11 +135,11 @@ function verifyDirectory(receivedDirectory) {
             Start-Transcript -Append -Path C:\\App-Catalogacion-Log.txt 
 
             Get-ChildItem -LiteralPath "\\\\?\\${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
-            Select-Object FullName, @{
-                Name="lengthOfName";
+            Select-Object Name, @{
+                Name="Length";
                 Expression={$_.FullName.Length}
             } | 
-            Where-Object {$_.lengthOfName -ge 256} |
+            Where-Object {$_.Length -ge 256} |
             Sort-Object lengthOfName -Descending | 
             ConvertTo-Json | 
             Out-File -LiteralPath "\\\\?\\${receivedDirectory}\\verify.txt" -Encoding utf8
@@ -263,6 +263,8 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
 
         Start-Transcript -Append -Path C:\\App-Catalogacion-Log.txt
 
+        Stop-Process -Name "wmplayer"
+        Stop-Process -Name "vlc"
 
         Import-Csv -Delimiter '|' -Path "${receivedDirectory}\\export.csv" | 
         ForEach-Object {
@@ -279,10 +281,15 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
             if ($_.FinalPath -ne "") {
                 $movedItem = Move-Item -Path $_.FullName -Destination "${receivedDirectory}$($_.FinalPath)$($_.NewName)" -PassThru
                 $movedItem
-                if ($movedItem.Lenght -eq $_.Lenght) {
+                if ($movedItem.Length -eq $_.Length) {
                     $fileCheck = "OK"
+                    $objectName = $movedItem.FullName
+                    }
+                else{
+                    $fileCheck = "error"
+                    $objectName = "$($_.FullName)"
                 }
-                $movedITemArray = [pscustomobject]@{Name=$movedItem.Name; Length=$movedItem.Length; Destination=$movedItem.FullName; Check=$fileCheck}
+                $movedITemArray = [pscustomobject]@{Check=$fileCheck; Length=$movedItem.Length; Name=$objectName}
                 $movedList += $movedITemArray
             }
         } 
@@ -294,15 +301,58 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
         console.log('out:' + stdout);
         console.log('err:' + stderr);
         console.log('error:' + error);
-
-        //crear archivo log
-        /*
-        let copyLog = `stdout: ${stdout} \n stderr: ${stderr} \n error: ${error}`;
-        fs.writeFileSync(receivedDirectory + "\\log.txt", copyLog);
-        console.log('archivo log creado');
-        */
-
     });
+
+
+    //Verificar exportacion
+
+    fs.readFile(receivedDirectory + '\\verify.txt', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        const catalogFileObject = JSON.parse(data.toString('utf8').replace(/^\uFEFF/, ''));
+        const catalogFileNumber = catalogFileObject.length;
+
+        dialog.showMessageBox({
+            type: 'info',
+            buttons: ['Abrir Reporte'],
+            title: 'Catalogacion',
+            message: `Se ha generado el reporte de la catalogacion`
+          }).then(result => {
+            
+            if (result.response == 0) {
+                    //abrir carpeta catalogada
+                    shell.openPath(receivedDirectory);
+
+                    // crear ventana en la que se muestra la validacion
+                    const verifyPage = new BrowserWindow({ 
+                        width: 800, 
+                        height: 500, 
+                        autoHideMenuBar: true,
+                        //transparent: true, 
+                        //frame: false, 
+                        alwaysOnTop: true,
+                        webPreferences: {
+                            //preload: path.join(__dirname, 'preload.js'), 
+                            nodeIntegration: true,
+                            contextIsolation: false
+                        }
+                    });
+                    
+                    // cargar la pagina
+                    verifyPage.loadFile('verify-page.html');
+                    verifyPage.center();
+
+                    // funcion para enviar el objeto que contiene la lista a la ventana
+                    verifyPage.webContents.on('did-finish-load', () => {
+                        verifyPage.webContents.send('channel5', catalogFileObject);    
+                    })
+
+                }
+        });
+    }) 
 }; 
 
 
@@ -442,8 +492,6 @@ ipcMain.on('channel2', (e, args) => {
         //enviar respuesta al renderer
         e.sender.send('channel2-response', 'catalogacion-terminada');
 
-        //abrir carpeta catalogada
-        shell.openPath(dir);
     }
     if (args[0] == 'guardar') {
 
