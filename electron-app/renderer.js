@@ -218,34 +218,37 @@ function dataToArray(text) {
 
                     case "Category": switch (records[i][j]) {
                         // verifica si hay un valor guardado para crear el elemento que debe aparecer como seleccionado en categoria
-                        case "Teams": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option selected>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option>  <option>Portal</option> <option>No Reproduce</option> </select></td>';
+                        case "Teams": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option selected>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>Actas</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option>  <option>Portal</option> <option>No Reproduce</option> </select></td>';
                             break;
 
-                        case "Lifesize": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option selected>Lifesize</option> <option>Historico</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option>  <option>Portal</option> <option>No Reproduce</option> </select> </td>';
+                        case "Lifesize": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option selected>Lifesize</option> <option>Historico</option> <option>Actas</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option>  <option>Portal</option> <option>No Reproduce</option> </select> </td>';
                             break;
                         
-                        case "Historico": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option selected>Historico</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option>  <option>Portal</option> <option>No Reproduce</option> </select> </td>';
+                        case "Historico": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option selected>Historico</option> <option>Actas</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option>  <option>Portal</option> <option>No Reproduce</option> </select> </td>';
                             break;
 
-                        case "No Aplica": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option selected>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option> <option>Portal</option> <option>No Reproduce</option> </select> </td>';
+                        case "Actas": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option selected>Actas</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option>  <option>Portal</option> <option>No Reproduce</option> </select> </td>';
                             break;
 
-                        case "No Catalogable": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>No Aplica</option> <option selected>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option> <option>Portal</option> <option>No Reproduce</option> </select> </td>';
+                        case "No Aplica": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>Actas</option> <option selected>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option> <option>Portal</option> <option>No Reproduce</option> </select> </td>';
                             break;
 
-                        case "Duplicado": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>No Aplica</option> <option>No Catalogable</option> <option selected>Duplicado</option> <option>Actas Solas</option> <option>Portal</option> <option>No Reproduce</option> </select> </td>';
+                        case "No Catalogable": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>Actas</option> <option>No Aplica</option> <option selected>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option> <option>Portal</option> <option>No Reproduce</option> </select> </td>';
                             break;
 
-                        case "Actas Solas": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option selected>Actas Solas</option> <option>Portal</option> <option>No Reproduce</option> </select> </td>';
+                        case "Duplicado": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>Actas</option> <option>No Aplica</option> <option>No Catalogable</option> <option selected>Duplicado</option> <option>Actas Solas</option> <option>Portal</option> <option>No Reproduce</option> </select> </td>';
+                            break;
+
+                        case "Actas Solas": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>Actas</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option selected>Actas Solas</option> <option>Portal</option> <option>No Reproduce</option> </select> </td>';
                             break;
                         
-                        case "Portal": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option> <option selected>Portal</option> <option>No Reproduce</option> </select> </td>';
+                        case "Portal": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>Actas</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option> <option selected>Portal</option> <option>No Reproduce</option> </select> </td>';
                             break;
 
-                        case "No Reproduce": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option> <option>Portal</option> <option selected>No Reproduce</option> </select> </td>';
+                        case "No Reproduce": html += '<td><select class="'+i+'" name="Category" type="number"> <option>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>Actas</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option> <option>Portal</option> <option selected>No Reproduce</option> </select> </td>';
                             break;
 
-                        default: html += '<td><select class="'+i+'" name="Category" type="number"> <option selected>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option> <option>Portal</option> <option>No Reproduce</option> </select> </td>';
+                        default: html += '<td><select class="'+i+'" name="Category" type="number"> <option selected>Seleccionar...</option> <option>Teams</option> <option>Lifesize</option> <option>Historico</option> <option>Actas</option> <option>No Aplica</option> <option>No Catalogable</option> <option>Duplicado</option> <option>Actas Solas</option> <option>Portal</option> <option>No Reproduce</option> </select> </td>';
                             break;
                     } ;
                         break;
@@ -345,27 +348,44 @@ function checkConsecutivo () {
     const arrayConsecutivo = document.getElementsByName('Consecutivo');
     const radicadoList = document.getElementsByName('Radicado');
     const radicadoArray = [];
+
     for (let i=0; i<radicadoList.length; i++){
-        radicadoItem = radicadoList[i].value
+        
+        //obtener valores de los campos radicado, fecha y hora de la fila
+        const rowClass = radicadoList[i].className;
+        const rowItemList = document.getElementsByClassName(rowClass);
+        const partFieldRadicado = rowItemList['Radicado'].value;
+        const partFieldDate = rowItemList['Date'].value;
+        const partFieldTime = rowItemList['Time'].value;
+
+        radicadoItem = `${partFieldRadicado}_${partFieldDate}_${partFieldTime}`;
         radicadoArray.push(radicadoItem);
     };
 
     for (let x=1 ; x<arrayConsecutivo.length ; x++) {
 
+        //obtener valor del campo categoria
+        const rowClass = arrayConsecutivo[x].className;
+        const rowItemList = document.getElementsByClassName(rowClass);
+        const partFieldCategoria = rowItemList['Category'].value;
+
         var cuentaConsecutivo = 1;
 
         for (let i=0 ; i<x; i++) {
 
+            //verificar si el valor ya esta
             if (radicadoArray[x] == radicadoArray[i]) {
-                cuentaConsecutivo++;
+                
+                // si la categoria no es Acta aumenta el consecutivo
+                if (partFieldCategoria !== "Actas") {
+                    cuentaConsecutivo++;
+                }           
             };
-
         };
         if (cuentaConsecutivo<10) {
             cuentaConsecutivo = '0' + cuentaConsecutivo;
         };
         arrayConsecutivo[x].value = cuentaConsecutivo;
-
 
     };
     checkNewName ();
@@ -405,7 +425,7 @@ function checkNewName () {
         const fieldVirtual = rowList['Virtual'].value;
 
         //asignar valor a NewName
-        if (fieldCategoria == "Teams" || fieldCategoria == "Historico" || fieldCategoria == "Lifesize") {
+        if (fieldCategoria == "Teams" || fieldCategoria == "Historico" || fieldCategoria == "Lifesize" || fieldCategoria == "Actas") {
             
             rowList['NewName'].value = fieldRadicado +"_"+ fieldReserved + fieldOrgano + fieldSala +"_"+ fieldConsecutivo +"_"+ fieldDate +"_"+ fieldTime + "_" + fieldVirtual + fieldExtension;
 
@@ -424,7 +444,7 @@ function checkNewName () {
 
         //asignar valor a FinalPath
 
-        if (fieldCategoria == "Teams" || fieldCategoria == "Historico" || fieldCategoria == "Lifesize") {
+        if (fieldCategoria == "Teams" || fieldCategoria == "Historico" || fieldCategoria == "Lifesize" || fieldCategoria == "Actas") {
             
             rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\';
 
@@ -522,7 +542,7 @@ function download() {
 // funcion para cambiar el color de  fondo de la categoria
 function setCategoryBackgroundColor(categoryElement) {
 
-    if (categoryElement.value === "Teams" || categoryElement.value === "Historico" || categoryElement.value === "Lifesize") {
+    if (categoryElement.value === "Teams" || categoryElement.value === "Historico" || categoryElement.value === "Lifesize" || categoryElement.value === "Actas") {
         categoryElement.style.backgroundColor = "#388e3c";
         categoryElement.style.color = "white";
         categoryElement.style.border = "4px solid #388e3c";
