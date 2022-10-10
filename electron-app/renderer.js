@@ -448,17 +448,26 @@ function checkNewName () {
 
         //asignar valor a FinalPath
 
-        if (fieldCategoria == "Teams" || fieldCategoria == "Historico" || fieldCategoria == "Lifesize" || fieldCategoria == "Actas") {
+        
+
+        if (fieldCategoria == "Teams" || fieldCategoria == "Historico" || fieldCategoria == "Lifesize") {
             
             rowList['FinalPath'].value = '\\' + fieldCategoria + '\\' + despachosObject[fieldOrgano] + '\\';
 
         } else {
+
+            if (fieldCategoria == "Actas") {
             
-            if (fieldCategoria == "Seleccionar...") {
-                rowList['FinalPath'].value = '';
+                rowList['FinalPath'].value = '\\' + "Historico" + '\\' + despachosObject[fieldOrgano] + '\\';
+    
             } else {
-                rowList['FinalPath'].value = '\\' + fieldCategoria + '\\';
-                }
+
+                if (fieldCategoria == "Seleccionar...") {
+                    rowList['FinalPath'].value = '';
+                } else {
+                    rowList['FinalPath'].value = '\\' + fieldCategoria + '\\';
+                    }
+            }
         }
 
         setCategoryBackgroundColor(rowList['Category']);
