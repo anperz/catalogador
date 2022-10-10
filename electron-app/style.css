@@ -296,6 +296,12 @@ tr td:hover {
     white-space: nowrap;
 }
 
+.folder-link:hover {
+    color: #3122fc;
+    
+}
+
+
 
 /* CAMPOS DE LA TABLA*/
 

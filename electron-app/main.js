@@ -135,10 +135,10 @@ function verifyDirectory(receivedDirectory) {
             Start-Transcript -Append -Path "${__dirname}\\App-Catalogacion-Log.txt" 
 
             Get-ChildItem -LiteralPath "\\\\?\\${receivedDirectory}" -Exclude directory.csv  -Attributes !Directory -Recurse . | 
-            Select-Object Name, @{
+            Select-Object @{
                 Name="Length";
                 Expression={$_.FullName.Length}
-            } | 
+            }, Name, FullName | 
             Where-Object {$_.Length -ge 256} |
             Sort-Object lengthOfName -Descending | 
             ConvertTo-Json | 
@@ -186,7 +186,7 @@ function verifyDirectory(receivedDirectory) {
                         autoHideMenuBar: true,
                         //transparent: true, 
                         //frame: false, 
-                        alwaysOnTop: true,
+                        alwaysOnTop: false,
                         webPreferences: {
                             //preload: path.join(__dirname, 'preload.js'), 
                             nodeIntegration: true,
@@ -269,7 +269,7 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
         Import-Csv -Delimiter '|' -Path "${receivedDirectory}\\export.csv" | 
         ForEach-Object {
             if ($_.FinalPath -ne "") {
-                New-Item -ItemType "directory" -Path "${receivedDirectory}$($_.FinalPath)"  
+                New-Item -ItemType "directory" -Path "${receivedDirectory}$($_.FinalPath)"
             }
         } | 
         Format-Table
@@ -279,17 +279,24 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
         Import-Csv -Delimiter '|' -Path "${receivedDirectory}\\export.csv" | 
         ForEach-Object { 
             if ($_.FinalPath -ne "") {
-                $movedItem = Move-Item -Path $_.FullName -Destination "${receivedDirectory}$($_.FinalPath)$($_.NewName)" -PassThru
+                $initialName = $_.Name.Split(" >> ")
+                
+                $movedItem = Copy-Item -Path $_.FullName -Destination "${receivedDirectory}$($_.FinalPath)$($_.NewName)" -PassThru
                 $movedItem
                 if ($movedItem.Length -eq $_.Length) {
                     $fileCheck = "OK"
                     $objectName = $movedItem.FullName
+                    Remove-Item -Path $_.FullName -Verbose
+                    if (Test-Path -Path $_.FullName -PathType leaf) {
+                        $fileCheck = "verificar"
                     }
+                    
+                }
                 else{
                     $fileCheck = "error"
                     $objectName = "$($_.FullName)"
                 }
-                $movedITemArray = [pscustomobject]@{Check=$fileCheck; Length=$movedItem.Length; Name=$objectName}
+                $movedITemArray = [pscustomobject]@{Check=$fileCheck; Length=$movedItem.Length; Name=$initialName[0]; FullName=$objectName}
                 $movedList += $movedITemArray
             }
         } 
@@ -333,7 +340,7 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
                         autoHideMenuBar: true,
                         //transparent: true, 
                         //frame: false, 
-                        alwaysOnTop: true,
+                        alwaysOnTop: false,
                         webPreferences: {
                             //preload: path.join(__dirname, 'preload.js'), 
                             nodeIntegration: true,
@@ -549,4 +556,15 @@ ipcMain.on('channel4', (e, args) => {
             shell.openPath(receivedDirectory + '\\verify.txt');
         }  */
     });
+}) 
+
+
+// ipc listener para abrir archivo en carpeta
+
+ipcMain.on('channel6', (e, args) => {
+    const dir = args;
+    
+    let filteredDir = dir.replace("\\\\?\\", '')
+    //abrir elemento en carpeta
+    shell.showItemInFolder(filteredDir);
 }) 

@@ -12,6 +12,7 @@ function createVerifyTable (array) {
       html += '<th class="table-header"></th>';
       html += '<th class="table-header">Tamaño</th>';
       html += '<th class="table-header">Nombre</th>';
+      html += '<th class="table-header">Info</th>';
       html += '</tr></thead>';
 
       html += '<tbody id= "row-container"';
@@ -27,7 +28,7 @@ function createVerifyTable (array) {
               document.getElementById("verify-page-title").innerText = "RESULTADO DE CATALOGACION";
 
               // si hay algun error colocar en rojo la celda
-              if(array.Check == "error") {
+              if(array.Check == "error" || array.Check == "verificar") {
                 html += `<td style="background: #c06363">${array.Check}</td>`;
               } else {
                 html += `<td>${array.Check}</td>`;
@@ -35,6 +36,7 @@ function createVerifyTable (array) {
             }
             html += `<td>${array.Length}</td>`;
             html += `<td>${array.Name}</td>`;
+            html += `<td class="folder-link" title="Clic para abrir en carpeta">${array.FullName}</td>`;
             html += '</tr>';
 
       } else {
@@ -50,7 +52,7 @@ function createVerifyTable (array) {
                       document.getElementById("verify-page-title").innerText = "RESULTADO DE CATALOGACION";
 
                       // si hay algun error colocar en rojo la celda
-                      if(element.Check == "error") {
+                      if(element.Check == "error" || element.Check == "verificar") {
                         html += `<td style="background: #c06363">${element.Check}</td>`;
                       } else {
                         html += `<td>${element.Check}</td>`;
@@ -60,6 +62,7 @@ function createVerifyTable (array) {
                     
                 html += `<td>${element.Length}</td>`;
                 html += `<td>${element.Name}</td>`;
+                html += `<td class="folder-link" title="Clic para abrir en carpeta">${element.FullName}</td>`;
                 html += '</tr>';
             });
 
@@ -68,4 +71,21 @@ function createVerifyTable (array) {
         html += '</tbody></table>';
    
         document.getElementById('verify-table-container').innerHTML = html;
+
+        createFolderLinkAction()
 }
+
+
+function createFolderLinkAction() {
+  const folderList = document.getElementsByClassName('folder-link');
+
+  for (let i=0; i<folderList.length; i++) {
+
+      folderList[i].addEventListener('click', function openFile (folder_click) {
+          const folderUrlValue = folder_click.target.innerText;
+          console.log([folderUrlValue]);
+          ipcRenderer.send('channel6', folderUrlValue);
+      });
+
+  };
+};
