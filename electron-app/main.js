@@ -288,12 +288,12 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
                     $objectName = $movedItem.FullName
                     Remove-Item -Path $_.FullName -Verbose
                     if (Test-Path -Path $_.FullName -PathType leaf) {
-                        $fileCheck = "verificar"
+                        $fileCheck = "verificar-eliminacion"
                     }
                     
                 }
                 else{
-                    $fileCheck = "error"
+                    $fileCheck = "error-al-copiar"
                     $objectName = "$($_.FullName)"
                 }
                 $movedITemArray = [pscustomobject]@{Check=$fileCheck; Length=$movedItem.Length; Name=$initialName[0]; FullName=$objectName}

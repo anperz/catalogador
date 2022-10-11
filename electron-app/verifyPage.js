@@ -28,7 +28,7 @@ function createVerifyTable (array) {
               document.getElementById("verify-page-title").innerText = "RESULTADO DE CATALOGACION";
 
               // si hay algun error colocar en rojo la celda
-              if(array.Check == "error" || array.Check == "verificar") {
+              if(array.Check == "error-al-copiar" || array.Check == "verificar-eliminacion") {
                 html += `<td style="background: #c06363">${array.Check}</td>`;
               } else {
                 html += `<td>${array.Check}</td>`;
@@ -52,7 +52,7 @@ function createVerifyTable (array) {
                       document.getElementById("verify-page-title").innerText = "RESULTADO DE CATALOGACION";
 
                       // si hay algun error colocar en rojo la celda
-                      if(element.Check == "error" || element.Check == "verificar") {
+                      if(element.Check == "error-al-copiar" || element.Check == "verificar-eliminacion") {
                         html += `<td style="background: #c06363">${element.Check}</td>`;
                       } else {
                         html += `<td>${element.Check}</td>`;

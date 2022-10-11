@@ -473,10 +473,12 @@ function checkNewName () {
         setCategoryBackgroundColor(rowList['Category']);
         setNameLengthBackgroundColor(rowList['NameLength']);
 
+        // validar si la ruta sera muy larga
         let inputPath1 = document.getElementById('directory-input').value;
         let inputPath2 = rowList['FinalPath'].value;
-        let totalPathLength = inputPath1.length + inputPath2.length;
-        //console.log(totalPath);
+        let inputPath3 = rowList['NewName'].value;
+        let totalPathLength = inputPath1.length + inputPath2.length + inputPath3.length;
+        //console.log(totalPathLength);
         
         if (totalPathLength >= 256) {
             rowList['Category'].value = "Seleccionar...";
