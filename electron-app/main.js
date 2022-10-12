@@ -469,6 +469,21 @@ const createWindow = () => {
 
     // Open the DevTools.
     //win.webContents.openDevTools();
+
+    //confirmacion de cierre de ventana
+    win.on('close', function(e) {
+        const choice = require('electron').dialog.showMessageBoxSync(this,
+            {
+            type: 'info',
+            buttons: ['Yes', 'No'],
+            title: 'Confirmacion',
+            message: 'Segura/o que deseas salir?'
+            });
+        if (choice === 1) {
+            e.preventDefault();
+        }
+    });
+
 };
 
 
@@ -484,6 +499,8 @@ app.whenReady().then(()=> {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
   });
+
+
 
 
 
