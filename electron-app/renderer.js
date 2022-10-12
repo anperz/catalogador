@@ -185,7 +185,7 @@ function dataToArray(text) {
             html += '<th class="table-header">' + j +'</th>';
         };*/
 
-        html += '<th class="table-header">Video</th>';
+        html += `<th class="table-header">Videos (${records.length -1})</th>`;
         html += '<th class="table-header" name="Name">Nombre Inicial</th>';
         html += '<th class="table-header">Categoria</th>';        
         html += '<th class="table-header">Radicado</th>';

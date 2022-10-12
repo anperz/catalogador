@@ -11,11 +11,11 @@ html {
 
 body {
     height: 100%;
+    background-color: black;
 }
 
 body, input, textarea, button, select {
     font-family: "Open Sans", sans-serif;
-    background-color: black;
     font-size: 1.5rem;
     color: #d8d8d8;
     border: none;
@@ -254,6 +254,10 @@ video {
     text-align: left;
 }
 
+.folder-button {
+    background-color: transparent;
+}
+
 tr {
     height: 40px;
 }
@@ -264,20 +268,17 @@ td {
 }
 
 
-tr:hover {
-    background-color: rgba(255, 255, 255, 0.089);
-}
 
 tr input {
     height: 30px;
-    background-color: black;
+    background-color: transparent;
 
 }
 
 tr textarea {
     height: 60px;
     width: 285px;
-    background-color: black;
+    background-color: transparent;
     white-space: pre-wrap;
     overflow: auto;
 }
@@ -286,12 +287,11 @@ tr input:-ms-input-placeholder {
     color: rgb(98, 98, 98);
 }
 
-/* 
-tr td:hover {
-    border-bottom: 2px solid rgb(216, 116, 255);
+.playin-row {
+    background:#303f9f7a;
 }
-*/
 
+/* Estilos para pagina de verificacion */
 .verify-table td {
     white-space: nowrap;
 }

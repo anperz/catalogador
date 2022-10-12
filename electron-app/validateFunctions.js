@@ -17,6 +17,15 @@ function createPlayButtonAction() {
             const videoUrlValue = button_click.target.value;
             const videoTagHtml = '<video autoplay height="100%" controls><source src="'+ videoUrlValue +'" type="video/mp4">Your browser does not support the video tag.</video>';
             document.getElementById('video-container').innerHTML = videoTagHtml;
+
+            // resaltar fila que se esta reproduciendo
+            const elements=document.getElementsByTagName('tr');
+
+            for(let i=0;i<elements.length;i++) {
+                elements[i].classList.remove('playin-row');
+            }
+            const parent = button_click.target.parentNode.parentNode;
+            parent.classList.add('playin-row');
         });
 
     };
