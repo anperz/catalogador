@@ -127,6 +127,26 @@ function manualUpdate () {
 
 // --------------------   FUNCIONES --------------------------------------
 
+
+/*
+ * Executes a shell command and return it as a Promise.
+ * @param cmd {string}
+ * @return {Promise<string>}
+ */
+
+ function execShellCommand(cmd) {
+    const exec = require('child_process').exec;
+    return new Promise((resolve, reject) => {
+     exec(cmd, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
+      if (error) {
+       console.warn(error);
+      }
+      resolve(stdout? stdout : stderr);
+     });
+    });
+   }
+
+
 //verificar directorio (alarma si hay valores mas largos que 260 char)
 function verifyDirectory(receivedDirectory) {
 
@@ -254,12 +274,12 @@ function createDirectoryCsv(receivedDirectory, importDateTime) {
 }; 
 
 // crear directorio y mover a las carpetas powershell
-function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
+async function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
 
     fs.writeFileSync(receivedDirectory + "\\export.csv", receivedCsv);
     console.log('archivo export creado');
 
-    execSync(`
+    const commandPS = `
 
         Start-Transcript -Append -Path "${__dirname}\\App-Catalogacion-Log.txt"
 
@@ -304,11 +324,11 @@ function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
         $movedList |  ConvertTo-Json | 
         Out-File -LiteralPath "${receivedDirectory}\\verify.txt" -Encoding utf8
  
-    `, {'shell':'powershell.exe'}, (error, stdout, stderr) => {
-        console.log('out:' + stdout);
-        console.log('err:' + stderr);
-        console.log('error:' + error);
-    });
+    `; 
+    console.log ("espere 0")    
+    const commandResult = await execShellCommand(commandPS);
+    console.log(commandResult);
+    console.log ("espere 1") 
 
 
     //Verificar exportacion
@@ -495,6 +515,7 @@ ipcMain.on('channel2', (e, args) => {
     if (args[0] == 'catalogar') {
         // enviar a funcion de catalogacion
         catalogDirectoryCsv(dir, csv);
+        console.log ("espere 2")
 
         //enviar respuesta al renderer
         e.sender.send('channel2-response', 'catalogacion-terminada');
