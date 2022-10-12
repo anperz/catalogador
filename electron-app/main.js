@@ -5,6 +5,8 @@ const { exec, execSync } = require('child_process');
 const path = require('path'); 
 const fs = require('fs');
 const { verify } = require('crypto');
+const ProgressBar = require('electron-progressbar');
+
 
 
 //------------ CONFIGURACION INICIAL DE LA APP - MANEJO DE ACCESOS DIRECTOS ----
@@ -127,12 +129,7 @@ function manualUpdate () {
 
 // --------------------   FUNCIONES --------------------------------------
 
-
-/*
- * Executes a shell command and return it as a Promise.
- * @param cmd {string}
- * @return {Promise<string>}
- */
+// funcion asincrona para ejecutar comandos de powershell
 
  function execShellCommand(cmd) {
     const exec = require('child_process').exec;
@@ -233,7 +230,7 @@ function verifyDirectory(receivedDirectory) {
 // crear directorio powershell
 function createDirectoryCsv(receivedDirectory, importDateTime) {
     
-    //console.log('recibido en el main' + receivedDirectory);
+    //asignar valores dependiendo de si se marco el check (importar fecha y hora)
 
     let dateVal;
     let timeVal;
@@ -276,6 +273,7 @@ function createDirectoryCsv(receivedDirectory, importDateTime) {
 // crear directorio y mover a las carpetas powershell
 async function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
 
+    // se genera el archivo Export
     fs.writeFileSync(receivedDirectory + "\\export.csv", receivedCsv);
     console.log('archivo export creado');
 
@@ -320,16 +318,36 @@ async function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
                 $movedList += $movedITemArray
             }
         } 
-        $movedList | Format-Table -AutoSize
+        $movedList | Format-Table
         $movedList |  ConvertTo-Json | 
         Out-File -LiteralPath "${receivedDirectory}\\verify.txt" -Encoding utf8
  
     `; 
-    console.log ("espere 0")    
+    
+    // cargar barra de progreso
+    var progressBar = new ProgressBar({
+        text: 'Por favor espera...',
+        detail: 'Copiando, renombrando y verificando archivos. NO cierres esta ventana...'
+      });
+      
+      progressBar
+        .on('completed', function() {
+          console.info(`completed...`);
+          progressBar.detail = 'Finalizado. Generando reporte...';
+        })
+        .on('aborted', function() {
+          console.info(`operacion cancelada...`);
+        });  
+    
+    // enviar codigo a la funcion asincrona de powershell
     const commandResult = await execShellCommand(commandPS);
     console.log(commandResult);
-    console.log ("espere 1") 
 
+    // una vez terminado el script cerrar la barra de progreso
+    progressBar.setCompleted();
+
+    //abrir carpeta catalogada
+    //shell.openPath(receivedDirectory);
 
     //Verificar exportacion
 
@@ -350,9 +368,7 @@ async function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
           }).then(result => {
             
             if (result.response == 0) {
-                    //abrir carpeta catalogada
-                    shell.openPath(receivedDirectory);
-
+                
                     // crear ventana en la que se muestra la validacion
                     const verifyPage = new BrowserWindow({ 
                         width: 800, 
@@ -399,6 +415,9 @@ function sendCsvFile (receivedEvent, receivedDirectory) {
       });
 
 };
+
+
+
 
 
 // -------------------------   PROCESOS DE ELECTRON ------------------------------

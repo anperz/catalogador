@@ -21,6 +21,7 @@
     "electron": "^20.0.3"
   },
   "dependencies": {
+    "electron-progressbar": "^2.0.1",
     "electron-squirrel-startup": "^1.0.0",
     "update-electron-app": "^2.0.1"
   },
