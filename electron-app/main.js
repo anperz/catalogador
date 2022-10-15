@@ -346,8 +346,6 @@ async function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
     // una vez terminado el script cerrar la barra de progreso
     progressBar.setCompleted();
 
-    //abrir carpeta catalogada
-    //shell.openPath(receivedDirectory);
 
     //Verificar exportacion
 
@@ -392,6 +390,9 @@ async function catalogDirectoryCsv(receivedDirectory, receivedCsv) {
                     verifyPage.webContents.on('did-finish-load', () => {
                         verifyPage.webContents.send('channel5', catalogFileObject);    
                     })
+
+                    //abrir carpeta que va a ser catalogada
+                    shell.openPath(receivedDirectory);
 
                 }
         });
