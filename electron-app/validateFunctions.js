@@ -39,7 +39,17 @@ function createFolderButtonAction() {
         folderList[i].addEventListener('click', function playVideo (folder_click) {
             const folderUrlValue = folder_click.target.value;
             
+            //abrir archivos en reproductor
             ipcRenderer.send('channel3', folderUrlValue);
+
+            // resaltar fila que se esta reproduciendo
+            const elements=document.getElementsByTagName('tr');
+
+            for(let i=0;i<elements.length;i++) {
+                elements[i].classList.remove('playin-row');
+            }
+            const parent = folder_click.target.parentNode.parentNode;
+            parent.classList.add('playin-row');
         });
 
     };
