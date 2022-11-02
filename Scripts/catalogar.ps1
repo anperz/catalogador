@@ -52,3 +52,10 @@ $receivedDirectory = "M:\OPERACION DIARIA 9\9.1. CATALOGACION\Historico Sofia\Eq
         Out-File -LiteralPath "$($receivedDirectory)\verify.txt" -Encoding utf8
  
     
+
+
+
+        Get-ChildItem -LiteralPath "${receivedDirectory}" -Exclude directory.csv -Attributes !Directory -Recurse . | 
+        Sort-Object fullname | 
+        Select-Object FullName, name, Category, Radicado, Date, ${timeVal}, Organo, Sala, Reserved, Virtual, Consecutivo, NewName, NameLength, Extension, Length, FinalPath | 
+            Export-Csv -Force -Delimiter '|' -Encoding UTF8 -LiteralPath "${receivedDirectory}\\directory.csv"

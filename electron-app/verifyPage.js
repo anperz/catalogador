@@ -1,5 +1,6 @@
 const {ipcRenderer} = require('electron');
 
+// codigo IPC listener para recibir los datos de el archivo verify .txt
 ipcRenderer.on('channel5', (e, args) => {
   console.log(args);
   createVerifyTable (args);

@@ -453,7 +453,7 @@ const createWindow = () => {
       loadingPage.loadFile('loading-page.html');
       loadingPage.center();
 
-      // luego de 3 segundos cerrar pagina de carga y abrir pagina principal 
+      // luego de 2 segundos cerrar pagina de carga y abrir pagina principal 
       
       setTimeout(function () {
         loadingPage.close();
@@ -552,7 +552,7 @@ ipcMain.on('channel2', (e, args) => {
     if (args[0] == 'catalogar') {
         // enviar a funcion de catalogacion
         catalogDirectoryCsv(dir, csv);
-        console.log ("espere 2")
+        //console.log ("espere 2")
 
         //enviar respuesta al renderer
         e.sender.send('channel2-response', 'catalogacion-terminada');

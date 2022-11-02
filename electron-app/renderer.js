@@ -159,6 +159,8 @@ function dataToArray(text) {
     deletedVoidCol = deletedFormatHeader.replace('\r', '');
 
     const unQuotedText = deletedVoidCol.replace(/["]+/g, "");
+    
+    //Creacion de objetos a partir del texto del csv
     const row = unQuotedText.split('\n');
     //console.log(row);
 
